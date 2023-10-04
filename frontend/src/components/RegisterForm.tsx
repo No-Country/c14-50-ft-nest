@@ -1,7 +1,7 @@
 
 const RegisterForm = () => {
   return (
-    <form className="flex gap-3 flex-col text-zinc-700">
+    <form className="flex gap-2 flex-col text-zinc-700 w-6/12">
       <label>Nombre</label>
       <input type="text" placeholder="Nombre"/>
       <label>Apellido</label>

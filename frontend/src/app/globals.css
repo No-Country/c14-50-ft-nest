@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #0B8B9D 
+  @apply bg-[#0B8B9D] text-black
 }
 
 input:focus, textarea:focus, select:focus{
@@ -15,5 +15,5 @@ input, select {
 }
 
 button {
-  @apply bg-[#0C616E] text-white !important
+  @apply bg-[#0C616E] text-white p-2 mt-2
 }
