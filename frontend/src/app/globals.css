@@ -26,3 +26,13 @@ body {
     rgb(var(--background-start-rgb));
   
 }
+
+.singIn{
+  @apply bg-[#0C616E]
+}
+.login-page-container{
+  @apply bg-[#0B8B9D]
+}
+.loginText{
+  @apply left-[-3rem] text-[#1E1E1E]
+}
