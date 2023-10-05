@@ -6,14 +6,11 @@ body {
   @apply bg-[#0B8B9D] text-black
 }
 
-input:focus, textarea:focus, select:focus{
-  @apply border-blue-900;
+button, [type='button'], [type='reset'], [type='submit'] {
+  @apply bg-[#0C616E] text-white p-2 mt-2
 }
 
 input, select {
   @apply p-1
 }
 
-button {
-  @apply bg-[#0C616E] text-white p-2 mt-2
-}
