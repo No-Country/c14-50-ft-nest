@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      PORT: 8080
+      DB_NAME: db_nc_project
+      DB_USER: root
+      DB_PASS: root
+      DB_ROOT_PASS: root
+      DB_PORT: 3306
+      DB_HOST: db
+
+  db:
+    image: mysql:8.1-oracle
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - /db/mysql:/var/lib/mysql
