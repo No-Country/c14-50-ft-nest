@@ -2,9 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] { -moz-appearance:textfield; }
+
 body {
   @apply bg-[#0B8B9D] text-black
 }
+
 
 button, [type='button'], [type='reset'], [type='submit'] {
   @apply bg-[#0C616E] text-white p-2 mt-2
