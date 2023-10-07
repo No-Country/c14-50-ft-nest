@@ -9,10 +9,10 @@ services:
       - 8080:8080
     environment:
       PORT: 8080
-      DB_NAME: db_nc_project
-      DB_USER: root
-      DB_PASS: root
-      DB_ROOT_PASS: root
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_ROOT_PASS: ${DB_ROOT_PASS}
       DB_PORT: 3306
       DB_HOST: db
 
