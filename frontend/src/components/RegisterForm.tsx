@@ -1,6 +1,6 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 import RegisterSchema, { options } from './RegisterSchema';
 
@@ -18,6 +18,7 @@ type FormData = {
 
 const RegisterForm = () => {
   const date = useRef<HTMLInputElement>(null)
+  const [newError, setNewError] = useState(false)
   const {
     register,
     unregister,
@@ -25,6 +26,13 @@ const RegisterForm = () => {
     reset,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(RegisterSchema) })
+  
+  useEffect(() => {
+    if (Object.values(errors).some(error => error)) {
+      setNewError(true)
+    }
+  },[errors])
+
   const submitData = (data: FormData) => {
     console.log(data)
     reset()
@@ -39,38 +47,38 @@ const RegisterForm = () => {
   }
 
   return (
-    <form className="h-screen justify-center p-8 flex flex-col text-black shadow-xl"
+    <form className={`h-screen justify-center p-5 flex flex-col text-black shadow-xl ${newError ? 'gap-1' : 'gap-5'}`}
       onSubmit={handleSubmit(submitData)}
     >
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Nombre</label>
         <input type="text" {...register('name')} placeholder="Nombre" />
       </div>
       {errors.name && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm'>{errors.name.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Apellido</label>
         <input type="text" {...register('lastName')} placeholder="Apellido" />
       </div>
       {errors.lastName && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm '>{errors.lastName.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>DNI</label>
         <input type="number" {...register('dni')} placeholder="DNI" />
       </div>
       {errors.dni && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm '>{errors.dni.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Email</label>
         <input type="email" {...register('email')} placeholder="Email" />
       </div>
       {errors.email && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm '>{errors.email.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Obra Social</label>
         <select {...register('insurance')}>
           <option value=''>* Seleccione Obra Social *</option>
@@ -80,28 +88,28 @@ const RegisterForm = () => {
       {errors.insurance && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm '>{errors.insurance.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Fecha de Nacimiento</label>
         <input type="date" ref={date} onChange={handleChange} />
       </div>
       {errors.birthdate && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm '>{errors.birthdate.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Número de Teléfono</label>
         <input type="number" {...register('phoneNumber')} placeholder="Número de teléfono" />
       </div>
       {errors.phoneNumber && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm '>{errors.phoneNumber.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Contraseña</label>
         <input type="password" {...register('password')} placeholder="Contraseña" />
       </div>
       {errors.password && (
         <span className='bg-red-200 text-red-600 px-4 rounded-sm '>{errors.password.message}</span>
       )}
-      <div className='flex justify-between mt-5 mb-1'>
+      <div className='flex justify-between'>
         <label>Confirmar Contraseña</label>
         <input type="password" {...register('confirmPassword')} placeholder="Confirmar contraseña" />
       </div>
