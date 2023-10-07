@@ -28,12 +28,12 @@ export default function Login() {
             />
           </div>
           <button className="singIn rounded px-3 py-2 text-white mt-5 font-medium">
-            Sing In
+            Sign In
           </button>
         </form>
         <div className="flex justify-between">
           <button className="text-red-500">Forgot password</button>
-          <Link href="/register">Sing Up</Link>
+          <Link href="/register">Sign Up</Link>
         </div>
       </section>
     </main>
