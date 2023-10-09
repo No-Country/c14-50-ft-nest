@@ -9,8 +9,10 @@ export default function RegisterLayout({
   return (
     <html lang="en">
       <body>
-        <Banner />
-        {children}
+        <main className="lg:overflow-y-hidden lg:max-h-screen flex flex-col-reverse lg:flex-row relative">
+          <Banner />
+          {children}
+        </main>
       </body>
     </html>
   );

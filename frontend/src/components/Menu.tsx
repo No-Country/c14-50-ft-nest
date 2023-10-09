@@ -16,13 +16,14 @@ export default function Menu({ list }: MenuProps) {
 
   const handleClick = () => {
     setIsOpen(!isOpen);
+    console.log(isOpen);
   };
 
   return (
     <>
-      <aside className="block relative h-16 xl:invisible">
+      <aside className="block relative h-16 lg:invisible">
         <input
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={handleClick}
           type="checkbox"
           name="checkbox"
           className="peer absolute block h-8 w-8 top-5 left-5 z-[60] opacity-0 cursor-pointer"
@@ -46,8 +47,8 @@ export default function Menu({ list }: MenuProps) {
         </div>
       </aside>
       <nav
-        className={`pt-32 xl:pt-14 bg-[#ffffff]  top-0 xl:top-16 absolute w-full xl:w-[20%] h-screen  flex flex-col  transition-transform duration-500 ease-in-out text-center z-[30] shadow-2xl drop-shadow-2xl ${
-          isOpen ? "xs:translate-y-0" : "xs:translate-y-[-150%]"
+        className={`pt-32 lg:pt-14 bg-[#ffffff]  top-0 lg:top-16 absolute w-full lg:w-[20%] h-screen  flex flex-col  transition-transform duration-500 ease-in-out text-center z-[30] shadow-2xl drop-shadow-2xl ${
+          isOpen ? "translate-y-0" : "translate-y-[-150%] lg:translate-y-0"
         } `}
       >
         {list.map((item: { href: string; link: string }, index: any) => {

@@ -2,23 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
-input[type=number] { -moz-appearance:textfield; }
-
-body {
-  @apply bg-[#0B8B9D] text-black
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-
-button, [type='button'], [type='reset'], [type='submit'] {
-  @apply bg-[#0C616E] text-white p-2 mt-2
+/* body {
+  @apply bg-[#0B8B9D] text-black;
 }
 
-input, select {
-  @apply p-1
-}
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  @apply bg-[#0C616E] text-white p-2 mt-2;
+} */
 
+input,
+select {
+  @apply p-1;
+}
