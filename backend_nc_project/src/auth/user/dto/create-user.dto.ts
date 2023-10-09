@@ -1,9 +1,9 @@
 import { Transform } from "class-transformer";
 import { IsNumber, IsString, MinLength, IsEmail, MaxLength, IsObject, IsEnum, IsOptional} from "class-validator";
-import { Phone } from "../../common/interface";
+import { Phone } from "../../../common/interface";
 import { Gender } from "src/common/enum";
 
-export default class RegisterDto {
+export default class CreateUserDto {
 
     @IsString()
     @MinLength(3)
@@ -29,9 +29,9 @@ export default class RegisterDto {
     @IsString()
     birthdate: string;
 
-    @IsOptional()
-    @IsObject()
-    phone?: Phone;
+    // @IsOptional()
+    // @IsObject()
+    // phone?: Phone;
     
     @IsOptional()
     @IsEnum(Gender)
