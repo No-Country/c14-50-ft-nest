@@ -27,7 +27,7 @@ export default function Login() {
           <div className="flex flex-col gap-3">
             <span className="text-black font-medium">Password</span>
             <input
-              className="w-full rounded-full pl-2 p-4 text-black focus:outline-none"
+              className="w-full rounded pl-2 p-4 text-black focus:outline-none"
               type="password"
               placeholder="Password"
             />
