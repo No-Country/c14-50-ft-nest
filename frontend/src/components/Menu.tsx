@@ -30,7 +30,7 @@ export default function Menu({ list }: MenuProps) {
         <div className="absolute flex flex-col justify-between w-[32px] h-[26px] z-50 top-4 left-5">
           <span
             className={`block h-1 w-full rounded-[10px] bg-[#ffffff] transform origin-[0%_0%] transition-transform duration-300 ease-in-out ${
-              isOpen ? "rotate-45 bg-[#0C616E]" : ""
+              isOpen ? "rotate-45 xs:bg-[#0B8B9D]" : ""
             }`}
           ></span>
           <span
@@ -40,12 +40,11 @@ export default function Menu({ list }: MenuProps) {
           ></span>
           <span
             className={`block h-1 w-full rounded-[10px] bg-[#ffffff] origin-[0%_100%] transform transition-transform duration-300 ease-in-out ${
-              isOpen ? "-rotate-45 bg-[#0C616E]" : ""
+              isOpen ? "-rotate-45 xs:bg-[#0B8B9D]" : ""
             } `}
           ></span>
         </div>
       </aside>
-      <aside></aside>
       <nav
         className={`pt-32 xl:pt-14 bg-[#ffffff]  top-0 xl:top-16 absolute w-full xl:w-[20%] h-screen  flex flex-col  transition-transform duration-500 ease-in-out text-center z-[30] shadow-2xl drop-shadow-2xl ${
           isOpen ? "xs:translate-y-0" : "xs:translate-y-[-150%]"
@@ -55,7 +54,7 @@ export default function Menu({ list }: MenuProps) {
           return (
             <li
               key={index}
-              className="text-[#0C616E] font-medium hover:text-white hover:bg-[#0C616E] text-lg list-none rounded-md py-4 mx-4"
+              className="text-[#0B8B9D] font-medium hover:text-white hover:bg-[#0B8B9D] text-lg list-none rounded-md py-4 mx-4 duration-300 ease-in-out lg:border-b-2"
             >
               <Link onClick={handleClick} href={item.href}>
                 {item.link}
