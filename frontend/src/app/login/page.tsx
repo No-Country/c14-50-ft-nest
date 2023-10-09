@@ -12,7 +12,6 @@ export default function Login() {
         </h1>
         <span>Bienvenido otra vez!</span>
         </div>
-        
         <form
           className="flex flex-col gap- min-w-full gap-3"
         >

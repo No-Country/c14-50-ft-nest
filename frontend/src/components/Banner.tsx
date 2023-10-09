@@ -1,7 +1,12 @@
+import Image from "next/image";
+
 export default function Banner() {
   return (
-    <div className="w-[60%] bg-[url('https://imgs.search.brave.com/Qh2Q8kpifXOQMIJphmINYlfM7pHYfuGIYLXTTFnvwJI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuY3RmYXNzZXRz/Lm5ldC9ocmx0eDEy/cGw4aHEvNUtpS21W/RXNDUVBNTnJiT0U2/dzBPdC8zNDFjNTcz/NzUyYmYzNWNiOTY5/ZTIxZmNkMjc5ZDNm/OS9oZXJvLWltZ19j/b3B5LmpwZz9maXQ9/ZmlsbCZ3PTYwMCZo/PTQwMA')] bg-no-repeat bg-cover h-screen absolute">
-      <div className="text-white">Prueba</div>
+    <div className="w-[60%] bg-no-repeat bg-cover h-screen absolute text-white flex flex-col justify-center items-center gap-5">
+      <Image src={"/banner.svg"} alt="Banner" layout="fill" objectFit="cover" style={{zIndex:"-1"}} />
+      <h2 className="text-4xl font-bold">Gestiona tus turnos con facilidad</h2>
+      <p className="text-lg w-[50%]">Organiza los turnos de trabajo de tu equipo de forma sencilla con nuestra aplicación. Asigna turnos, gestiona horarios y mantén a tu equipo comunicado.</p>
+      <button className="bg-blue-600 text-white py-2 px-4 rounded-md">Conoce más sobre la app</button>
     </div>
   );
 }
