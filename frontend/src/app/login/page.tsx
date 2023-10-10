@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function Login() {
 
   return (
-    <main className="login-page-container  grid place-content-center min-h-screen w-[40%] ml-auto">
+    <main className="login-page-container  grid place-content-center min-h-screen w-[40%] ml-auto bg-white">
       <section className="w-screen px-10 py-10 rounded-lg flex flex-col gap-5 justify-center min-w-full max-w-md mx-auto">
         <div>
 
