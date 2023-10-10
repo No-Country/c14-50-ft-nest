@@ -11,24 +11,24 @@ export class BaseEntity {
     })
     is_deleted: boolean;
   
-    // @CreateDateColumn({
-    //     name: 'created_at',
-    //     type: 'timestamp',
-    //     default: () => 'CURRENT_TIMESTAMP'
-    // })
-    // createdAt: Date;
+    @CreateDateColumn({
+        name: 'created_at',
+        type: 'timestamp',
+        default: () => 'CURRENT_TIMESTAMP'
+    })
+    createdAt: Date;
 
-    // @UpdateDateColumn({
-    //     name: 'updated_at',
-    //     type: 'timestamp',
-    //     default: () => 'CURRENT_TIMESTAMP'
-    // })
-    // updatedAt: Date;
+    @UpdateDateColumn({
+        name: 'updated_at',
+        type: 'timestamp',
+        default: () => 'CURRENT_TIMESTAMP'
+    })
+    updatedAt: Date;
 
-    // @DeleteDateColumn({
-    //     name: 'deleted_at',
-    //     type: 'timestamp',
-    //     default: null
-    // })
-    // deletedAt: Date;
+    @DeleteDateColumn({
+        name: 'deleted_at',
+        type: 'timestamp',
+        default: null
+    })
+    deletedAt: Date;
 }

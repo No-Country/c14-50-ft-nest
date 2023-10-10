@@ -15,21 +15,22 @@ export class AuthService {
             ) {}
 
 
-    async register(user: RegisterDto){
+    async register({ name, lastName, email, password, document, birthdate, gender, role }: RegisterDto){
         try {
-            const verifyUser = await this.userService.findByEmailExistent(user.email)
+            const verifyUser = await this.userService.findByEmailExistent(email)
             if (verifyUser) throw new BadRequestException(`This Email is already registered`);
 
-            const hash = await bcrypt.hash(user.password, saltOrRounds)
+            const encriptedPass = await bcrypt.hash(password, saltOrRounds);
 
             const newUser = await this.userService.create({
-                name: user.name,
-                lastname: user.lastname,
-                email: user.email,
-                document: user.document,
-                password: hash,
-                birthdate: user.birthdate,
-                gender: user.gender
+                name,
+                lastName,
+                email,
+                document,
+                password: encriptedPass,
+                birthdate,
+                gender,
+                role
             })
             return newUser.name
 

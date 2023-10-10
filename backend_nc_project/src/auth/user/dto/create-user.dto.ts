@@ -13,7 +13,7 @@ export default class CreateUserDto {
     @IsString()
     @MinLength(3)
     @MaxLength(25)
-    lastname: string;
+    lastName: string;
 
     @IsEmail()
     email:string;
@@ -29,12 +29,14 @@ export default class CreateUserDto {
     @IsString()
     birthdate: string;
 
-    // @IsOptional()
-    // @IsObject()
-    // phone?: Phone;
+    @IsOptional()
+    @IsObject()
+    phone?: Phone;
     
     @IsOptional()
     @IsEnum(Gender)
     gender?: Gender;
+
+    role: string;
     
 }

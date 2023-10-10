@@ -8,6 +8,9 @@ export class UserController {
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
+
+      const { document, password, role } = createUserDto;
+
     return this.userService.create(createUserDto);
   }
 }
