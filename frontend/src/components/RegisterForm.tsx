@@ -87,6 +87,7 @@ const RegisterForm = () => {
           type="text"
           {...register("name")}
           placeholder="Nombre"
+          name='name'
         />
       </div>
       {errors.name && (
@@ -101,6 +102,7 @@ const RegisterForm = () => {
           type="text"
           {...register("lastName")}
           placeholder="Apellido"
+          name='lastName'
         />
       </div>
       {errors.lastName && (
@@ -114,6 +116,7 @@ const RegisterForm = () => {
           type="number"
           {...register("dni")}
           placeholder="DNI"
+          name='dni'
         />
       </div>
       {errors.dni && (
@@ -127,6 +130,7 @@ const RegisterForm = () => {
           type="email"
           {...register("email")}
           placeholder="Email"
+          name='email'
         />
       </div>
       {errors.email && (
@@ -175,6 +179,7 @@ const RegisterForm = () => {
         <input
           type="date"
           ref={date}
+          name='date'
           onChange={handleChange}
         />
       </div>
@@ -189,6 +194,7 @@ const RegisterForm = () => {
           type="number"
           {...register("phoneNumber")}
           placeholder="Número de teléfono"
+          name='phoneNumber'
         />
       </div>
       {errors.phoneNumber && (
@@ -237,6 +243,7 @@ const RegisterForm = () => {
           type="password"
           {...register("password")}
           placeholder="Contraseña"
+          name='password'
         />
       </div>
       {errors.password && (
@@ -249,6 +256,7 @@ const RegisterForm = () => {
         <input
           type="password"
           {...register("confirmPassword")}
+          name='repeatPassword'
           placeholder="Confirmar contraseña"
         />
       </div>
