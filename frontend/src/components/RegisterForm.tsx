@@ -62,7 +62,7 @@ const RegisterForm = () => {
 
   return (
     <form
-    className={`flex flex-col justify-center max-w-sm w-full h-fit py-5 text-primary  ${
+    className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${
       newError ? "gap-1" : "gap-5"
     }`}    
       onSubmit={handleSubmit(submitData)}
@@ -77,12 +77,12 @@ const RegisterForm = () => {
         />
         <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-primary dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
         <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-          Register as a professional
+          Registrarme como profesional
         </span>
       </label>
       </div>
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Name</label>
+        <label className="block text-sm font-bold mb-2">Nombre</label>
         <input
           type="text"
           {...register("name")}
@@ -95,7 +95,7 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Last Name</label>
+        <label className="block text-sm font-bold mb-2">Apellido</label>
 
         <input
           type="text"
@@ -122,7 +122,7 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Email</label>
+        <label className="block text-sm font-bold mb-2">Correo electrónico</label>
         <input
           type="email"
           {...register("email")}
@@ -134,26 +134,44 @@ const RegisterForm = () => {
           {errors.email.message}
         </span>
       )}
-      <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Obra Social</label>
-        <select
-          {...register("insurance")}
-        >
-          <option value="">* Seleccione Obra Social *</option>
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </div>
+      {isChecked ? (
+        <>
+          <p className='block text-sm font-bold'>Trabaja con:</p>
+          <label className="inline-flex items-center cursor-pointer">
+            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
+            <span className="ml-2 text-gray-700">Obra Social 1</span>
+          </label>
+          <label className="inline-flex items-center cursor-pointer">
+            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
+            <span className="ml-2 text-gray-700">Obra Social 2</span>
+          </label>
+          <label className="inline-flex items-center cursor-pointer">
+            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
+            <span className="ml-2 text-gray-700">Obra Social 3</span>
+          </label>
+        </>
+      ) : (
+        <div className="mb-0">
+          <label className="block text-sm font-bold mb-2">Obra social</label>
+          <select
+            {...register("insurance")}
+          >
+            <option value="">* Seleccione Obra Social *</option>
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       {errors.insurance && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
           {errors.insurance.message}
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Birthdate</label>
+        <label className="block text-sm font-bold mb-2">Fecha de nacimiento</label>
         <input
           type="date"
           ref={date}
@@ -166,7 +184,7 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Phone Number</label>
+        <label className="block text-sm font-bold mb-2">Número de teléfono</label>
         <input
           type="number"
           {...register("phoneNumber")}
@@ -181,11 +199,11 @@ const RegisterForm = () => {
       {isChecked && (
         <>
           <div className="mb-0">
-          <label className="block text-sm font-bold mb-2">License Number</label>
+          <label className="block text-sm font-bold mb-2">Número de matrícula</label>
           <input
             type="text"
             {...register("licenseNumber")}
-            placeholder="Número de Licencia"
+            placeholder="Número de Matricula"
             />
           </div>
           {errors.licenseNumber && (
@@ -194,7 +212,7 @@ const RegisterForm = () => {
             </span>
           )}
           <div className="mb-0">
-            <label className="block text-sm font-bold mb-2">Genre</label>
+            <label className="block text-sm font-bold mb-2">Género</label>
             <select
               {...register("genre")}
             >
@@ -214,7 +232,7 @@ const RegisterForm = () => {
         </>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Password</label>
+        <label className="block text-sm font-bold mb-2">Contraseña</label>
         <input
           type="password"
           {...register("password")}
@@ -227,7 +245,7 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Confirm Password</label>
+        <label className="block text-sm font-bold mb-2">Confirmar contraseña</label>
         <input
           type="password"
           {...register("confirmPassword")}
@@ -239,21 +257,21 @@ const RegisterForm = () => {
           {errors.confirmPassword.message}
         </span>
       )}
-      <div>
+      <div className='my-2'>
         <button
-          className="bg-primary text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300"
+          className="bg-primary w-full text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300"
           type="submit"
         >
           Registrar
         </button>
       </div>
-      <p className="my-1 text-sm flex justify-between px-3 font-medium">
-        Already have an Account?
+      <p className="my-2 text-sm flex justify-between font-medium">
+        ¿Ya tienes una cuenta?
         <Link
-          href="/login"
-          className="text-blue-700 hover:text-blue-900 underline "
+          href="/auth/login"
+          className="text-blue-700 hover:text-blue-900 mx-2"
         >
-          Sign in
+          Iniciar sesión
         </Link>
       </p>
     </form>
