@@ -27,6 +27,4 @@ it('Rellenar un Formulario', () => {
   const selectElement = getByRole('combobox'); // Obtén el select
   userEvent.selectOptions(selectElement, getByText('Seleccione Obra Social'));
 
-  expect (Rellenar un Formulario).toHaveValue ('')
-
 })
