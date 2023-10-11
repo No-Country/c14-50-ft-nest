@@ -96,13 +96,13 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Apellido</label>
+        <label htmlFor='lastname' className="block text-sm font-bold mb-2">Apellido</label>
 
         <input
           type="text"
           {...register("lastName")}
           placeholder="Apellido"
-          name='lastName'
+          id='lastName'
         />
       </div>
       {errors.lastName && (
@@ -111,12 +111,12 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">DNI</label>
+        <label htmlFor='dni' className="block text-sm font-bold mb-2">DNI</label>
         <input
           type="number"
           {...register("dni")}
           placeholder="DNI"
-          name='dni'
+          id='dni'
         />
       </div>
       {errors.dni && (
@@ -125,12 +125,12 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Correo electrónico</label>
+        <label htmlFor='email' className="block text-sm font-bold mb-2">Correo electrónico</label>
         <input
           type="email"
           {...register("email")}
           placeholder="Email"
-          name='email'
+          id='email'
         />
       </div>
       {errors.email && (
@@ -175,11 +175,11 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Fecha de nacimiento</label>
+        <label htmlFor='date' className="block text-sm font-bold mb-2">Fecha de nacimiento</label>
         <input
           type="date"
           ref={date}
-          name='date'
+          id='date'
           onChange={handleChange}
         />
       </div>
@@ -189,12 +189,12 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Número de teléfono</label>
+        <label htmlFor='phoneNumber' className="block text-sm font-bold mb-2">Número de teléfono</label>
         <input
           type="number"
           {...register("phoneNumber")}
           placeholder="Número de teléfono"
-          name='phoneNumber'
+          id='phoneNumber'
         />
       </div>
       {errors.phoneNumber && (
@@ -238,12 +238,12 @@ const RegisterForm = () => {
         </>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Contraseña</label>
+        <label htmlFor='password' className="block text-sm font-bold mb-2">Contraseña</label>
         <input
           type="password"
           {...register("password")}
           placeholder="Contraseña"
-          name='password'
+          id='password'
         />
       </div>
       {errors.password && (
@@ -252,11 +252,11 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Confirmar contraseña</label>
+        <label htmlFor='repeatPassword' className="block text-sm font-bold mb-2">Confirmar contraseña</label>
         <input
           type="password"
           {...register("confirmPassword")}
-          name='repeatPassword'
+          id='repeatPassword'
           placeholder="Confirmar contraseña"
         />
       </div>
