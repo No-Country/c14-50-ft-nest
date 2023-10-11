@@ -1,5 +1,5 @@
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 interface ListItem {
   id: number;
@@ -31,7 +31,7 @@ export default function Menu({ list }: MenuProps) {
         <div className="absolute flex flex-col justify-between w-[32px] h-[26px] z-50 top-4 left-5">
           <span
             className={`block h-1 w-full rounded-[10px] bg-[#ffffff] transform origin-[0%_0%] transition-transform duration-300 ease-in-out ${
-              isOpen ? "rotate-45 xs:bg-[#0B8B9D]" : ""
+              isOpen ? "rotate-45 xs:bg-primary" : ""
             }`}
           ></span>
           <span
@@ -41,7 +41,7 @@ export default function Menu({ list }: MenuProps) {
           ></span>
           <span
             className={`block h-1 w-full rounded-[10px] bg-[#ffffff] origin-[0%_100%] transform transition-transform duration-300 ease-in-out ${
-              isOpen ? "-rotate-45 xs:bg-[#0B8B9D]" : ""
+              isOpen ? "-rotate-45 xs:bg-primary" : ""
             } `}
           ></span>
         </div>
@@ -55,7 +55,7 @@ export default function Menu({ list }: MenuProps) {
           return (
             <li
               key={index}
-              className="text-[#0B8B9D] font-medium hover:text-white hover:bg-[#0B8B9D] text-lg list-none rounded-md py-4 mx-4 duration-300 ease-in-out lg:border-b-2"
+              className="text-primary font-medium hover:text-white hover:bg-primary text-lg list-none rounded-md py-4 mx-4 duration-300 ease-in-out lg:border-b-2"
             >
               <Link onClick={handleClick} href={item.href}>
                 {item.link}

@@ -18,7 +18,7 @@ export default function Banner() {
         nuestra aplicación. Asigna turnos, gestiona horarios y mantén a tu
         equipo comunicado.
       </p>
-      <button className="bg-[#0B8B9D] text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300">
+      <button className="bg-primary text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300">
         Conoce más sobre la app
       </button>
     </div>

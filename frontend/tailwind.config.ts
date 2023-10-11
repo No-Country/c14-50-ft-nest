@@ -8,14 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        'colorPrimary': '#158d9e',
-        'colorSecondary': '#000000',
+        primary: '#0B8B9D',
+        secondary: '#000000',
+      },
+      boxShadow: {
+        outline: '0 0 0 3px rgba(11, 139, 157, 1)',
       },
       fontFamily: {
         Nunito: ["Nunito", "sans-serif"]

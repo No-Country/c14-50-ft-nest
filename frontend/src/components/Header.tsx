@@ -1,6 +1,6 @@
 "use client";
-import Link from "next/link";
 import Menu from "@/components/Menu";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Header() {
@@ -19,9 +19,9 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="relative flex justify-between h-16 lg:w-screen z-[100] shadow-2xl drop-shadow-2xl bg-[#0B8B9D]">
+    <header className="relative flex justify-between h-16 lg:w-screen z-[100] shadow-2xl drop-shadow-2xl bg-primary">
       <Menu list={data} />
-      <div className="hidden lg:flex lg:justify-center lg:items-center lg:absolute lg:top-0 lg:h-16 lg:w-[20%] lg:bg-[#0B8B9D] lg:z-40 lg:shadow-md lg:drop-shadow-md text-xl text-white font-bold">
+      <div className="hidden lg:flex lg:justify-center lg:items-center lg:absolute lg:top-0 lg:h-16 lg:w-[20%] lg:bg-primary lg:z-40 lg:shadow-md lg:drop-shadow-md text-xl text-white font-bold">
         <svg version="1.1" width="40px" height="40px" viewBox="0 0 100 125">
           <path
             fill="white"
