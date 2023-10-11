@@ -9,7 +9,3 @@ it('Shoud have a register button', () => {
   const myElem = screen.getByText('Registrar')
   expect(myElem).toBeInTheDocument()
 })
-
-// eslint-plugin-testing-library
-// eslint-plugin-jest-dom
-// @types/jest
