@@ -82,12 +82,12 @@ const RegisterForm = () => {
       </label>
       </div>
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Nombre</label>
+        <label htmlFor='name' className="block text-sm font-bold mb-2">Nombre</label>
         <input
           type="text"
           {...register("name")}
           placeholder="Nombre"
-          name='name'
+          id='name'
         />
       </div>
       {errors.name && (

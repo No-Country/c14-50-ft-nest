@@ -1,7 +1,6 @@
 import RegisterForm from '@/components/RegisterForm'
-
-import { render, screen } from '@testing-library/react'
-
+import { fireEvent, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 it('Shoud have a register button', () => {
   render(<RegisterForm/>) 
@@ -11,20 +10,20 @@ it('Shoud have a register button', () => {
 })
 
 it('Rellenar un Formulario', () => {
-  render(<ResgisterForm/>)
+  render(<RegisterForm/>)
 
-  const nameInput = screen.getByRole('textbox', { name: /name/i });
+  const nameInput = screen.getByLabelText('name');
   fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-  expect(nameInput ).toHaveValue('John Doe');
+  expect(nameInput).toHaveValue('John Doe');
 
-  const nameInput = screen.getByRole('textbox', { lastname: /lastname/i });
-  const emailInput = screen.getByRole('textbox', { email: /email/i });
-  const emailInput = screen.getByRole('textbox', { dni: /dni/i });
-  const submitButton = screen.getByRole('textbox', { password: /password/i });
-  const submitButton = screen.getByRole('textbox', { repeatPassword: /repeatPassword/i });
-  const submitButton = screen.getByRole('textbox', { phoneNumber: /phoneNumber/i }); 
+  const lastnameInput = screen.getByRole('textbox', { name: /lastname/i });
+  const emailInput = screen.getByRole('textbox', { name: /email/i });
+  const dniInput = screen.getByRole('textbox', { name: /dni/i });
+  const passwordInput = screen.getByRole('textbox', { name: /password/i });
+  const repeatPasswordInput = screen.getByRole('textbox', { name: /repeatPassword/i });
+  const phoneNumberInput = screen.getByRole('textbox', { name: /phoneNumber/i }); 
 
-  const selectElement = getByRole('combobox'); // Obtén el select
-  userEvent.selectOptions(selectElement, getByText('Seleccione Obra Social'));
+  const selectElement = screen.getByRole('combobox'); // Obtén el select
+  userEvent.selectOptions(selectElement, screen.getByText('Seleccione Obra Social'));
 
 })
