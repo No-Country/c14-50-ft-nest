@@ -2,13 +2,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import RegisterSchema, { genreOptions, options } from "./RegisterSchema";
+import axios from "axios";
 
 type FormData = {
   name: string;
   lastName: string;
-  dni: string;
+  document: string;
   email: string;
   birthdate: string;
   phoneNumber: string;
@@ -24,13 +25,14 @@ const RegisterForm = () => {
   const date = useRef<HTMLInputElement>(null);
   const [newError, setNewError] = useState(false);
   const [isChecked, setIsChecked] = useState(false)
+  const URL = 'https://nc-project-lim7.onrender.com/api/auth/register'
   const {
     register,
     unregister,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(RegisterSchema) });
+  } = useForm();
 
   useEffect(() => {
     if (Object.values(errors).some((error) => error)) {
@@ -39,12 +41,28 @@ const RegisterForm = () => {
   }, [errors]);
 
   const submitData = (data: FormData) => {
-    if (isChecked) {
-      //FETCH AL ENDPOINT DE DOCTORES 
-    } else {
-      //FETCH AL ENDPOINT DE PACIENTES 
+    
+    const dataToSend = {
+      name: data.name,
+      lastName: data.lastName,
+      document: data.document,
+      email: data.email,
+      birthdate :data.birthdate,
+      password:data.password
     }
     console.log(data);
+    if (isChecked) { //!DOCTOR
+      axios
+      .post(URL, {...dataToSend,role:"doctor"})
+      .then((res) => alert("Registro exitoso, te registraste como doctor"))
+      .catch((err) => console.log(err));
+    } else { //!PACIENTE
+      axios
+      .post(URL,  {...dataToSend,role:"patient"})
+      .then((res) =>alert("Registro exitoso, te registraste como pasiente"))
+      .catch((err) => console.log(err));
+    }
+    
     reset();
   };
 
@@ -65,7 +83,7 @@ const RegisterForm = () => {
     className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${
       newError ? "gap-1" : "gap-5"
     }`}    
-      onSubmit={handleSubmit(submitData)}
+      onSubmit={handleSubmit(submitData as SubmitHandler<FieldValues>)}
     >
       <div>
       <label className="relative inline-flex items-center cursor-pointer">
@@ -91,7 +109,7 @@ const RegisterForm = () => {
       </div>
       {errors.name && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm">
-          {errors.name.message}
+          {/*{errors.name.message}*/}
         </span>
       )}
       <div className="mb-0">
@@ -105,20 +123,20 @@ const RegisterForm = () => {
       </div>
       {errors.lastName && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.lastName.message}
+          {/*{errors.lastName.message}*/}
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">DNI</label>
+        <label className="block text-sm font-bold mb-2">document</label>
         <input
           type="number"
-          {...register("dni")}
-          placeholder="DNI"
+          {...register("document")}
+          placeholder="document"
         />
       </div>
-      {errors.dni && (
+      {errors.document && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.dni.message}
+          {/*{errors.document.message}*/}
         </span>
       )}
       <div className="mb-0">
@@ -131,7 +149,7 @@ const RegisterForm = () => {
       </div>
       {errors.email && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.email.message}
+          {/*{errors.email.message}*/}
         </span>
       )}
       {isChecked ? (
@@ -167,7 +185,7 @@ const RegisterForm = () => {
       )}
       {errors.insurance && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.insurance.message}
+          {/*{errors.insurance.message}*/}
         </span>
       )}
       <div className="mb-0">
@@ -180,7 +198,7 @@ const RegisterForm = () => {
       </div>
       {errors.birthdate && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.birthdate.message}
+          {/*{errors.birthdate.message}*/}
         </span>
       )}
       <div className="mb-0">
@@ -193,7 +211,7 @@ const RegisterForm = () => {
       </div>
       {errors.phoneNumber && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.phoneNumber.message}
+          {/*{errors.phoneNumber.message}*/}
         </span>
       )}
       {isChecked && (
@@ -208,7 +226,7 @@ const RegisterForm = () => {
           </div>
           {errors.licenseNumber && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-              {errors.licenseNumber.message}
+              {/*{errors.licenseNumber.message}*/}
             </span>
           )}
           <div className="mb-0">
@@ -226,7 +244,7 @@ const RegisterForm = () => {
           </div>
           {errors.genre && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-              {errors.genre.message}
+              {/*{errors.genre.message}*/}
             </span>
           )}
         </>
@@ -241,7 +259,7 @@ const RegisterForm = () => {
       </div>
       {errors.password && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.password.message}
+          {/*{errors.password.message}*/}
         </span>
       )}
       <div className="mb-0">
@@ -254,7 +272,7 @@ const RegisterForm = () => {
       </div>
       {errors.confirmPassword && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm">
-          {errors.confirmPassword.message}
+          {/*{errors.confirmPassword.message}*/}
         </span>
       )}
       <div className='my-2'>
