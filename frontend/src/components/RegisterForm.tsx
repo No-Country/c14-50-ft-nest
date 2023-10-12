@@ -1,10 +1,9 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import RegisterSchema, { genreOptions, options } from "./RegisterSchema";
-import axios from "axios";
+import { genreOptions, options } from "./RegisterSchema";
 
 type FormData = {
   name: string;
