@@ -12,7 +12,7 @@ export default function Login() {
         ¿No tienes una cuenta?
         <Link
           href="/auth/register"
-          className="text-blue-700 hover:text-blue-900 mx-2"
+          className="text-blue-700 hover:text-blue-900 mx-2 underline"
         >
           Registrate
         </Link>

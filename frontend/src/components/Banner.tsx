@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function Banner() {
   return (
-    <div className="lg:w-[60%] bg-no-repeat bg-cover h-auto mt-12 mb-16 lg:h-screen text-white flex flex-col justify-center items-center gap-5">
+    <div className="lg:w-[60%] mt-12 mb-16 lg:h-screen text-white flex flex-col justify-center items-center gap-5">
       <Image
         src={"/banner.svg"}
         alt="Banner"
         layout="fill"
         objectFit="cover"
-        style={{ zIndex: "-1" }}
+        style={{ zIndex: "-1" , objectPosition: 'bottom'}}
       />
       <h2 className="text-2xl lg:text-4xl font-bold text-center">
         Gestiona tus turnos con facilidad
