@@ -3,7 +3,7 @@ import { User } from '../../auth/user/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { ERole } from '../../common/enum';
-import { Gender } from 'src/common/enum';
+import { Gender } from '../../common/enum';
 
 export default class UserSeeder implements Seeder {
   public async run(
@@ -18,11 +18,9 @@ export default class UserSeeder implements Seeder {
         password: await hash('Secret123', 12),
         email: 'ferwin@admin.com',
         gender: Gender.MASCULINO,
-        phone: {
-                countryCode: '+57',
-                phoneNumber: '3003333333'
-                },
+        phone: '+573003333333',
         role: ERole.SUPERADMIN,
+        birthdate: '17/05/1993'
     }
 
     const repository = dataSource.getRepository(User);

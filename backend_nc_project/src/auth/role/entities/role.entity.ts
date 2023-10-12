@@ -1,4 +1,4 @@
-import { ERole } from 'src/common/enum';
+import { ERole } from '../../../common/enum';
 import { BaseEntity } from '../../../common/baseEntity';
 import { Entity, Column } from 'typeorm';
 

@@ -1,4 +1,4 @@
-import { ERole } from 'src/common/enum';
+import { ERole } from '../../common/enum';
 import { Role } from '../../auth/role/entities/role.entity';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';

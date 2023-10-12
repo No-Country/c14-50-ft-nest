@@ -1,4 +1,3 @@
-import { Phone } from "../../../common/interface";
 import { BaseEntity } from "../../../common/baseEntity/index";
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Gender } from "../../../common/enum";
@@ -25,7 +24,8 @@ export class User extends BaseEntity {
 
     @Column({
         nullable: false,
-        unique: true
+        unique: true,
+        type: 'bigint'
     })
     document: number
 
@@ -40,12 +40,12 @@ export class User extends BaseEntity {
     birthdate: string
 
     @Column({
-        nullable: false
+        nullable: true
     })
-    phone: Phone
+    phone: string
 
     @Column({
-        nullable: false
+        nullable: true
     })
     gender: Gender
 

@@ -15,11 +15,6 @@ export default class RegisterDto {
     @MaxLength(25)
     lastName: string;
 
-    @IsString()
-    @MinLength(3)
-    @MaxLength(25)
-    lastname: string;
-
     @IsEmail()
     email:string;
 
@@ -35,8 +30,8 @@ export default class RegisterDto {
     birthdate: string;
 
     @IsOptional()
-    @IsObject()
-    phone?: Phone;
+    @IsString()
+    phone?: string;
     
     @IsOptional()
     @IsEnum(Gender)
