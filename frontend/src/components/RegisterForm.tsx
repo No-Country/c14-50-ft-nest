@@ -15,8 +15,9 @@ type FormData = {
   password: string;
   confirmPassword: string;
   insurance: string;
-  licenseNumber: string
-  genre: string
+  licenseNumber?: string
+  genre?: string
+  checkbox: boolean
 };
 
 const RegisterForm = () => {
@@ -36,14 +37,15 @@ const RegisterForm = () => {
     if (Object.values(errors).some((error) => error)) {
       setNewError(true);
     }
+    register("checkbox", { value: isChecked });
   }, [errors]);
 
   const submitData = (data: FormData) => {
-    if (isChecked) {
-      //FETCH AL ENDPOINT DE DOCTORES 
-    } else {
-      //FETCH AL ENDPOINT DE PACIENTES 
-    }
+    // if (isChecked) {
+    //   //FETCH AL ENDPOINT DE DOCTORES
+    // } else {
+    //   //FETCH AL ENDPOINT DE PACIENTES
+    // }
     console.log(data);
     reset();
   };
@@ -58,6 +60,8 @@ const RegisterForm = () => {
 
   const handleCheckbox = () => {
     setIsChecked(!isChecked)
+    unregister('checkbox')
+    register("checkbox", { value: isChecked });
   }
 
   return (
@@ -84,10 +88,10 @@ const RegisterForm = () => {
       <div className="mb-0">
         <label htmlFor='name' className="block text-sm font-bold mb-2">Nombre</label>
         <input
+          id='name'
           type="text"
           {...register("name")}
           placeholder="Nombre"
-          id='name'
         />
       </div>
       {errors.name && (
@@ -99,10 +103,10 @@ const RegisterForm = () => {
         <label htmlFor='lastname' className="block text-sm font-bold mb-2">Apellido</label>
 
         <input
+          id='lastname'
           type="text"
           {...register("lastName")}
           placeholder="Apellido"
-          id='lastName'
         />
       </div>
       {errors.lastName && (
@@ -113,10 +117,10 @@ const RegisterForm = () => {
       <div className="mb-0">
         <label htmlFor='dni' className="block text-sm font-bold mb-2">DNI</label>
         <input
+          id='dni'
           type="number"
           {...register("dni")}
           placeholder="DNI"
-          id='dni'
         />
       </div>
       {errors.dni && (
@@ -127,10 +131,10 @@ const RegisterForm = () => {
       <div className="mb-0">
         <label htmlFor='email' className="block text-sm font-bold mb-2">Correo electrónico</label>
         <input
+          id='email'
           type="email"
           {...register("email")}
           placeholder="Email"
-          id='email'
         />
       </div>
       {errors.email && (
@@ -177,9 +181,9 @@ const RegisterForm = () => {
       <div className="mb-0">
         <label htmlFor='date' className="block text-sm font-bold mb-2">Fecha de nacimiento</label>
         <input
+          id='date'
           type="date"
           ref={date}
-          id='date'
           onChange={handleChange}
         />
       </div>
@@ -191,10 +195,10 @@ const RegisterForm = () => {
       <div className="mb-0">
         <label htmlFor='phoneNumber' className="block text-sm font-bold mb-2">Número de teléfono</label>
         <input
+          id='phoneNumber'
           type="number"
           {...register("phoneNumber")}
           placeholder="Número de teléfono"
-          id='phoneNumber'
         />
       </div>
       {errors.phoneNumber && (
@@ -240,10 +244,10 @@ const RegisterForm = () => {
       <div className="mb-0">
         <label htmlFor='password' className="block text-sm font-bold mb-2">Contraseña</label>
         <input
+          id='password'
           type="password"
           {...register("password")}
           placeholder="Contraseña"
-          id='password'
         />
       </div>
       {errors.password && (
@@ -252,11 +256,11 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label htmlFor='repeatPassword' className="block text-sm font-bold mb-2">Confirmar contraseña</label>
+        <label htmlFor='confirmPassword' className="block text-sm font-bold mb-2">Confirmar contraseña</label>
         <input
+          id='confirmPassword'
           type="password"
           {...register("confirmPassword")}
-          id='repeatPassword'
           placeholder="Confirmar contraseña"
         />
       </div>

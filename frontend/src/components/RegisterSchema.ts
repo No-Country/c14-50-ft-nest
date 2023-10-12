@@ -10,16 +10,18 @@ type FormData = {
   password: string
   confirmPassword: string
   insurance: string
-  licenseNumber: string
-  genre: string
+  licenseNumber?: string
+  genre?: string
+  checkbox: boolean
 }
 
 export const options = ['Obra Social 1', 'Obra Social 2', 'Obra Social 3', 'Obra Social 4'] as const
 export const genreOptions = ['Masculino', 'Femenino'] as const
 
 const RegisterSchema: ZodType<FormData> = z.object({
+  checkbox: z.boolean(),
   name: z.string().min(3, {message: 'El nombre debe tener al menos 3 caracteres'}),
-  lastName: z.string().min(4, { message: 'El apellido debe tener al menos 4 caracteres' }),
+  lastName: z.string().min(3, { message: 'El apellido debe tener al menos 3 caracteres' }),
   dni: z.string().refine((value) => value.replace(/\D/g, '').length > 7, {
     message: 'Ingrese un DNI válido',
   }),
@@ -29,8 +31,8 @@ const RegisterSchema: ZodType<FormData> = z.object({
   phoneNumber: z.string().refine((value) => value.replace(/\D/g, '').length > 9, {
     message: 'Ingrese un número de telefono válido',
   }),
-  licenseNumber: z.string().min(6, {message: 'Ingrese una matricula válida'}),
-  genre: z.enum(genreOptions, {errorMap: () => ({message: 'Selecciona una género'})}),
+  licenseNumber: z.string().min(6, {message: 'Ingrese una matricula válida'}).optional(),
+  genre: z.enum(genreOptions, {errorMap: () => ({message: 'Selecciona una género'})}).optional(),
   password: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
   confirmPassword: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
 }).refine((data) => data.password === data.confirmPassword, {
