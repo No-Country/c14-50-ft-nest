@@ -2,8 +2,9 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import LoginDto from './dto/login.dto';
 import RegisterDto from './dto/register.dto';
 import { UserService } from './user/user.service';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { JWT_SECRET } from 'src/common/constants';
 
 const saltOrRounds = 10;
 
@@ -11,25 +12,26 @@ const saltOrRounds = 10;
 export class AuthService {
     constructor(
             private readonly userService: UserService,
-             private jwtService: JwtService
+            private jwtService: JwtService
             ) {}
 
 
-    async register(user: RegisterDto){
+    async register({ name, lastName, email, password, document, birthdate, gender, role }: RegisterDto){
         try {
-            const verifyUser = await this.userService.findByEmailExistent(user.email)
+            const verifyUser = await this.userService.findByEmailExistent(email)
             if (verifyUser) throw new BadRequestException(`This Email is already registered`);
 
-            const hash = await bcrypt.hash(user.password, saltOrRounds)
+            const encriptedPass = await bcrypt.hash(password, saltOrRounds);
 
             const newUser = await this.userService.create({
-                name: user.name,
-                lastname: user.lastname,
-                email: user.email,
-                document: user.document,
-                password: hash,
-                birthdate: user.birthdate,
-                gender: user.gender
+                name,
+                lastName,
+                email,
+                document,
+                password: encriptedPass,
+                birthdate,
+                gender,
+                role
             })
             return newUser.name
 
@@ -41,18 +43,25 @@ export class AuthService {
 
     async login(user: LoginDto){
         try {
+            
             const verifyUser = await this.userService.findByDocumentExistent(user.document)
             if (!verifyUser) throw new UnauthorizedException(`Wrong document or password`);
 
             const isMatch = await bcrypt.compare(user.password, verifyUser.password);
             if (!isMatch) throw new UnauthorizedException(`Wrong email or password`);
 
-            const token = this.jwtService.sign({ userId: verifyUser.document})
+            const token = await this.jwtService.signAsync({ userId: verifyUser.document, role: verifyUser.role }, {
+                secret: JWT_SECRET,
+                expiresIn: '1d'
+            });
+
             return {
-            token
+                token: token,
+                userId: verifyUser.id,
+                role: verifyUser.role
             }
         } catch (error) {
-            
+            throw new BadRequestException('Something went wrong', error.message);
         }
     }
 }

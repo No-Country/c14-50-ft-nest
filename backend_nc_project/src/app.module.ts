@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './auth/user/user.module';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -23,10 +24,21 @@ import { UserModule } from './auth/user/user.module';
         synchronize: true
       })
     }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        global: true,
+        signOptions: {
+          expiresIn: '1d',
+        }
+      }),
+      inject: [ConfigService],
+    }),
     AuthModule,
     UserModule
   ],
   controllers: [],
-  providers: [],
+  providers: [JwtModule],
 })
 export class AppModule {}

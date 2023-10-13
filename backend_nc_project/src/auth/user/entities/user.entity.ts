@@ -1,7 +1,7 @@
-import { Phone } from "src/common/interface";
 import { BaseEntity } from "../../../common/baseEntity/index";
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Gender } from "src/common/enum";
+import { Gender } from "../../../common/enum";
+import { Role } from "../../../auth/role/entities/role.entity";
 
 
 @Entity()
@@ -14,7 +14,7 @@ export class User extends BaseEntity {
     @Column({
         nullable: false
     })
-    lastname: string
+    lastName: string
 
     @Column({
         nullable: false,
@@ -24,7 +24,8 @@ export class User extends BaseEntity {
 
     @Column({
         nullable: false,
-        unique: true
+        unique: true,
+        type: 'bigint'
     })
     document: number
 
@@ -38,14 +39,21 @@ export class User extends BaseEntity {
     })
     birthdate: string
 
-    // @Column({
-    //     nullable: false
-    // })
-    // phone: Phone
+    @Column({
+        nullable: true
+    })
+    phone: string
 
     @Column({
-        nullable: false
+        nullable: true
     })
     gender: Gender
+
+    @ManyToOne(() => Role)
+    @JoinColumn({
+        name: 'role',
+        referencedColumnName: 'name'
+    })
+    role: string;
     
 }

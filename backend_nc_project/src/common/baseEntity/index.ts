@@ -3,8 +3,8 @@ import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Del
 @Entity()
 export class BaseEntity {
 
-    @PrimaryGeneratedColumn('identity')
-    document: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({
         default: false,
@@ -25,10 +25,10 @@ export class BaseEntity {
     // })
     // updatedAt: Date;
 
-    // @DeleteDateColumn({
-    //     name: 'deleted_at',
-    //     type: 'timestamp',
-    //     default: null
-    // })
-    // deletedAt: Date;
+    @DeleteDateColumn({
+        name: 'deleted_at',
+        type: 'timestamp',
+        default: null
+    })
+    deletedAt: Date;
 }
