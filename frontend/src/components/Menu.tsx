@@ -16,7 +16,7 @@ export default function Menu({ list }: MenuProps) {
 
   const handleClick = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
+    // console.log(isOpen);
   };
 
   return (
