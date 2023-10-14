@@ -43,10 +43,8 @@ const RegisterForm = () => {
     const value = event.target.value;
     if (event.target.checked) {
       setSelectedItems([...selectedItems, value]);
-      console.log(selectedItems)
     } else {
       setSelectedItems(selectedItems.filter((item) => item !== value));
-      console.log(selectedItems)
     }
   }
 
@@ -61,17 +59,11 @@ const RegisterForm = () => {
   } = useForm<DoctorData | ClientData>({ resolver: zodResolver(selectedSchema) });
 
   useEffect(() => {
-    if (Object.values(errors).some((error) => error)) {
-      setNewError(true);
-    }
-  }, [errors]);
+    if (Object.values(errors).some((error) => error))
+      setNewError(true)
+  }, [errors, isChecked, selectedItems]);
 
   const submitData = (data: DoctorData | ClientData) => {
-    if (isChecked) {
-      register("insurance", { value: selectedItems })
-    }
-    // La función recibe data, que es de tipo DoctorData si isChecked es verdadero,
-    // o de tipo PatientData si isChecked es falso.
     console.log(data);
     reset();
   };
@@ -175,6 +167,7 @@ const RegisterForm = () => {
                 className={`form-checkbox h-5 w-5 text-primary ${ selectedItems.includes(option) ? 'bg-primary' : 'bg-white' }`}
                 value={option}
                 checked={selectedItems.includes(option)}
+                {...register("insurance")}
                 onChange={handleCheckboxChange}
               />
               <span className="ml-2 text-gray-700">{option}</span>
