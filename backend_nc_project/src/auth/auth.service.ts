@@ -61,7 +61,8 @@ export class AuthService {
                 role: verifyUser.role
             }
         } catch (error) {
-            throw new BadRequestException('Something went wrong', error.message);
+            if (error.status === 401) throw new UnauthorizedException('Wrong document or password');
+            throw new BadRequestException('Something went wrong', error.code);
         }
     }
 }
