@@ -232,7 +232,7 @@ const RegisterForm = () => {
               placeholder="Número de Matricula"
             />
           </div>
-          {errors.licenseNumber && (
+          {('licenseNumber' in errors && errors.licenseNumber) && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
               {errors.licenseNumber.message}
             </span>
@@ -250,7 +250,7 @@ const RegisterForm = () => {
               ))}
             </select>
           </div>
-          {errors.genre && (
+          {('genre' in errors && errors.genre) && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
               {errors.genre.message}
             </span>
