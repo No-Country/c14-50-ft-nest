@@ -11,17 +11,6 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* body {
-  @apply bg-primary text-black;
-}
-
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  @apply bg-[#0C616E] text-white p-2 mt-2;
-} */
-
 input,
 select {
   @apply p-1 shadow appearance-none border-primary border-[1px] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline;

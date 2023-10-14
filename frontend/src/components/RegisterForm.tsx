@@ -1,11 +1,12 @@
 "use client";
+import { ClientSchema, options } from '@/utils/ClientSchema';
+import { DoctorSchema, genreOptions } from '@/utils/DoctorSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import RegisterSchema, { genreOptions, options } from "./RegisterSchema";
 
-type FormData = {
+type ClientData = {
   name: string;
   lastName: string;
   dni: string;
@@ -15,37 +16,62 @@ type FormData = {
   password: string;
   confirmPassword: string;
   insurance: string;
-  licenseNumber?: string
-  genre?: string
-  checkbox: boolean
 };
+
+type DoctorData = {
+  name: string
+  lastName: string
+  dni: string
+  email: string
+  birthdate: string
+  phoneNumber: string
+  password: string
+  confirmPassword: string
+  insurance: string[]
+  licenseNumber: string
+  genre: string
+}
 
 const RegisterForm = () => {
   // EJEMPLOS DE MATRICULAS EN CABA, BS.AS Y CBA => CABA-12345, PBA-6789, CORD-AB123 o CORD-CD456.
   const date = useRef<HTMLInputElement>(null);
   const [newError, setNewError] = useState(false);
   const [isChecked, setIsChecked] = useState(false)
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+  function handleCheckboxChange (event: ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    if (event.target.checked) {
+      setSelectedItems([...selectedItems, value]);
+      console.log(selectedItems)
+    } else {
+      setSelectedItems(selectedItems.filter((item) => item !== value));
+      console.log(selectedItems)
+    }
+  }
+
+  const selectedSchema = isChecked ? DoctorSchema : ClientSchema
+
   const {
     register,
     unregister,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(RegisterSchema) });
+  } = useForm<DoctorData | ClientData>({ resolver: zodResolver(selectedSchema) });
 
   useEffect(() => {
     if (Object.values(errors).some((error) => error)) {
       setNewError(true);
     }
-    register("checkbox", { value: isChecked });
   }, [errors]);
 
-  const submitData = (data: FormData) => {
-    // if (isChecked) {
-    //   //FETCH AL ENDPOINT DE DOCTORES
-    // } else {
-    //   //FETCH AL ENDPOINT DE PACIENTES
-    // }
+  const submitData = (data: DoctorData | ClientData) => {
+    if (isChecked) {
+      register("insurance", { value: selectedItems })
+    }
+    // La función recibe data, que es de tipo DoctorData si isChecked es verdadero,
+    // o de tipo PatientData si isChecked es falso.
     console.log(data);
     reset();
   };
@@ -60,30 +86,27 @@ const RegisterForm = () => {
 
   const handleCheckbox = () => {
     setIsChecked(!isChecked)
-    unregister('checkbox')
-    register("checkbox", { value: isChecked });
   }
 
   return (
     <form
-    className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${
-      newError ? "gap-1" : "gap-5"
-    }`}    
+      className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${ newError ? "gap-1" : "gap-5"
+        }`}
       onSubmit={handleSubmit(submitData)}
     >
       <div>
-      <label className="relative inline-flex items-center cursor-pointer">
-        <input
-          type="checkbox"
-          className="sr-only peer"
-          checked={isChecked}
-          onChange={handleCheckbox}
-        />
-        <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-primary dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-          Registrarme como profesional
-        </span>
-      </label>
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={isChecked}
+            onChange={handleCheckbox}
+          />
+          <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-primary dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+          <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Registrarme como profesional
+          </span>
+        </label>
       </div>
       <div className="mb-0">
         <label htmlFor='name' className="block text-sm font-bold mb-2">Nombre</label>
@@ -145,18 +168,18 @@ const RegisterForm = () => {
       {isChecked ? (
         <>
           <p className='block text-sm font-bold'>Trabaja con:</p>
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
-            <span className="ml-2 text-gray-700">Obra Social 1</span>
-          </label>
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
-            <span className="ml-2 text-gray-700">Obra Social 2</span>
-          </label>
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
-            <span className="ml-2 text-gray-700">Obra Social 3</span>
-          </label>
+          {options.map((option) => (
+            <label className="inline-flex items-center cursor-pointer" key={option}>
+              <input
+                type="checkbox"
+                className={`form-checkbox h-5 w-5 text-primary ${ selectedItems.includes(option) ? 'bg-primary' : 'bg-white' }`}
+                value={option}
+                checked={selectedItems.includes(option)}
+                onChange={handleCheckboxChange}
+              />
+              <span className="ml-2 text-gray-700">{option}</span>
+            </label>
+          ))}
         </>
       ) : (
         <div className="mb-0">
@@ -209,11 +232,11 @@ const RegisterForm = () => {
       {isChecked && (
         <>
           <div className="mb-0">
-          <label className="block text-sm font-bold mb-2">Número de matrícula</label>
-          <input
-            type="text"
-            {...register("licenseNumber")}
-            placeholder="Número de Matricula"
+            <label className="block text-sm font-bold mb-2">Número de matrícula</label>
+            <input
+              type="text"
+              {...register("licenseNumber")}
+              placeholder="Número de Matricula"
             />
           </div>
           {errors.licenseNumber && (
