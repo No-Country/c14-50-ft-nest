@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './auth/user/user.module';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
+import { PatientsModule } from './patients/patients.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
       inject: [ConfigService],
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    PatientsModule
   ],
   controllers: [],
   providers: [JwtModule],
