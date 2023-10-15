@@ -1,12 +1,24 @@
-import Link from "next/link"
+"use client"
 
-export default function Home() {
+import HeaderHome from '../components/HeaderHome';
+import CTAButton from '../components/CTAButton';
+import SpecialtySection from '../components/SpecialtySection';
+import TestimonialsSection from '../components/TestimonialsSection';
+import HospitalMap from '../components/HospitalMap';
+import Footer from '../components/Footer';
 
+const Home = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <h1>App</h1>
-      <Link className="p-2 underline" href="/auth/login">Login.</Link>
-      <Link className="p-2 underline" href="/auth/register">Registrarse</Link>
-    </main>
-  )
-}
+    <div>
+      <HeaderHome />
+      <CTAButton />
+      <SpecialtySection />
+      <TestimonialsSection />
+      <HospitalMap />
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;
+
