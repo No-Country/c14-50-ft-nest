@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const HeaderHome = () => {
@@ -27,8 +28,8 @@ const HeaderHome = () => {
             <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold hover:text-blue-200">MediConnect</h1>
           </div>
           <div className="hidden lg:flex space-x-4">
-            <a href="/register" className="text-white hover:text-blue-200">Registrarse</a>
-            <a href="/login" className="text-white hover:text-blue-200">Iniciar Sesión</a>
+            <Link href="/auth/register" className="text-white hover:text-blue-200">Registrarse</Link>
+            <Link href="/auth/login" className="text-white hover:text-blue-200">Iniciar Sesión</Link>
           </div>
           <div className="lg:hidden relative z-20">
             <button className="text-3xl text-white hover:text-blue-200" onClick={toggleMenu}>
@@ -37,8 +38,8 @@ const HeaderHome = () => {
             {isMenuOpen && (
               <div className="lg:hidden absolute top-12 -left-32 bg-primary z-30 lg:w-full w-auto">
                 {/* Enlaces del menú para pantallas pequeñas */}
-                <a href="/register" className="block text-white hover:text-blue-200 m-10">Registrarse</a>
-                <a href="/login" className="block text-white hover:text-blue-200 m-10">Iniciar Sesión</a>
+                <Link href="/auth/register" className="block text-white hover:text-blue-200 m-10">Registrarse</Link>
+                <Link href="/auth/login" className="block text-white hover:text-blue-200 m-10">Iniciar Sesión</Link>
               </div>
             )}
           </div>

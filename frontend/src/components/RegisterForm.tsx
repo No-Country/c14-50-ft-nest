@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
+import { useToast } from "@chakra-ui/react";
+import { useRouter } from 'next/navigation'
 
 type FormData = {
   name: string;
@@ -25,6 +27,9 @@ const RegisterForm = () => {
   const [newError, setNewError] = useState(false);
   const [isChecked, setIsChecked] = useState(false)
   const URL = 'https://nc-project-lim7.onrender.com/api/auth/register'
+  const toast = useToast()
+  const router = useRouter()
+
   const {
     register,
     unregister,
@@ -52,13 +57,56 @@ const RegisterForm = () => {
     if (isChecked) { //!DOCTOR
       axios
       .post(URL, {...dataToSend,role:"doctor"})
-      .then((res) => alert("Registro exitoso, te registraste como doctor"))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        toast({
+          title: 'Usuario Registrado!',
+          description: "Ahora inicia sesion!",
+          status: 'success',
+          position: 'bottom-right',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.push('/auth/login')
+      })
+      .catch((err) => {
+        const errors = err.response.data.message
+        
+        toast({
+          title: 'Error',
+          description: errors.join(', '),
+          status: 'error',
+          position: 'bottom-right',
+          duration: 3000,
+          isClosable: true,
+        })
+      });
     } else { //!PACIENTE
       axios
       .post(URL,  {...dataToSend,role:"patient"})
-      .then((res) =>alert("Registro exitoso, te registraste como pasiente"))
-      .catch((err) => console.log(err));
+      .then((res) =>{
+        toast({
+          title: 'Usuario Registrado!',
+          description: "Ahora inicia sesion!",
+          status: 'success',
+          position: 'bottom-right',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.push('/auth/login')
+      })
+      .catch((err) => {
+        
+        const errors = err.response.data.message
+        console.log(errors);
+        toast({
+          title: 'Error',
+          description: errors.join(', '),
+          status: 'error',
+          position: 'bottom-right',
+          duration: 3000,
+          isClosable: true,
+        })
+      });
     }
     
     reset();

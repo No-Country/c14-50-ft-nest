@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import React from "react";
+import { ChakraProvider } from '@chakra-ui/react'
 
 export default function RegisterLayout({
   children,
@@ -10,8 +11,10 @@ export default function RegisterLayout({
     <html lang="en">
       <body>
         <main className="lg:overflow-y-hidden lg:max-h-screen flex flex-col-reverse lg:flex-row relative">
-          <Banner />
-          {children}
+          <ChakraProvider>
+            <Banner />
+            {children}
+          </ChakraProvider>
         </main>
       </body>
     </html>

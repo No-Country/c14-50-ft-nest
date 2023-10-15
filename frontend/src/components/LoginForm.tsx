@@ -3,11 +3,14 @@ import Link from 'next/link'
 import { FormEvent, useState } from 'react'
 import axios from "axios";
 import { useRouter } from 'next/navigation'
+import { Button } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 
 const LoginForm = () => {
   const [documento, setDocumento] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
+  const toast = useToast()
 
   const router = useRouter()
   const URL = "https://nc-project-lim7.onrender.com/api/auth/login"
@@ -21,11 +24,23 @@ const LoginForm = () => {
       }
       const response= await axios
       .post(URL, data)
+      
+      const {token} = response.data
+      console.log(token);
 
       router.push('/dashboard/mis-turnos', { scroll: false })
 
     }catch(err){
-      setMessage("Datos incorrectos")
+      const errors = err.response.data.message //ignorar si sale un error unkown (funciona correctamente)
+      
+      toast({
+        title: 'Error',
+        description: errors.length===1? errors: errors.join(', '),
+        status: 'error',
+        position: 'bottom-right',
+        duration: 3000,
+        isClosable: true,
+      })
     }
   }
 
