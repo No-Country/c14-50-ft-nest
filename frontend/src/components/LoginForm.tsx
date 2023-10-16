@@ -30,12 +30,12 @@ const LoginForm = () => {
 
       router.push('/dashboard/mis-turnos', { scroll: false })
 
-    }catch(err){
+    }catch(err){//falta ponerl el tipo
       const errors = err.response.data.message //ignorar si sale un error unkown (funciona correctamente)
       
       toast({
         title: 'Error',
-        description: errors.length===1? errors: errors.join(', '),
+        description: errors,
         status: 'error',
         position: 'bottom-right',
         duration: 3000,
@@ -47,7 +47,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit} className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary gap-4`}>
        <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Correo electrónico</label>
+        <label className="block text-sm font-bold mb-2">Documento</label>
         <input
           value={documento}
           type="text"

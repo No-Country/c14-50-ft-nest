@@ -102,7 +102,7 @@ const RegisterForm = () => {
         console.log(errors);
         toast({
           title: 'Error',
-          description: errors.join(', '),
+          description: errors.length===1? errors: errors.join(', '),
           status: 'error',
           position: 'bottom-right',
           duration: 3000,
@@ -176,11 +176,11 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">document</label>
+        <label className="block text-sm font-bold mb-2">Documento</label>
         <input
           type="number"
           {...register("document")}
-          placeholder="document"
+          placeholder="Documento"
         />
       </div>
       {errors.document && (

@@ -8,6 +8,8 @@ const HeaderHome = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // <Image width={20} height={20} src={"./banner.svg"} alt='logo'></Image>
+
   return (
     <header className="relative bg-primary p-3 lg:px-4 lg:py-2 h-16 lg:h-20 xl:h-24 lg:w-screen z-50 text-white shadow-2xl">
       <div className="container mx-auto relative z-10">
