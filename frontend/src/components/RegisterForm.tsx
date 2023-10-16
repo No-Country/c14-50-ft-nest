@@ -1,114 +1,137 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { ClientSchema, options } from '@/utils/ClientSchema';
+import { DoctorSchema, genreOptions } from '@/utils/DoctorSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
-import { useToast } from "@chakra-ui/react";
-import { useRouter } from 'next/navigation'
+import toast, { Toaster } from 'react-hot-toast';
 
-type FormData = {
+type ClientData = {
   name: string;
   lastName: string;
-  document: string;
+  dni: string;
   email: string;
   birthdate: string;
   phoneNumber: string;
   password: string;
   confirmPassword: string;
   insurance: string;
+};
+
+type DoctorData = {
+  name: string
+  lastName: string
+  dni: string
+  email: string
+  birthdate: string
+  phoneNumber: string
+  password: string
+  confirmPassword: string
+  insurance: string[]
   licenseNumber: string
   genre: string
-};
+}
 
 const RegisterForm = () => {
   // EJEMPLOS DE MATRICULAS EN CABA, BS.AS Y CBA => CABA-12345, PBA-6789, CORD-AB123 o CORD-CD456.
   const date = useRef<HTMLInputElement>(null);
   const [newError, setNewError] = useState(false);
   const [isChecked, setIsChecked] = useState(false)
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
   const URL = 'https://nc-project-lim7.onrender.com/api/auth/register'
-  const toast = useToast()
   const router = useRouter()
+
+  function handleCheckboxChange (event: ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    if (event.target.checked) {
+      setSelectedItems([...selectedItems, value]);
+    } else {
+      setSelectedItems(selectedItems.filter((item) => item !== value));
+    }
+  }
+
+  const selectedSchema = isChecked ? DoctorSchema : ClientSchema
 
   const {
     register,
     unregister,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { errors },
-  } = useForm();
+  } = useForm<DoctorData | ClientData>({ resolver: zodResolver(selectedSchema) });
 
   useEffect(() => {
     if (Object.values(errors).some((error) => error)) {
       setNewError(true);
     }
-  }, [errors]);
+  }, [errors, isChecked, selectedItems]);
 
-  const submitData = (data: FormData) => {
-    
+  const submitData = (data: DoctorData | ClientData) => {
+
     const dataToSend = {
       name: data.name,
       lastName: data.lastName,
-      document: data.document,
+      document: data.dni,
       email: data.email,
-      birthdate :data.birthdate,
-      password:data.password
+      birthdate: data.birthdate,
+      password: data.password
     }
-    if (isChecked) { //!DOCTOR
-      axios
-      .post(URL, {...dataToSend,role:"doctor"})
-      .then((res) => {
-        toast({
-          title: 'Usuario Registrado!',
-          description: "Ahora inicia sesion!",
-          status: 'success',
-          position: 'bottom-right',
-          duration: 3000,
-          isClosable: true,
-        })
-        router.push('/auth/login')
-      })
-      .catch((err) => {
-        const errors = err.response.data.message
-        
-        toast({
-          title: 'Error',
-          description: errors.join(', '),
-          status: 'error',
-          position: 'bottom-right',
-          duration: 3000,
-          isClosable: true,
-        })
-      });
-    } else { //!PACIENTE
-      axios
-      .post(URL,  {...dataToSend,role:"patient"})
-      .then((res) =>{
-        toast({
-          title: 'Usuario Registrado!',
-          description: "Ahora inicia sesion!",
-          status: 'success',
-          position: 'bottom-right',
-          duration: 3000,
-          isClosable: true,
-        })
-        router.push('/auth/login')
-      })
-      .catch((err) => {
-        
-        const errors = err.response.data.message
-        console.log(errors);
-        toast({
-          title: 'Error',
-          description: errors.join(', '),
-          status: 'error',
-          position: 'bottom-right',
-          duration: 3000,
-          isClosable: true,
-        })
-      });
+    if (isChecked) {
+      toast.promise(
+        axios.post(URL, { ...dataToSend, role: "doctor" })
+          .then(() => { router.push('/auth/login') }),
+        {
+          loading: 'Registrando...',
+          success: <b>Registro exitoso!</b>,
+          error: <b>No hemos podido registrarte</b>,
+          // success: (data) => `Successfully saved ${data.name}`,
+          // error: (err) => `This just happened: ${err.toString()}`,
+        }
+      );
+    } else {
+      toast.promise(
+        axios.post(URL, { ...dataToSend, role: "patient" })
+          .then(() => { router.push('/auth/login') }),
+        {
+          loading: 'Registrando...',
+          success: <b>Registro exitoso!</b>,
+          error: <b>No hemos podido registrarte</b>,
+          // success: (data) => `Successfully saved ${data.name}`,
+          // error: (err) => `This just happened: ${err.toString()}`,
+        }
+      );
     }
-    
+    //   axios
+    //     .post(URL, { ...dataToSend, role: "patient" })
+    //     .then((res) => {
+    //       toast({
+    //         title: 'Usuario Registrado!',
+    //         description: "Ahora inicia sesion!",
+    //         status: 'success',
+    //         position: 'bottom-right',
+    //         duration: 3000,
+    //         isClosable: true,
+    //       })
+    //       router.push('/auth/login')
+    //     })
+    //     .catch((err) => {
+
+    //       const errors = err.response.data.message
+    //       console.log(errors);
+    //       toast({
+    //         title: 'Error',
+    //         description: errors.join(', '),
+    //         status: 'error',
+    //         position: 'bottom-right',
+    //         duration: 3000,
+    //         isClosable: true,
+    //       })
+    //     });
+    // }
     reset();
   };
 
@@ -122,31 +145,28 @@ const RegisterForm = () => {
 
   const handleCheckbox = () => {
     setIsChecked(!isChecked)
+    clearErrors()
   }
-
-  const options = ['Osde',"Swiss Medical"]
-  const genreOptions = ['Masculino', 'Femenino']
 
   return (
     <form
-    className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${
-      newError ? "gap-1" : "gap-5"
-    }`}    
+      className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${ newError ? "gap-1" : "gap-5"
+        }`}
       onSubmit={handleSubmit(submitData as SubmitHandler<FieldValues>)}
     >
       <div>
-      <label className="relative inline-flex items-center cursor-pointer">
-        <input
-          type="checkbox"
-          className="sr-only peer"
-          checked={isChecked}
-          onChange={handleCheckbox}
-        />
-        <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-primary dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-          Registrarme como profesional
-        </span>
-      </label>
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={isChecked}
+            onChange={handleCheckbox}
+          />
+          <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-primary dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+          <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Registrarme como profesional
+          </span>
+        </label>
       </div>
       <div className="mb-0">
         <label className="block text-sm font-bold mb-2">Nombre</label>
@@ -158,7 +178,7 @@ const RegisterForm = () => {
       </div>
       {errors.name && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm">
-          {/*{errors.name.message}*/}
+          {errors.name.message}
         </span>
       )}
       <div className="mb-0">
@@ -172,20 +192,20 @@ const RegisterForm = () => {
       </div>
       {errors.lastName && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {/*{errors.lastName.message}*/}
+          {errors.lastName.message}
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">document</label>
+        <label className="block text-sm font-bold mb-2">Número de documento</label>
         <input
           type="number"
-          {...register("document")}
-          placeholder="document"
+          {...register("dni")}
+          placeholder="99.999.999"
         />
       </div>
-      {errors.document && (
+      {errors.dni && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {/*{errors.document.message}*/}
+          {errors.dni.message}
         </span>
       )}
       <div className="mb-0">
@@ -198,24 +218,25 @@ const RegisterForm = () => {
       </div>
       {errors.email && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {/*{errors.email.message}*/}
+          {errors.email.message}
         </span>
       )}
       {isChecked ? (
         <>
           <p className='block text-sm font-bold'>Trabaja con:</p>
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
-            <span className="ml-2 text-gray-700">Obra Social 1</span>
-          </label>
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
-            <span className="ml-2 text-gray-700">Obra Social 2</span>
-          </label>
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="form-checkbox h-5 w-5 text-primary" />
-            <span className="ml-2 text-gray-700">Obra Social 3</span>
-          </label>
+          {options.map((option) => (
+            <label className="inline-flex items-center cursor-pointer" key={option}>
+              <input
+                type="checkbox"
+                className={`form-checkbox h-5 w-5 text-primary ${ selectedItems.includes(option) ? 'bg-primary' : 'bg-white' }`}
+                value={option}
+                checked={selectedItems.includes(option)}
+                {...register("insurance")}
+                onChange={handleCheckboxChange}
+              />
+              <span className="ml-2 text-gray-700">{option}</span>
+            </label>
+          ))}
         </>
       ) : (
         <div className="mb-0">
@@ -234,7 +255,7 @@ const RegisterForm = () => {
       )}
       {errors.insurance && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {/*{errors.insurance.message}*/}
+          {errors.insurance.message}
         </span>
       )}
       <div className="mb-0">
@@ -247,7 +268,7 @@ const RegisterForm = () => {
       </div>
       {errors.birthdate && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {/*{errors.birthdate.message}*/}
+          {errors.birthdate.message}
         </span>
       )}
       <div className="mb-0">
@@ -260,22 +281,22 @@ const RegisterForm = () => {
       </div>
       {errors.phoneNumber && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {/*{errors.phoneNumber.message}*/}
+          {errors.phoneNumber.message}
         </span>
       )}
       {isChecked && (
         <>
           <div className="mb-0">
-          <label className="block text-sm font-bold mb-2">Número de matrícula</label>
-          <input
-            type="text"
-            {...register("licenseNumber")}
-            placeholder="Número de Matricula"
+            <label className="block text-sm font-bold mb-2">Número de matrícula</label>
+            <input
+              type="text"
+              {...register("licenseNumber")}
+              placeholder="Número de Matricula"
             />
           </div>
-          {errors.licenseNumber && (
+          {('licenseNumber' in errors && errors.licenseNumber) && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-              {/*{errors.licenseNumber.message}*/}
+              {errors.licenseNumber.message}
             </span>
           )}
           <div className="mb-0">
@@ -291,9 +312,9 @@ const RegisterForm = () => {
               ))}
             </select>
           </div>
-          {errors.genre && (
+          {('genre' in errors && errors.genre) && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-              {/*{errors.genre.message}*/}
+              {errors.genre.message}
             </span>
           )}
         </>
@@ -308,7 +329,7 @@ const RegisterForm = () => {
       </div>
       {errors.password && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {/*{errors.password.message}*/}
+          {errors.password.message}
         </span>
       )}
       <div className="mb-0">
@@ -321,7 +342,7 @@ const RegisterForm = () => {
       </div>
       {errors.confirmPassword && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm">
-          {/*{errors.confirmPassword.message}*/}
+          {errors.confirmPassword.message}
         </span>
       )}
       <div className='my-2'>
@@ -341,6 +362,7 @@ const RegisterForm = () => {
           Iniciar sesión
         </Link>
       </p>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </form>
   );
 };

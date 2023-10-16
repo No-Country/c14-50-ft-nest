@@ -1,57 +1,59 @@
 'use client'
-import Link from 'next/link'
-import { FormEvent, useState } from 'react'
 import axios from "axios";
-import { useRouter } from 'next/navigation'
-import { Button } from '@chakra-ui/react'
-import { useToast } from '@chakra-ui/react'
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginForm = () => {
   const [documento, setDocumento] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
-  const toast = useToast()
 
   const router = useRouter()
   const URL = "https://nc-project-lim7.onrender.com/api/auth/login"
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    console.log('cargarndooooooo')
     e.preventDefault()
-    try{
+    try {
       const data = {
         document: documento,
         password: password
       }
-      const response= await axios
-      .post(URL, data)
-      
-      const {token} = response.data
+      const response = await axios
+        .post(URL, data)
+
+      const { token } = response.data
       console.log(token);
 
       router.push('/dashboard/mis-turnos', { scroll: false })
 
-    }catch(err){
+    } catch (err) {
       const errors = err.response.data.message //ignorar si sale un error unkown (funciona correctamente)
-      
-      toast({
-        title: 'Error',
-        description: errors.length===1? errors: errors.join(', '),
-        status: 'error',
-        position: 'bottom-right',
-        duration: 3000,
-        isClosable: true,
-      })
+      if (errors) {
+        toast.error(errors);
+      }
+
+      // toast({
+      //   title: 'Error',
+      //   description: errors.length === 1 ? errors : errors.join(', '),
+      //   status: 'error',
+      //   position: 'bottom-right',
+      //   duration: 3000,
+      //   isClosable: true,
+      // })
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary gap-4`}>
-       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Correo electrónico</label>
+      <div className="mb-0">
+        <label className="block text-sm font-bold mb-2">Numero de documento</label>
         <input
           value={documento}
           type="text"
-          placeholder="Documento"
+          placeholder="99.999.999"
           onChange={e => setDocumento(e.target.value)}
         />
       </div>
@@ -74,6 +76,7 @@ const LoginForm = () => {
         </button>
         <p>{message}</p>
       </div>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </form>
   )
 }

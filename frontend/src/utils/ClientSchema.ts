@@ -12,7 +12,7 @@ type ClientData = {
   insurance: string
 }
 
-export const options = ['Obra Social 1', 'Obra Social 2', 'Obra Social 3', 'Obra Social 4'] as const
+export const options = ['Osde', 'Swiss Medical'] as const
 
 export const ClientSchema: ZodType<ClientData> = z.object({
   name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres' }),
