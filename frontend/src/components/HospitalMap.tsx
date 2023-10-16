@@ -33,7 +33,7 @@ const HospitalMap = () => {
         <p>Ciudad Autónoma de Buenos Aires</p>
         <p>Argentina</p>
       </div>
-      <div className="w-full sm:w-1/2 mt-4 sm:mt-0 mt-2 sm:mt-0 ml-4 sm:ml-0">
+      <div className="w-full sm:w-1/2 mt-2 sm:mt-0 ml-4 sm:ml-0">
         <h3 className="text-2xl font-semibold text-primary">Horarios de Atención</h3>
         <ul>
           <li>Lunes a Viernes: 9:00 AM - 5:00 PM</li>

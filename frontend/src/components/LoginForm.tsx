@@ -29,7 +29,7 @@ const LoginForm = () => {
 
       router.push('/dashboard/mis-turnos', { scroll: false })
 
-    } catch (err) {
+    } catch (err) {//falta ponerl el tipo
       const errors = err.response.data.message //ignorar si sale un error unkown (funciona correctamente)
       if (errors) {
         toast.error(errors);
@@ -49,7 +49,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit} className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary gap-4`}>
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Numero de documento</label>
+        <label className="block text-sm font-bold mb-2">Número de documento</label>
         <input
           value={documento}
           type="text"
