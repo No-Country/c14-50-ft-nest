@@ -66,6 +66,7 @@ const RegisterForm = () => {
           duration: 3000,
           isClosable: true,
         })
+        reset();
         router.push('/auth/login')
       })
       .catch((err) => {
@@ -92,6 +93,7 @@ const RegisterForm = () => {
           duration: 3000,
           isClosable: true,
         })
+        reset();
         router.push('/auth/login')
       })
       .catch((err) => {
@@ -108,8 +110,6 @@ const RegisterForm = () => {
         })
       });
     }
-    
-    reset();
   };
 
   const handleChange = () => {
