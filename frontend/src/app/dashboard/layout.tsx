@@ -1,9 +1,9 @@
-import { Suspense } from "react";
 import Header from "@/components/Header";
+import { ChakraProvider } from '@chakra-ui/react';
+import { Suspense } from "react";
 import Loading from "./loading";
-import { ChakraProvider } from '@chakra-ui/react'
 
-export default function DashboardLayout({
+export default function DashboardLayout ({
   children,
 }: {
   children: React.ReactNode;
@@ -12,8 +12,8 @@ export default function DashboardLayout({
     <html lang="en">
       <body>
         <ChakraProvider>
-        <Header />
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+          <Header />
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </ChakraProvider>
       </body>
     </html>
