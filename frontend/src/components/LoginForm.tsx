@@ -51,7 +51,7 @@ const LoginForm = () => {
         <label className="block text-sm font-bold mb-2">Número de documento</label>
         <input
           value={documento}
-          type="text"
+          type="number"
           placeholder="99.999.999"
           onChange={e => setDocumento(e.target.value)}
         />

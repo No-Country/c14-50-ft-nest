@@ -88,8 +88,8 @@ const RegisterForm = () => {
           loading: 'Registrando...',
           success: <b>Registro exitoso!</b>,
           error: <b>No hemos podido registrarte</b>,
-          // success: (data) => `Successfully saved ${data.name}`,
-          // error: (err) => `This just happened: ${err.toString()}`,
+          // success: (data) => `Te has registrado correctamente ${data.name}`,
+          // error: (err) => `${err.toString()}`,
         }
       );
       setSelectedItems([])
@@ -100,39 +100,12 @@ const RegisterForm = () => {
         {
           loading: 'Registrando...',
           success: <b>Registro exitoso!</b>,
-          error: <b>No hemos podido registrarte</b>,
-          // success: (data) => `Successfully saved ${data.name}`,
-          // error: (err) => `This just happened: ${err.toString()}`,
+          error: (err) => `${ err.toString() }`, //err.response.data.message
+          // error: <b>No hemos podido registrarte</b>,
+          // success: (data) => `Te has registrado correctamente ${data.name}`,
         }
       );
     }
-    //   axios
-    //     .post(URL, { ...dataToSend, role: "patient" })
-    //     .then((res) => {
-    //       toast({
-    //         title: 'Usuario Registrado!',
-    //         description: "Ahora inicia sesion!",
-    //         status: 'success',
-    //         position: 'bottom-right',
-    //         duration: 3000,
-    //         isClosable: true,
-    //       })
-    //       router.push('/auth/login')
-    //     })
-    //     .catch((err) => {
-
-    //       const errors = err.response.data.message
-    //       console.log(errors);
-    //       toast({
-    //         title: 'Error',
-    //         description: errors.join(', '),
-    //         status: 'error',
-    //         position: 'bottom-right',
-    //         duration: 3000,
-    //         isClosable: true,
-    //       })
-    //     });
-    // }
     reset();
   };
 
@@ -146,8 +119,8 @@ const RegisterForm = () => {
 
   const handleChange = () => {
     unregister("birthdate");
-    if (date.current !== null) {
-      const birthdate = new Date(date.current.value);
+    if (date.current!.value) {
+      const birthdate = new Date(date.current!.value);
       register("birthdate", { value: birthdate.toISOString() });
     }
   };

@@ -23,7 +23,7 @@ export const ClientSchema: ZodType<ClientData> = z.object({
   email: z.string().min(4, { message: 'Ingrese un email válido' }).email(),
   insurance: z.enum(options, { errorMap: () => ({ message: 'Selecciona una obra social' }) }),
   birthdate: z.string().datetime(),
-  phoneNumber: z.string().refine((value) => value.replace(/\D/g, '').length > 9, {
+  phoneNumber: z.string().refine((value) => value.replace(/\D/g, '').length > 7, {
     message: 'Ingrese un número de telefono válido',
   }),
   password: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
