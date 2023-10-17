@@ -41,6 +41,7 @@ const RegisterForm = () => {
   const [newError, setNewError] = useState(false);
   const [isChecked, setIsChecked] = useState(false)
   const [selectedItems, setSelectedItems] = useState<string[]>([])
+
   const URL = 'https://nc-project-lim7.onrender.com/api/auth/register'
   const router = useRouter()
 
@@ -71,7 +72,6 @@ const RegisterForm = () => {
   }, [errors, isChecked, selectedItems]);
 
   const submitData = (data: DoctorData | ClientData) => {
-
     const dataToSend = {
       name: data.name,
       lastName: data.lastName,
@@ -92,6 +92,7 @@ const RegisterForm = () => {
           // error: (err) => `This just happened: ${err.toString()}`,
         }
       );
+      setSelectedItems([])
     } else {
       toast.promise(
         axios.post(URL, { ...dataToSend, role: "patient" })
@@ -134,6 +135,14 @@ const RegisterForm = () => {
     // }
     reset();
   };
+
+  function getCurrentDate () {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${ year }-${ month }-${ day }`;
+  }
 
   const handleChange = () => {
     unregister("birthdate");
@@ -263,7 +272,9 @@ const RegisterForm = () => {
         <input
           type="date"
           ref={date}
-          onChange={handleChange}
+          max={getCurrentDate()}
+          // onChange={handleChange}
+          onBlur={handleChange}
         />
       </div>
       {errors.birthdate && (

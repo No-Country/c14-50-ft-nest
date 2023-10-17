@@ -14,7 +14,6 @@ const LoginForm = () => {
   const URL = "https://nc-project-lim7.onrender.com/api/auth/login"
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    console.log('cargarndooooooo')
     e.preventDefault()
     try {
       const data = {
@@ -66,7 +65,7 @@ const LoginForm = () => {
           onChange={e => setPassword(e.target.value)}
         />
       </div>
-      <Link href="/auth/register" className="text-red-500 font-medium underline">Olvide mi contraseña</Link>
+      <Link href="/auth/resetpassword" className="text-red-500 font-medium underline">Olvide mi contraseña</Link>
       <div className='my-2'>
         <button
           className="bg-primary w-full text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300"
