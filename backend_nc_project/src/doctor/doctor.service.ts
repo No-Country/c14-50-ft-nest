@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -8,25 +8,47 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class DoctorService {
 
-  constructor( @InjectRepository(Doctor) doctorRepository: Repository<Doctor>){}
+  constructor( @InjectRepository(Doctor) private readonly doctorRepository: Repository<Doctor>){}
 
   async create(createDoctorDto: CreateDoctorDto) {
-    return 'This action adds a new doctor';
+    const doctor = this.doctorRepository.create(createDoctorDto);
+
+    return await this.doctorRepository.save(doctor);
   }
 
   async findAll() {
-    return `This action returns all doctor`;
+    return this.doctorRepository.find();
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} doctor`;
+  async findOne(id: string) {
+    return this.doctorRepository.findOne({
+      where: {
+        id
+      }
+    });
   }
 
-  async update(id: number, updateDoctorDto: UpdateDoctorDto) {
-    return `This action updates a #${id} doctor`;
+  async update(id: string, updateDoctorDto: UpdateDoctorDto) {
+    const doctor = await this.doctorRepository.update({ id }, updateDoctorDto);
+        console.log(doctor)
+        if (!doctor) {
+          throw new NotFoundException(`Doctor with Id ${id} not found`);
+        }
+    
+        return `Doctor with Id ${id} was successfully updated`;
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} doctor`;
+  async remove(id: string) {
+    const doctor = await this.doctorRepository.update({ id, is_deleted: false }, {
+      is_deleted: true,
+    });
+    
+    if (doctor.affected !== 1) {
+      throw new NotFoundException(`Doctor with Id ${id} not found`);
+    }
+    
+    await this.doctorRepository.softDelete(id);
+
+    return `Doctor with Id ${id} was successfully deleted`;
   }
 }

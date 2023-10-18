@@ -50,7 +50,15 @@ export class UserService {
 
     await this.userRepository.save(user);
 
-    const doctor = await this.doctorService.create(CreateDoctorDto);
+    const doctor = await this.doctorService.create({
+      firstName: createUserDto.firstName,
+      lastName: createUserDto.lastName,
+      birthDate: createUserDto.birthdate,
+      phone: createUserDto.phone,
+      schedule: ''
+    });
+
+    return doctor;
 
   }
 

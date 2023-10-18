@@ -8,7 +8,7 @@ export default class RegisterDto {
     @IsString()
     @MinLength(3)
     @MaxLength(25)
-    name: string;
+    firstName: string;
 
     @IsString()
     @MinLength(3)
