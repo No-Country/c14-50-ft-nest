@@ -3,6 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './auth/user/user.module';
+import { DoctorModule } from './doctor/doctor.module';
+import { JwtModule } from '@nestjs/jwt';
+import { PatientsModule } from './patients/patients.module';
+import { SpecialtiesModule } from './specialties/specialties.module';
+=======
 import { JwtModule } from '@nestjs/jwt';
 import { PatientsModule } from './patients/patients.module';
 import { SpecialtiesModule } from './specialties/specialties.module';
@@ -40,7 +45,8 @@ import { SpecialtiesModule } from './specialties/specialties.module';
     }),
     AuthModule,
     UserModule,
-    PatientsModule
+    DoctorModule,
+    PatientsModule,
     SpecialtiesModule
   ],
   controllers: [],

@@ -1,4 +1,5 @@
 import { Transform } from "class-transformer";
+
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -12,6 +13,7 @@ export class Patient {
 
     @Column({nullable:false})
     lastName:string
+
 
     @Column({nullable:false,unique:true})
     document:number
@@ -34,6 +36,10 @@ export class Patient {
 
     @Column({nullable:true})
     healthInsurance?:string
+
+    @OneToOne(() => User, (user) => user.patient)
+    user: User;
+
 
 }
 
