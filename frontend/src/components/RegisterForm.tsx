@@ -1,13 +1,13 @@
 "use client";
-import { ClientSchema, options } from '@/utils/ClientSchema';
-import { DoctorSchema, genreOptions } from '@/utils/DoctorSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import { ClientSchema, options } from "@/utils/ClientSchema";
+import { DoctorSchema, genreOptions } from "@/utils/DoctorSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 type ClientData = {
   name: string;
@@ -22,30 +22,30 @@ type ClientData = {
 };
 
 type DoctorData = {
-  name: string
-  lastName: string
-  dni: string
-  email: string
-  birthdate: string
-  phoneNumber: string
-  password: string
-  confirmPassword: string
-  insurance: string[]
-  licenseNumber: string
-  genre: string
-}
+  name: string;
+  lastName: string;
+  dni: string;
+  email: string;
+  birthdate: string;
+  phoneNumber: string;
+  password: string;
+  confirmPassword: string;
+  insurance: string[];
+  licenseNumber: string;
+  genre: string;
+};
 
 const RegisterForm = () => {
   // EJEMPLOS DE MATRICULAS EN CABA, BS.AS Y CBA => CABA-12345, PBA-6789, CORD-AB123 o CORD-CD456.
   const date = useRef<HTMLInputElement>(null);
   const [newError, setNewError] = useState(false);
-  const [isChecked, setIsChecked] = useState(false)
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const [isChecked, setIsChecked] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  const URL = 'https://nc-project-lim7.onrender.com/api/auth/register'
-  const router = useRouter()
+  const URL = "https://nc-project-lim7.onrender.com/api/auth/register";
+  const router = useRouter();
 
-  function handleCheckboxChange (event: ChangeEvent<HTMLInputElement>) {
+  function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     if (event.target.checked) {
       setSelectedItems([...selectedItems, value]);
@@ -54,7 +54,7 @@ const RegisterForm = () => {
     }
   }
 
-  const selectedSchema = isChecked ? DoctorSchema : ClientSchema
+  const selectedSchema = isChecked ? DoctorSchema : ClientSchema;
 
   const {
     register,
@@ -63,7 +63,9 @@ const RegisterForm = () => {
     reset,
     clearErrors,
     formState: { errors },
-  } = useForm<DoctorData | ClientData>({ resolver: zodResolver(selectedSchema) });
+  } = useForm<DoctorData | ClientData>({
+    resolver: zodResolver(selectedSchema),
+  });
 
   useEffect(() => {
     if (Object.values(errors).some((error) => error)) {
@@ -78,29 +80,31 @@ const RegisterForm = () => {
       document: data.dni,
       email: data.email,
       birthdate: data.birthdate,
-      password: data.password
-    }
+      password: data.password,
+    };
     if (isChecked) {
       toast.promise(
-        axios.post(URL, { ...dataToSend, role: "doctor" })
-          .then(() => { router.push('/auth/login') }),
+        axios.post(URL, { ...dataToSend, role: "doctor" }).then(() => {
+          router.push("/auth/login");
+        }),
         {
-          loading: 'Registrando...',
+          loading: "Registrando...",
           success: <b>Registro exitoso!</b>,
           error: <b>No hemos podido registrarte</b>,
           // success: (data) => `Te has registrado correctamente ${data.name}`,
           // error: (err) => `${err.toString()}`,
         }
       );
-      setSelectedItems([])
+      setSelectedItems([]);
     } else {
       toast.promise(
-        axios.post(URL, { ...dataToSend, role: "patient" })
-          .then(() => { router.push('/auth/login') }),
+        axios.post(URL, { ...dataToSend, role: "patient" }).then(() => {
+          router.push("/auth/login");
+        }),
         {
-          loading: 'Registrando...',
+          loading: "Registrando...",
           success: <b>Registro exitoso!</b>,
-          error: (err) => `${ err.toString() }`, //err.response.data.message
+          error: (err: string) => `${err.toString()}`, //err.response.data.message
           // error: <b>No hemos podido registrarte</b>,
           // success: (data) => `Te has registrado correctamente ${data.name}`,
         }
@@ -109,12 +113,12 @@ const RegisterForm = () => {
     reset();
   };
 
-  function getCurrentDate () {
+  function getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    return `${ year }-${ month }-${ day }`;
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   }
 
   const handleChange = () => {
@@ -126,14 +130,15 @@ const RegisterForm = () => {
   };
 
   const handleCheckbox = () => {
-    setIsChecked(!isChecked)
-    clearErrors()
-  }
+    setIsChecked(!isChecked);
+    clearErrors();
+  };
 
   return (
     <form
-      className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${ newError ? "gap-1" : "gap-5"
-        }`}
+      className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${
+        newError ? "gap-1" : "gap-5"
+      }`}
       onSubmit={handleSubmit(submitData as SubmitHandler<FieldValues>)}
     >
       <div>
@@ -152,11 +157,7 @@ const RegisterForm = () => {
       </div>
       <div className="mb-0">
         <label className="block text-sm font-bold mb-2">Nombre</label>
-        <input
-          type="text"
-          {...register("name")}
-          placeholder="Nombre"
-        />
+        <input type="text" {...register("name")} placeholder="Nombre" />
       </div>
       {errors.name && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm">
@@ -166,11 +167,7 @@ const RegisterForm = () => {
       <div className="mb-0">
         <label className="block text-sm font-bold mb-2">Apellido</label>
 
-        <input
-          type="text"
-          {...register("lastName")}
-          placeholder="Apellido"
-        />
+        <input type="text" {...register("lastName")} placeholder="Apellido" />
       </div>
       {errors.lastName && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
@@ -178,12 +175,10 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Número de documento</label>
-        <input
-          type="number"
-          {...register("dni")}
-          placeholder="99.999.999"
-        />
+        <label className="block text-sm font-bold mb-2">
+          Número de documento
+        </label>
+        <input type="number" {...register("dni")} placeholder="99.999.999" />
       </div>
       {errors.dni && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
@@ -191,12 +186,10 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Correo electrónico</label>
-        <input
-          type="email"
-          {...register("email")}
-          placeholder="Email"
-        />
+        <label className="block text-sm font-bold mb-2">
+          Correo electrónico
+        </label>
+        <input type="email" {...register("email")} placeholder="Email" />
       </div>
       {errors.email && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
@@ -205,12 +198,17 @@ const RegisterForm = () => {
       )}
       {isChecked ? (
         <>
-          <p className='block text-sm font-bold'>Trabaja con:</p>
+          <p className="block text-sm font-bold">Trabaja con:</p>
           {options.map((option) => (
-            <label className="inline-flex items-center cursor-pointer" key={option}>
+            <label
+              className="inline-flex items-center cursor-pointer"
+              key={option}
+            >
               <input
                 type="checkbox"
-                className={`form-checkbox h-5 w-5 text-primary ${ selectedItems.includes(option) ? 'bg-primary' : 'bg-white' }`}
+                className={`form-checkbox h-5 w-5 text-primary ${
+                  selectedItems.includes(option) ? "bg-primary" : "bg-white"
+                }`}
                 value={option}
                 checked={selectedItems.includes(option)}
                 {...register("insurance")}
@@ -223,9 +221,7 @@ const RegisterForm = () => {
       ) : (
         <div className="mb-0">
           <label className="block text-sm font-bold mb-2">Obra social</label>
-          <select
-            {...register("insurance")}
-          >
+          <select {...register("insurance")}>
             <option value="">* Seleccione Obra Social *</option>
             {options.map((option) => (
               <option key={option} value={option}>
@@ -241,7 +237,9 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Fecha de nacimiento</label>
+        <label className="block text-sm font-bold mb-2">
+          Fecha de nacimiento
+        </label>
         <input
           type="date"
           ref={date}
@@ -256,7 +254,9 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Número de teléfono</label>
+        <label className="block text-sm font-bold mb-2">
+          Número de teléfono
+        </label>
         <input
           type="number"
           {...register("phoneNumber")}
@@ -271,23 +271,23 @@ const RegisterForm = () => {
       {isChecked && (
         <>
           <div className="mb-0">
-            <label className="block text-sm font-bold mb-2">Número de matrícula</label>
+            <label className="block text-sm font-bold mb-2">
+              Número de matrícula
+            </label>
             <input
               type="text"
               {...register("licenseNumber")}
               placeholder="Número de Matricula"
             />
           </div>
-          {('licenseNumber' in errors && errors.licenseNumber) && (
+          {"licenseNumber" in errors && errors.licenseNumber && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
               {errors.licenseNumber.message}
             </span>
           )}
           <div className="mb-0">
             <label className="block text-sm font-bold mb-2">Género</label>
-            <select
-              {...register("genre")}
-            >
+            <select {...register("genre")}>
               <option value="">* Seleccione Un Género *</option>
               {genreOptions.map((genreOptions) => (
                 <option key={genreOptions} value={genreOptions}>
@@ -296,7 +296,7 @@ const RegisterForm = () => {
               ))}
             </select>
           </div>
-          {('genre' in errors && errors.genre) && (
+          {"genre" in errors && errors.genre && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
               {errors.genre.message}
             </span>
@@ -317,7 +317,9 @@ const RegisterForm = () => {
         </span>
       )}
       <div className="mb-0">
-        <label className="block text-sm font-bold mb-2">Confirmar contraseña</label>
+        <label className="block text-sm font-bold mb-2">
+          Confirmar contraseña
+        </label>
         <input
           type="password"
           {...register("confirmPassword")}
@@ -329,7 +331,7 @@ const RegisterForm = () => {
           {errors.confirmPassword.message}
         </span>
       )}
-      <div className='my-2'>
+      <div className="my-2">
         <button
           className="bg-primary w-full text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300"
           type="submit"

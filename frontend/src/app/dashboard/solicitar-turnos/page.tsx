@@ -1,5 +1,6 @@
-'use client'
-import DoctorsResult from '@/components/DoctorsResult';
+"use client";
+import ConfirmAppointment from "@/components/ConfirmAppointment";
+import DoctorsResult from "@/components/DoctorsResult";
 import SpecialtyForm from "@/components/SpecialtyForm";
 import {
   Box,
@@ -8,70 +9,81 @@ import {
   StepIcon,
   StepIndicator,
   StepNumber,
-  StepSeparator,
   StepStatus,
   StepTitle,
   Stepper,
   useSteps,
   useToast
-} from '@chakra-ui/react';
-import { useEffect, useState } from "react";
+} from "@chakra-ui/react";
+import { useState } from "react";
 
 const steps = [
   {
-    title: 'Elegir especialidad médica',
-    description: 'Selecciona la especialidad que necesitas'
+    title: "Elegir especialidad médica",
+    description: "Selecciona la especialidad que necesitas",
   },
   {
-    title: 'Elegir doctor',
-    description: 'Elige el doctor según la especialidad'
+    title: "Elegir doctor",
+    description: "Elige el doctor según la especialidad",
   },
   {
-    title: 'Seleccionar horario',
-    description: 'Escoge la fecha y hora de tu consulta'
+    title: "Seleccionar horario",
+    description: "Escoge la fecha y hora de tu consulta",
   },
   {
-    title: 'Confirmar turno',
-    description: 'Confirma el turno elegido'
-  }
-]
+    title: "Confirmar turno",
+    description: "Confirma el turno elegido",
+  },
+];
 export default function SolicitarTurnos () {
   // const [next, setNext] = useState()
 
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("")
   const [selectedDoc, setSelectedDoc] = useState({})
   const { activeStep, setActiveStep } = useSteps({
-    index: 1,
+    index: 0,
     count: steps.length,
-  })
+  });
 
-  const toast = useToast()
-  const dataToSend = {
-    specialty: selectedSpecialty,
-    doctor: selectedDoc,
-    user: "",
-  }
+  const toast = useToast();
+  const dataToSend = [
+    {
+      specialty: selectedSpecialty,
+      doctor: selectedDoc,
+      user: "",
+    },
+  ];
 
-  useEffect(() => {
-    console.log(dataToSend)
-    if (!selectedSpecialty || selectedSpecialty === "Selecciona especialidad") {
-      setActiveStep(0)
-      toast({
-        title: 'Selecciona una especialidad',
-        description: "Debes seleccionar una especialidad para sacar un turno",
-        status: 'error',
-        position: 'bottom-right',
-        duration: 4000,
-        isClosable: true,
-      })
+  const handlerNext = () => {
+    if (activeStep === 3) {
+      dataToSend;
+      console.log(dataToSend);
+      return;
+    } else {
+      setActiveStep((prevActiveStep: any) => prevActiveStep + 1);
     }
-  }, [dataToSend])
+  };
+
+  const handlerPrev = () => {
+    if (activeStep === 0) {
+      return;
+    } else {
+      setActiveStep((prevActiveStep: any) => prevActiveStep - 1);
+    }
+  };
 
   return (
     <main className="h-screen lg:w-[80%] lg:ml-auto bg-[#f0f4f7] p-10 ">
-      <Stepper index={activeStep}>
+      <Stepper
+        index={activeStep}
+        display={{ base: "block", md: "flex" }}
+        className="w-full hidden "
+      >
         {steps.map((step, index) => (
-          <Step key={index}>
+          <Step
+            key={index}
+            className="whitespace-nowrap overflow-hidden text-ellipsis mb-4"
+          >
             <StepIndicator>
               <StepStatus
                 complete={<StepIcon />}
@@ -79,29 +91,51 @@ export default function SolicitarTurnos () {
                 active={<StepNumber />}
               />
             </StepIndicator>
-            <Box flexShrink='0'>
-              <StepTitle>{step.title}</StepTitle>
-              <StepDescription>{step.description}</StepDescription>
+            <Box flexShrink="0" className="">
+              <StepTitle className="" title={step.title}>
+                {step.title}
+              </StepTitle>
+              <StepDescription className="" title={step.description}>
+                {step.description}
+              </StepDescription>
             </Box>
-            <StepSeparator />
+            {/* <StepSeparator /> */}
           </Step>
         ))}
       </Stepper>
       <Box>
-        {activeStep === 0 ? <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} /> : false}
-        {activeStep === 1 ? <DoctorsResult selectedDoc={selectedDoc} setSelectedDoc={setSelectedDoc} selectedSpeciality={selectedSpecialty} /> : false}
+        {activeStep === 0 ? (
+          <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} />
+        ) : (
+          false
+        )}
+        {activeStep === 1 ? (
+          <DoctorsResult
+            selectedDoc={selectedDoc} setSelectedDoc={setSelectedDoc}
+            selectedSpeciality={selectedSpecialty}
+          />
+        ) : (
+          false
+        )}
+        {activeStep === 3 ? <ConfirmAppointment list={dataToSend} /> : false}
       </Box>
-      <div className="flex justify-around">
-        <button className="middle none center rounded-lg bg-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          data-ripple-light="true" onClick={() => setActiveStep(activeStep - 1)}>
+      <div className="flex justify-around items-center my-6">
+        <button
+          className={`${ activeStep === 0 ? "invisible" : "visible"
+            } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
+          data-ripple-light="true"
+          onClick={handlerPrev}
+        >
           Volver
         </button>
-        <button className="middle none center rounded-lg bg-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          data-ripple-light="true" onClick={() => setActiveStep(activeStep + 1)}>
-          siguente
+        <button
+          className="bg-primary w-28 h-10 text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300"
+          data-ripple-light="true"
+          onClick={handlerNext}
+        >
+          {activeStep === 3 ? "Confirmar" : "Siguente"}
         </button>
       </div>
     </main>
   );
 }
-
