@@ -11,6 +11,7 @@ export default function Header() {
       const response = await fetch(
         "https://turnero-ed6c2-default-rtdb.firebaseio.com/menu.json/"
       );
+      
       const data = await response.json();
       setData(data);
     }
