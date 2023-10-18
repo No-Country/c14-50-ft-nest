@@ -16,14 +16,14 @@ export class AuthService {
             ) {}
 
 
-    async register({ name, lastName, email, password, document, birthdate, gender, role }: RegisterDto){
+    async doctorRegister({ name, lastName, email, password, document, birthdate, gender, role }: RegisterDto){
         try {
             const verifyUser = await this.userService.findByEmailExistent(email)
             if (verifyUser) throw new BadRequestException(`This Email is already registered`);
 
             const encriptedPass = await bcrypt.hash(password, saltOrRounds);
 
-            const newUser = await this.userService.create({
+            const newUser = await this.userService.createDoctor({
                 name,
                 lastName,
                 email,
@@ -33,7 +33,7 @@ export class AuthService {
                 gender,
                 role
             })
-            return newUser.name
+            return newUser
 
         } catch (error) {
             throw new BadRequestException(error);

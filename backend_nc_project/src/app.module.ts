@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './auth/user/user.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
+import { DoctorModule } from './doctor/doctor.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
       inject: [ConfigService],
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    DoctorModule
   ],
   controllers: [],
   providers: [JwtModule],

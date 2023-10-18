@@ -4,11 +4,16 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { DoctorService } from '../../doctor/doctor.service';
+import { CreateDoctorDto } from '../../doctor/dto/create-doctor.dto';
 
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private readonly userRepository: Repository<User> ){}
+    constructor(
+      @InjectRepository(User) private readonly userRepository: Repository<User>, 
+      private readonly doctorService: DoctorService
+      ){}
 
     async findAll({ offset=0, limit=10 }: PaginationDto): Promise<User[]>{
         const users = await this.userRepository.find({
@@ -39,11 +44,14 @@ export class UserService {
         }
     }
     
-    async create(createUserDto: CreateUserDto) {
+    async createDoctor(createUserDto: CreateUserDto) {
         
-    const user = this.userRepository.create(createUserDto);
+    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document});
 
-    return this.userRepository.save(user);
+    await this.userRepository.save(user);
+
+    const doctor = await this.doctorService.create(CreateDoctorDto);
+
   }
 
    async findByDocumentExistent(document: number): Promise<User> {
