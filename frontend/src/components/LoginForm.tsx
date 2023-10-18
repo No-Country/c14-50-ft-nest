@@ -26,22 +26,14 @@ const LoginForm = () => {
       const { token } = response.data
       console.log(token);
 
-      router.push('/dashboard/mis-turnos', { scroll: false })
+      router.push('/dashboard/summary', { scroll: false })
 
-    } catch (err) {//falta ponerl el tipo
-      const errors = err.response.data.message //ignorar si sale un error unkown (funciona correctamente)
+    } catch (err:any) {//falta ponerl el tipo
+      const errors = err.response.data.message
       if (errors) {
         toast.error(errors);
       }
 
-      // toast({
-      //   title: 'Error',
-      //   description: errors.length === 1 ? errors : errors.join(', '),
-      //   status: 'error',
-      //   position: 'bottom-right',
-      //   duration: 3000,
-      //   isClosable: true,
-      // })
     }
   }
 

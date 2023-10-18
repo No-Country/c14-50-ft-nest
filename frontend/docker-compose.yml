@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app: 
+    image: cohorte14/frontend-no-country
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 8080:8080

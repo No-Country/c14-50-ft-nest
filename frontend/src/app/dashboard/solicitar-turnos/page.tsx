@@ -55,6 +55,7 @@ export default function SolicitarTurnos() {
     },
   ];
 
+<<<<<<< HEAD
   const handlerNext = () => {
     if (activeStep === 3) {
       dataToSend;
@@ -86,6 +87,22 @@ export default function SolicitarTurnos() {
   //   //   })
   //   // }
   // }, [dataToSend]);
+=======
+  useEffect(() => {
+    
+     if(!selectedSpecialty || selectedSpecialty=== "Selecciona especialidad"){
+      setActiveStep(0)
+       toast({
+         title: 'Selecciona una especialidad',
+         description: "Debes seleccionar una especialidad para sacar un turno",
+         status: 'error',
+         position: 'bottom-right',
+         duration: 4000,
+         isClosable: true,
+       })
+     }
+  }, [dataToSend])
+>>>>>>> b8f4b56733524c91ced87f00e6a10fcb4eb1276c
 
   console.log(selectedSpecialty);
   return (

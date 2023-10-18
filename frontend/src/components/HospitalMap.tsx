@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
+
+
 const HospitalMap = () => {
   const mapContainerRef = useRef(null);
+  
+
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -10,12 +14,12 @@ const HospitalMap = () => {
     script.async = true;
 
     script.addEventListener('load', () => {
-      const map = new window.google.maps.Map(mapContainerRef.current, {
+      const map =  new (window as any).google.maps.Map(mapContainerRef.current, {
         center: { lat: 40.7128, lng: -74.0060 },
         zoom: 15,
       });
 
-      new window.google.maps.Marker({
+      new (window as any).google.maps.Marker({
         position: { lat: 40.7128, lng: -74.0060 },
         map: map,
         title: 'Hospital XYZ',
