@@ -19,7 +19,7 @@ export default function Banner() {
         alt="Banner"
         layout="fill"
         objectFit="cover"
-        style={{ zIndex: "-1" }}
+        style={{ zIndex: "-1" , objectPosition: 'bottom'}}
       />
       <h2 className="text-2xl lg:text-4xl font-bold text-center px-0.5">
         Gestiona tus turnos con facilidad
