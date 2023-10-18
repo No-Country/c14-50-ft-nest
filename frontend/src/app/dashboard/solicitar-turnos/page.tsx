@@ -53,17 +53,18 @@ export default function SolicitarTurnos () {
   }
 
   useEffect(() => {
-    setActiveStep(0)
-    // if(!selectedSpecialty || selectedSpecialty=== "Selecciona especialidad"){
-    //   toast({
-    //     title: 'Selecciona una especialidad',
-    //     description: "Debes seleccionar una especialidad para sacar un turno",
-    //     status: 'error',
-    //     position: 'bottom-right',
-    //     duration: 4000,
-    //     isClosable: true,
-    //   })
-    // }
+    
+     if(!selectedSpecialty || selectedSpecialty=== "Selecciona especialidad"){
+      setActiveStep(0)
+       toast({
+         title: 'Selecciona una especialidad',
+         description: "Debes seleccionar una especialidad para sacar un turno",
+         status: 'error',
+         position: 'bottom-right',
+         duration: 4000,
+         isClosable: true,
+       })
+     }
   }, [dataToSend])
 
   console.log(selectedSpecialty);
