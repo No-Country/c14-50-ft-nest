@@ -5,6 +5,7 @@ import { Doctor } from "src/doctor/entities/doctor.entity";
 import { Patient } from "src/patients/entities/patient.entity";
 
 
+
 @Entity()
 export class User extends BaseEntity {
 

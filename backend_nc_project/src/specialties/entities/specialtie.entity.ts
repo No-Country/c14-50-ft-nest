@@ -1,3 +1,4 @@
+
 import { Column, Entity, ManyToMany } from "typeorm";
 import { BaseEntity } from "../../common/baseEntity";
 import { Doctor } from "src/doctor/entities/doctor.entity";
@@ -10,4 +11,5 @@ export class Specialtie extends BaseEntity {
 
     @ManyToMany(() => Doctor, (doctor) => doctor.specialties)
     doctors: Doctor[]
+
 }

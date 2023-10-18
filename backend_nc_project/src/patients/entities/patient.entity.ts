@@ -1,16 +1,29 @@
 import { Transform } from "class-transformer";
-import { User } from "src/auth/user/entities/user.entity";
-import { BaseEntity } from "src/common/baseEntity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Patient extends BaseEntity  {
+export class Patient {
+
+    @PrimaryGeneratedColumn('uuid')
+    id:number
 
     @Column({nullable:false})
     firstName:string
 
     @Column({nullable:false})
     lastName:string
+
+
+    @Column({nullable:false,unique:true})
+    document:number
+
+    @Transform(({value})=>value.trim())
+    @Column({nullable:false,select:false})
+    password:string
+
+    @Column({nullable:false,unique:true})
+    email:string
 
     @Column({nullable:false})
     birthDate:string
@@ -26,6 +39,7 @@ export class Patient extends BaseEntity  {
 
     @OneToOne(() => User, (user) => user.patient)
     user: User;
+
 
 }
 
