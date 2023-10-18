@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction } from "react"
-import { string } from "zod"
 
 interface SpecialtyFormProps {
   setSelectedSpecialty: Dispatch<SetStateAction<string | null>>

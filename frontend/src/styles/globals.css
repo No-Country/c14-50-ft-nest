@@ -15,6 +15,20 @@ input,
 select {
   @apply p-1 shadow appearance-none border-primary border-[1px] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline;
 }
+
+table.basic{
+  @apply w-full bg-white rounded-sm shadow-sm;
+}
+
+table.basic thead tr td,
+table.basic thead tr th
+{
+  @apply text-sm text-gray-600 uppercase border-b border-gray-200 py-2;
+}
+table.basic tr td{
+  @apply px-3 py-1 uppercase;
+}
+
 .singIn{
   @apply bg-[#0C616E]
 }

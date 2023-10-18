@@ -1,27 +1,31 @@
-"use client";
 import Menu from "@/components/Menu";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-export default function Header() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        "https://turnero-ed6c2-default-rtdb.firebaseio.com/menu.json/"
-      );
-      
-      const data = await response.json();
-      setData(data);
-    }
-
-    fetchData();
-  }, []);
+export default function Header () {
+  const MenuInfo = [{
+    href: "/",
+    id: 0,
+    link: "Home"
+  },
+  {
+    href: "/dashboard/solicitar-turnos",
+    id: 1,
+    link: "Solicitar un turno"
+  },
+  {
+    href: "/dashboard/mis-turnos",
+    id: 2,
+    link: "Mis turnos"
+  },
+  {
+    href: "/dashboard/perfil",
+    id: 3,
+    link: "Perfil"
+  }]
 
   return (
     <header className="relative flex justify-between h-16  z-[100] shadow-2xl drop-shadow-2xl bg-primary">
-      <Menu list={data} />
+      <Menu list={MenuInfo} />
       <div className="hidden lg:flex lg:justify-center lg:items-center lg:absolute lg:top-0 lg:h-16 lg:w-[20%] lg:bg-primary lg:z-40 lg:shadow-md lg:drop-shadow-md text-xl text-white font-bold">
         <svg version="1.1" width="40px" height="40px" viewBox="0 0 100 125">
           <path

@@ -1,5 +1,6 @@
 'use client'
-import React, { useEffect, useState } from "react";
+import DoctorsResult from '@/components/DoctorsResult';
+import SpecialtyForm from "@/components/SpecialtyForm";
 import {
   Box,
   Step,
@@ -11,19 +12,18 @@ import {
   StepStatus,
   StepTitle,
   Stepper,
-  Text,
   useSteps,
-  useToast,
-} from '@chakra-ui/react'
-import SpecialtyForm from "@/components/SpecialtyForm";
+  useToast
+} from '@chakra-ui/react';
+import { useEffect, useState } from "react";
 
 const steps = [
-  { 
+  {
     title: 'Elegir especialidad médica',
     description: 'Selecciona la especialidad que necesitas'
   },
   {
-    title: 'Elegir doctor',  
+    title: 'Elegir doctor',
     description: 'Elige el doctor según la especialidad'
   },
   {
@@ -32,13 +32,14 @@ const steps = [
   },
   {
     title: 'Confirmar turno',
-    description: 'Confirma el turno elegido' 
+    description: 'Confirma el turno elegido'
   }
 ]
-export default function SolicitarTurnos() {
+export default function SolicitarTurnos () {
   // const [next, setNext] = useState()
 
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string|null>("")
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("")
+  const [selectedDoc, setSelectedDoc] = useState<string | null>("")
   const { activeStep, setActiveStep } = useSteps({
     index: 1,
     count: steps.length,
@@ -52,52 +53,53 @@ export default function SolicitarTurnos() {
   }
 
   useEffect(() => {
-    if(!selectedSpecialty || selectedSpecialty=== "Selecciona especialidad"){
-      setActiveStep(0)
-      toast({
-        title: 'Selecciona una especialidad',
-        description: "Debes seleccionar una especialidad para sacar un turno",
-        status: 'error',
-        position: 'bottom-right',
-        duration: 4000,
-        isClosable: true,
-      })
-    }
-  },[dataToSend])
+    setActiveStep(0)
+    // if(!selectedSpecialty || selectedSpecialty=== "Selecciona especialidad"){
+    //   toast({
+    //     title: 'Selecciona una especialidad',
+    //     description: "Debes seleccionar una especialidad para sacar un turno",
+    //     status: 'error',
+    //     position: 'bottom-right',
+    //     duration: 4000,
+    //     isClosable: true,
+    //   })
+    // }
+  }, [dataToSend])
 
   console.log(selectedSpecialty);
   return (
     <main className="h-screen lg:w-[80%] lg:ml-auto bg-[#f0f4f7] p-10 ">
       <Stepper index={activeStep}>
-      {steps.map((step, index) => (
-        <Step key={index}>
-          <StepIndicator>
-            <StepStatus
-              complete={<StepIcon />}
-              incomplete={<StepNumber />}
-              active={<StepNumber />}
-            />
-          </StepIndicator>
-          <Box flexShrink='0'>
-            <StepTitle>{step.title}</StepTitle>
-            <StepDescription>{step.description}</StepDescription>
-          </Box>
-          <StepSeparator />
-        </Step>
-      ))}
-    </Stepper>
+        {steps.map((step, index) => (
+          <Step key={index}>
+            <StepIndicator>
+              <StepStatus
+                complete={<StepIcon />}
+                incomplete={<StepNumber />}
+                active={<StepNumber />}
+              />
+            </StepIndicator>
+            <Box flexShrink='0'>
+              <StepTitle>{step.title}</StepTitle>
+              <StepDescription>{step.description}</StepDescription>
+            </Box>
+            <StepSeparator />
+          </Step>
+        ))}
+      </Stepper>
       <Box>
-      {activeStep===0?<SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} /> :false}
+        {activeStep === 0 ? <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} /> : false}
+        {activeStep === 1 ? <DoctorsResult setSelectedDoc={setSelectedDoc} selectedSpeciality={selectedSpecialty} /> : false}
       </Box>
       <div className="flex justify-around">
-    <button className="middle none center rounded-lg bg-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-    data-ripple-light="true" onClick={()=>setActiveStep(activeStep -1)}>
-      Volver
-    </button>
-    <button className="middle none center rounded-lg bg-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-    data-ripple-light="true" onClick={()=>setActiveStep(activeStep +1)}>
-      siguente
-    </button>
+        <button className="middle none center rounded-lg bg-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          data-ripple-light="true" onClick={() => setActiveStep(activeStep - 1)}>
+          Volver
+        </button>
+        <button className="middle none center rounded-lg bg-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          data-ripple-light="true" onClick={() => setActiveStep(activeStep + 1)}>
+          siguente
+        </button>
       </div>
     </main>
   );
