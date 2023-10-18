@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^10.0.0",
+    "@nestjs/common": "^10.2.7",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^10.1.1",
@@ -34,6 +34,7 @@
     "class-validator": "^0.14.0",
     "highlight.js": "^11.8.0",
     "mysql2": "^3.6.1",
+    "nestjs": "^0.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17",

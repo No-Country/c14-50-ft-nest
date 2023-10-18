@@ -5,6 +5,8 @@ import { UserService } from './user/user.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { JWT_SECRET } from 'src/common/constants';
+import { PatientsService } from 'src/patients/patients.service';
+//!Falta importar el de los doctores
 
 const saltOrRounds = 10;
 
@@ -12,16 +14,14 @@ const saltOrRounds = 10;
 export class AuthService {
     constructor(
             private readonly userService: UserService,
-            private jwtService: JwtService
+            private jwtService: JwtService,
+            private readonly patientService:PatientsService
             ) {}
 
+    async doctorRegister({ firstName, lastName, email, password, document, birthDate, gender, role }: RegisterDto){
 
-    async doctorRegister({ firstName, lastName, email, password, document, birthdate, gender, role }: RegisterDto){
         try {
-            const verifyUser = await this.userService.findByEmailExistent(email)
-            if (verifyUser) throw new BadRequestException(`This Email is already registered`);
-
-            const encriptedPass = await bcrypt.hash(password, saltOrRounds);
+        const encriptedPass = await bcrypt.hash(password, saltOrRounds);
 
             const newUser = await this.userService.createDoctor({
                 firstName,
@@ -29,10 +29,10 @@ export class AuthService {
                 email,
                 document,
                 password: encriptedPass,
-                birthdate,
-                gender,
+                birthDate,
                 role
             })
+            
             return newUser
 
         } catch (error) {
@@ -64,4 +64,21 @@ export class AuthService {
             throw new BadRequestException('Something went wrong', error.message);
         }
     }
+
+    async register( data : RegisterDto){
+        try {
+            
+            const verifyUser = await this.userService.findByEmailExistent(data.email)
+            if (verifyUser) throw new BadRequestException(`This Email is already registered`);
+            // if (data.document <= 99999) throw new BadRequestException("document must be longer than or equal to 6 characters");
+
+            const encriptedPass = await bcrypt.hash(data.password, saltOrRounds);
+
+            return await this.patientService.create({...data,password: encriptedPass})
+          
+        } catch (error) {
+
+        }
+    }
+
 }

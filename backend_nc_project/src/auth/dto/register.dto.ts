@@ -1,6 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNumber, IsString, MinLength, IsEmail, MaxLength, IsObject, IsEnum, IsOptional} from "class-validator";
-import { Phone } from "../../common/interface";
+import { IsNumber, IsString, MinLength, IsEmail, MaxLength, IsEnum, IsOptional} from "class-validator";
 import { ERole, Gender } from "src/common/enum";
 
 export default class RegisterDto {
@@ -27,7 +26,7 @@ export default class RegisterDto {
     password: string;
 
     @IsString()
-    birthdate: string;
+    birthDate: string;
 
     @IsOptional()
     @IsString()
@@ -39,5 +38,9 @@ export default class RegisterDto {
 
     @IsEnum(ERole)
     role: ERole;
+
+    @IsString()
+    @IsOptional()
+    healthInsurance?:string
     
 }

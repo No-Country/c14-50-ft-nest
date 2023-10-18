@@ -750,7 +750,7 @@
     webpack "5.88.2"
     webpack-node-externals "3.0.0"
 
-"@nestjs/common@^10.0.0":
+"@nestjs/common@^10.2.7":
   version "10.2.7"
   resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-10.2.7.tgz#339db2efa33d3822dd81d2993bd44b538a7451b6"
   integrity sha512-cUtCRXiUstDmh4bSBhVbq4cI439Gngp4LgLGLBmd5dqFQodfXKnSD441ldYfFiLz4rbUsnoMJz/8ZjuIEI+B7A==
@@ -4257,6 +4257,11 @@ neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+nestjs@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/nestjs/-/nestjs-0.0.1.tgz#e4b3b82fbbd0bbf993a7c7a137b3ad59ccecf6b6"
+  integrity sha512-LJTf2zDRtWE69B6R2DUW6/LCftgVOq3kp3aqxPsB0eei8OX+lW2RFjzREZWRL1GUD/jGdBSMhM3Q5YWLC2uHNg==
 
 no-case@^3.0.4:
   version "3.0.4"

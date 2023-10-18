@@ -1,6 +1,8 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne } from "typeorm";
 import { Gender } from "../../common/enum";
 import { BaseEntity } from "../../common/baseEntity";
+import { Specialtie } from "src/specialties/entities/specialtie.entity";
+import { User } from "src/auth/user/entities/user.entity";
 
 @Entity()
 export class Doctor extends BaseEntity{
@@ -30,5 +32,10 @@ export class Doctor extends BaseEntity{
     })
     gender: Gender
 
+    @OneToOne(() => User, (user) => user.doctor)
+    user: User;
 
+    @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors)
+    @JoinTable()
+    specialties: Specialtie[]
 }

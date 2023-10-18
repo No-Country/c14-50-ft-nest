@@ -53,7 +53,7 @@ export class UserService {
     const doctor = await this.doctorService.create({
       firstName: createUserDto.firstName,
       lastName: createUserDto.lastName,
-      birthDate: createUserDto.birthdate,
+      birthDate: createUserDto.birthDate,
       phone: createUserDto.phone,
       schedule: ''
     });

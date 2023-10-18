@@ -1,6 +1,6 @@
 import { Transform } from "class-transformer";
-import { IsNumber, IsString, MinLength, IsEmail, MaxLength, IsObject, IsEnum, IsOptional} from "class-validator";
-import { ERole, Gender } from "../../../common/enum";
+import { IsNumber, IsString, MinLength, IsEmail, IsEnum, MaxLength} from "class-validator";
+import { ERole, } from "../../../common/enum";
 
 export class CreateUserDto {
 
@@ -19,6 +19,7 @@ export class CreateUserDto {
 
     @Transform(({value}) => Number(value))
     @IsNumber()
+    @MinLength(5)
     document: number;
 
     @IsString()
@@ -26,15 +27,10 @@ export class CreateUserDto {
     password: string;
 
     @IsString()
-    birthdate: string;
+    birthDate: string;   
 
-    @IsOptional()
     @IsString()
     phone?: string;
-    
-    @IsOptional()
-    @IsEnum(Gender)
-    gender?: Gender;
 
     @IsEnum(ERole)
     role: ERole;
