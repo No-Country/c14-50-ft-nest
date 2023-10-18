@@ -1,13 +1,28 @@
-import { doctors } from '@/utils/Doctors'
-import { Dispatch, SetStateAction } from 'react'
+import { doctors } from '@/utils/Doctors';
+import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
-  setSelectedDoc: Dispatch<SetStateAction<string | null>>
+  setSelectedDoc: Dispatch<SetStateAction<Object>>
+  selectedDoc: Object
   selectedSpeciality: string | null
 }
 
-const DoctorsResult = ({ selectedSpeciality }: Props) => {
+type Doctor = {
+  nombre: string;
+  especialidad: string;
+  género: string;
+  edad: number;
+};
+
+const DoctorsResult = ({ selectedSpeciality, setSelectedDoc, selectedDoc }: Props) => {
+  // const [selectedDoctor, setSelectedDoctor] = useState({})
   const filteredDoctors = doctors.filter((doctor) => doctor.especialidad === selectedSpeciality);
+
+  const handleRowClick = (doctor: Doctor) => {
+    // console.log(doctor)
+    setSelectedDoc(doctor);
+  };
+
 
   return (
     <table className='basic'>
@@ -20,8 +35,12 @@ const DoctorsResult = ({ selectedSpeciality }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {doctors.map((doctor, index) => (
-          <tr key={index}>
+        {filteredDoctors.map((doctor, index) => (
+          <tr
+            key={index}
+            onClick={() => handleRowClick(doctor)}
+            className={`cursor-pointer ${ selectedDoc === doctor ? 'bg-slate-500' : 'bg-white' }`}
+          >
             <td>{doctor.nombre}</td>
             <td>{doctor.especialidad}</td>
             <td>{doctor.género}</td>
@@ -29,6 +48,7 @@ const DoctorsResult = ({ selectedSpeciality }: Props) => {
           </tr>
         ))}
       </tbody>
+
     </table>
   )
 }

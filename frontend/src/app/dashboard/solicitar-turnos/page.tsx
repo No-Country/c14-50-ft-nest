@@ -39,7 +39,7 @@ export default function SolicitarTurnos () {
   // const [next, setNext] = useState()
 
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("")
-  const [selectedDoc, setSelectedDoc] = useState<string | null>("")
+  const [selectedDoc, setSelectedDoc] = useState({})
   const { activeStep, setActiveStep } = useSteps({
     index: 1,
     count: steps.length,
@@ -48,26 +48,25 @@ export default function SolicitarTurnos () {
   const toast = useToast()
   const dataToSend = {
     specialty: selectedSpecialty,
-    doctor: "",
+    doctor: selectedDoc,
     user: "",
   }
 
   useEffect(() => {
-    
-     if(!selectedSpecialty || selectedSpecialty=== "Selecciona especialidad"){
+    console.log(dataToSend)
+    if (!selectedSpecialty || selectedSpecialty === "Selecciona especialidad") {
       setActiveStep(0)
-       toast({
-         title: 'Selecciona una especialidad',
-         description: "Debes seleccionar una especialidad para sacar un turno",
-         status: 'error',
-         position: 'bottom-right',
-         duration: 4000,
-         isClosable: true,
-       })
-     }
+      toast({
+        title: 'Selecciona una especialidad',
+        description: "Debes seleccionar una especialidad para sacar un turno",
+        status: 'error',
+        position: 'bottom-right',
+        duration: 4000,
+        isClosable: true,
+      })
+    }
   }, [dataToSend])
 
-  console.log(selectedSpecialty);
   return (
     <main className="h-screen lg:w-[80%] lg:ml-auto bg-[#f0f4f7] p-10 ">
       <Stepper index={activeStep}>
@@ -90,7 +89,7 @@ export default function SolicitarTurnos () {
       </Stepper>
       <Box>
         {activeStep === 0 ? <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} /> : false}
-        {activeStep === 1 ? <DoctorsResult setSelectedDoc={setSelectedDoc} selectedSpeciality={selectedSpecialty} /> : false}
+        {activeStep === 1 ? <DoctorsResult selectedDoc={selectedDoc} setSelectedDoc={setSelectedDoc} selectedSpeciality={selectedSpecialty} /> : false}
       </Box>
       <div className="flex justify-around">
         <button className="middle none center rounded-lg bg-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
