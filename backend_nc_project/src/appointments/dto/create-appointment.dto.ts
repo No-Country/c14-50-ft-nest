@@ -1,26 +1,20 @@
-import { IsString, MinLength } from "class-validator"
+
+import { IsString } from "class-validator"
 export class CreateAppointmentDto {
 
     @IsString()
-    @MinLength(3)
-    doctor: string;
+    day: string
+    
+    @IsString()
+    interval: string
 
     @IsString()
-    @MinLength(3)
-    especiality: string;
+    doctor: string
 
     @IsString()
-    @MinLength(3)
-    birthDate:string;
+    specialty:string
 
     @IsString()
-    @MinLength(3)
-    hour: string;
+    patient: string 
 
-    @IsString()
-    @MinLength(3)
-    interval:string;
-
-    @IsString()
-    user: string;
 }

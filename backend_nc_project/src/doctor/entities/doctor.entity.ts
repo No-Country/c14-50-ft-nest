@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne } from "typeorm";
 import { Gender } from "../../common/enum";
 import { BaseEntity } from "../../common/baseEntity";
 import { Specialtie } from "src/specialties/entities/specialtie.entity";
 import { User } from "src/auth/user/entities/user.entity";
+import { Schedule } from "src/schedule/entities/schedule.entity";
 
 @Entity()
 export class Doctor extends BaseEntity{
@@ -10,7 +11,7 @@ export class Doctor extends BaseEntity{
     @Column({
         nullable: false
     })
-    name: string
+    firstName: string
 
     @Column({
         nullable: false
@@ -27,6 +28,10 @@ export class Doctor extends BaseEntity{
     })
     phone: string
 
+    @OneToMany(()=>Schedule,(schedule)=>schedule.doctor,{eager:true})
+    @JoinColumn()
+    schedules: Schedule[]
+
     @Column({
         nullable: true
     })
@@ -37,5 +42,8 @@ export class Doctor extends BaseEntity{
 
     @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors)
     @JoinTable()
-    specialties: Specialtie[]
+    specialties: string[]
+
+    
+
 }

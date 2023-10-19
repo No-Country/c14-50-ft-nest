@@ -21,8 +21,8 @@ export class AppointmentsService {
     return await this.appointmentRepository.find();
   }
 
-  async findOneSpecialtie(id: string) {
-    const appointment = await this.appointmentRepository.findOneBy({id});
+  async findAppointmentsByUser(id:string) {
+    const appointment = await this.appointmentRepository.find({where:{patient:id}});
     if(!appointment) throw new Error('Appointment not found');
     return appointment;
   }

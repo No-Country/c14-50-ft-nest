@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app: 
-    image: ferwin/backend_nc_project
+    image: prueba
     build: 
       context: .
       dockerfile: Dockerfile

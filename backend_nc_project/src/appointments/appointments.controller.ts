@@ -19,7 +19,7 @@ export class AppointmentsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.appointmentsService.findOneSpecialtie(id);
+    return this.appointmentsService.findAppointmentsByUser(id);
   }
 
   @Patch(':id')

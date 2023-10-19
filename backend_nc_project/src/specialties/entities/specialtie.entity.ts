@@ -6,7 +6,7 @@ import { Doctor } from "src/doctor/entities/doctor.entity";
 @Entity()
 export class Specialtie extends BaseEntity {
 
-    @Column({nullable:false})
+    @Column({nullable:false, unique:true})
     name:string
 
     @ManyToMany(() => Doctor, (doctor) => doctor.specialties)

@@ -10,9 +10,10 @@ import { Doctor } from '../../doctor/entities/doctor.entity';
 import { PatientsModule } from 'src/patients/patients.module';
 import { PatientService } from 'src/patients/patients.service';
 import { Patient } from 'src/patients/entities/patient.entity';
+import { Schedule } from 'src/schedule/entities/schedule.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Doctor, Patient]), JwtModule, DoctorModule, PatientsModule],
+  imports: [TypeOrmModule.forFeature([User, Doctor, Patient,Schedule]), JwtModule, DoctorModule, PatientsModule],
   controllers: [UserController],
   providers: [UserService, DoctorService, PatientService]
 })

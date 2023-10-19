@@ -1,27 +1,4 @@
-import { IsString, MinLength } from "class-validator"
-export class UpdateAppointmentDto {
-    
-    @IsString()
-    @MinLength(3)
-    doctor: string;
+import { PartialType } from "@nestjs/mapped-types";
+import { CreateAppointmentDto } from "./create-appointment.dto";
 
-    @IsString()
-    @MinLength(3)
-    especiality: string;
-
-    @IsString()
-    @MinLength(3)
-    birthDate:string;
-
-    @IsString()
-    @MinLength(3)
-    hour: string;
-
-    @IsString()
-    @MinLength(3)
-    interval:string;
-
-    @IsString()
-    user: string;
-
-}
+export class UpdateAppointmentDto extends PartialType(CreateAppointmentDto) {}
