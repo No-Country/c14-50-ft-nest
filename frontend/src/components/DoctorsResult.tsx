@@ -5,6 +5,7 @@ type Doctor = {
   nombre: string;
   especialidad: string;
   género: string;
+  edad: number
 };
 
 interface Props {

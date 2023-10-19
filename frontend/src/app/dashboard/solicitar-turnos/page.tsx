@@ -1,8 +1,8 @@
 "use client";
 import ConfirmAppointment from "@/components/ConfirmAppointment";
 import DoctorsResult from "@/components/DoctorsResult";
-import SpecialtyForm from "@/components/SpecialtyForm";
 import HoursForm from "@/components/HoursForm";
+import SpecialtyForm from "@/components/SpecialtyForm";
 import {
   Box,
   Step,
@@ -41,6 +41,7 @@ type Doctor = {
   nombre: string;
   especialidad: string;
   género: string;
+  edad: number
 };
 
 export default function SolicitarTurnos () {
@@ -49,6 +50,7 @@ export default function SolicitarTurnos () {
     nombre: '',
     especialidad: '',
     género: '',
+    edad: 0
   })
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
@@ -119,8 +121,8 @@ export default function SolicitarTurnos () {
         ) : (
           false
         )}
-         {activeStep === 2 ? (
-         <HoursForm/>
+        {activeStep === 2 ? (
+          <HoursForm />
         ) : (
           false
         )}
@@ -137,9 +139,8 @@ export default function SolicitarTurnos () {
       </Box>
       <div className="flex justify-around items-center my-6">
         <button
-          className={`${
-            activeStep === 0 ? "invisible" : "visible"
-          } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
+          className={`${ activeStep === 0 ? "invisible" : "visible"
+            } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
           data-ripple-light="true"
           onClick={handlerPrev}
         >

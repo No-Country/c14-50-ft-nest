@@ -1,20 +1,11 @@
-// interface Doctor {
-//   nombre: string;
-//   especialidad: string;
-//   género: string;
-//   edad: string;
-// }
-
 export interface ListItem {
   specialty: string | null;
-
   doctor: {
     nombre: string;
-    especialidad: string;
     género: string;
-    edad?: string;
-  };
-
+    especialidad: string;
+    edad: number;
+  }
   user: string;
 }
 
@@ -22,35 +13,35 @@ interface ListProps {
   list: ListItem[];
 }
 
-// type Doctor = {
-//   nombre: string;
-//   especialidad: string;
-//   género: string;
-// };
-
-export default function ConfirmAppointment({ list }: ListProps) {
+export default function ConfirmAppointment ({ list }: ListProps) {
   return (
-    <div className="w-[70%]  mx-auto p-10 rounded mt-10 ">
+    <div className="w-full bg-white rounded-sm shadow-sm p-10">
       {list.map((item, index) => (
         <li
           key={index}
-          className="list-none grid grid-flow-row md:grid-flow-col place-content-around "
+          className="list-none gap-2 grid grid-flow-row md:grid-flow-col place-content-around "
         >
-          <h1>Especialidad</h1>
-          <p>{item.specialty}</p>
           <div>
-            <h1>Información del doctor</h1>
-            {/* {item.doctor && (
-              Object.keys(item.doctor as Doctor ).map((property, propIndex) => (
-                <p key={propIndex}>
-                  {property}: {item.doctor[property]}
-                </p>
-              ))
-            )} */}
-            {JSON.stringify(item.doctor)}
+
+            <h1 className='font-semibold'>Especialidad</h1>
+            <p>{item.specialty}</p>
           </div>
-          <h1>Hoario seleccionado</h1>
-          <p>{item.user}</p>
+          <div>
+            <h1 className='font-semibold'>Información del doctor</h1>
+            {item.doctor && (
+              <div>
+                <p>Nombre: {item.doctor.nombre}</p>
+                <p>Género: {item.doctor.género}</p>
+                <p>Especialidad: {item.doctor.especialidad}</p>
+                <p>Edad: {item.doctor.edad} Años</p>
+              </div>
+            )}
+            {/* {JSON.stringify(item.doctor)} */}
+          </div>
+          <div>
+            <h1 className='font-semibold'>Hoario seleccionado</h1>
+            <p>{item.user}</p>
+          </div>
         </li>
       ))}
     </div>
