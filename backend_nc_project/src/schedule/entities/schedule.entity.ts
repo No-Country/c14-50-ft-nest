@@ -6,7 +6,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 export class Schedule extends BaseEntity{
 
     @Column({nullable:true})
-    dia:string
+    day:string
 
     @Column()
     startTime:string
