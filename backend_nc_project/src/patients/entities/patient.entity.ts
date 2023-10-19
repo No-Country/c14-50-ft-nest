@@ -2,7 +2,7 @@ import { Transform } from "class-transformer";
 import { User } from "src/auth/user/entities/user.entity";
 import { BaseEntity } from "src/common/baseEntity";
 
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne } from "typeorm";
 
 @Entity()
 export class Patient extends BaseEntity {
