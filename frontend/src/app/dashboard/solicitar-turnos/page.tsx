@@ -13,10 +13,10 @@ import {
   StepStatus,
   StepTitle,
   Stepper,
-  useSteps,
-  useToast,
+  useSteps
 } from "@chakra-ui/react";
 import { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const steps = [
   {
@@ -57,7 +57,6 @@ export default function SolicitarTurnos () {
     count: steps.length,
   });
 
-  const toast = useToast();
   const dataToSend = [
     {
       specialty: selectedSpecialty,
@@ -72,6 +71,10 @@ export default function SolicitarTurnos () {
       console.log(dataToSend);
       return;
     } else {
+      if (selectedSpecialty === "Selecciona especialidad") {
+        toast.error("Seleccione una especialidad")
+        return;
+      }
       setActiveStep((prevActiveStep: any) => prevActiveStep + 1);
     }
   };
@@ -154,6 +157,10 @@ export default function SolicitarTurnos () {
           {activeStep === 3 ? "Confirmar" : "Siguente"}
         </button>
       </div>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
     </main>
   );
 }

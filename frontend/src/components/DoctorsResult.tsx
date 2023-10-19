@@ -50,7 +50,7 @@ const DoctorsResult = ({ selectedSpeciality, setSelectedDoc, selectedDoc }: Prop
             <tr
               key={index}
               onClick={() => handleRowClick(doctor)}
-              className={`cursor-pointer ${ selectedDoc === doctor ? 'bg-slate-500' : 'bg-white' }`}
+              className={`cursor-pointer ${ selectedDoc === doctor ? 'bg-slate-300' : 'bg-white' }`}
             >
               <td>{doctor.nombre}</td>
               <td className='text-center'>{doctor.especialidad}</td>

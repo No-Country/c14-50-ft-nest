@@ -1,12 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 
 interface SpecialtyFormProps {
   setSelectedSpecialty: Dispatch<SetStateAction<string | null>>
 }
 
 const SpecialtyForm = ({ setSelectedSpecialty }: SpecialtyFormProps) => {
-  const [selected, setSelected] = useState("")
-
   const options = [
     "Selecciona especialidad",
     "Medicina general",
@@ -20,7 +18,6 @@ const SpecialtyForm = ({ setSelectedSpecialty }: SpecialtyFormProps) => {
   const handleSelect = (e: any) => {
     setSelectedSpecialty(e.target.value)
   }
-
   useEffect(() => {
     setSelectedSpecialty(options[0])
   }, [])
