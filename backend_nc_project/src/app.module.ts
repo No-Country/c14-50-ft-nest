@@ -7,6 +7,7 @@ import { DoctorModule } from './doctor/doctor.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PatientsModule } from './patients/patients.module';
 import { SpecialtiesModule } from './specialties/specialties.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { SpecialtiesModule } from './specialties/specialties.module';
     UserModule,
     DoctorModule,
     PatientsModule,
-    SpecialtiesModule
+    SpecialtiesModule,
+    ScheduleModule
   ],
   controllers: [],
   providers: [JwtModule],

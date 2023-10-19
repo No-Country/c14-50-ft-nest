@@ -1,5 +1,4 @@
-import { Transform } from "class-transformer";
-import { IsEmail, IsNumber,  IsString, MaxLength, MinLength } from "class-validator";
+import {  IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
 export class CreateDoctorDto {
 
@@ -19,7 +18,7 @@ export class CreateDoctorDto {
     @IsString()
     phone: string;
 
+    @IsOptional()
     @IsString()
-    schedule: string;
-
+    schedule?: string[];
 }

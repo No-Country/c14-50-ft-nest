@@ -5,7 +5,6 @@ import { User } from './entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 import { DoctorService } from '../../doctor/doctor.service';
-import { CreateDoctorDto } from '../../doctor/dto/create-doctor.dto';
 import { PatientService } from 'src/patients/patients.service';
 
 
@@ -37,7 +36,7 @@ export class UserService {
             where: {
             email: email,
             }, 
-            select: [ 'password']
+            select: ['password',"id","email"]
         });
     
         return user;
@@ -48,7 +47,7 @@ export class UserService {
     
     async createDoctor(createUserDto: CreateUserDto) {
         
-    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document});
+    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document, role:createUserDto.role});
 
     await this.userRepository.save(user);
 
@@ -57,8 +56,8 @@ export class UserService {
       lastName: createUserDto.lastName,
       birthDate: createUserDto.birthDate,
       phone: createUserDto.phone,
-      schedule: ''
-    });
+      schedule: createUserDto.schedule
+    })
 
     return doctor;
 
@@ -66,7 +65,7 @@ export class UserService {
 
   async createPatient(createUserDto: CreateUserDto) {
         
-    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document});
+    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document,role:createUserDto.role});
 
     await this.userRepository.save(user);
 
@@ -76,7 +75,6 @@ export class UserService {
       birthDate: createUserDto.birthDate,
       phone: createUserDto.phone,
       healthInsurance: createUserDto.healthInsurance,
-      
     });
 
     return doctor;
@@ -89,8 +87,8 @@ export class UserService {
         const user = await this.userRepository.findOne({
             where: {
             document: document,
-            }, 
-            select: [ 'password', 'document' ]
+            },
+            select: [ 'password', 'document',"id" ]
         });
 
         return user;

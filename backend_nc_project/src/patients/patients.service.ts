@@ -27,12 +27,6 @@ export class PatientService {
     return patient;
   }
 
-  async findDocumentWithPassword (document: number) {
-    const patient = await this.patientRepository.findOne({where:{document},select:['id','password']});
-    if(!patient) throw new Error('Patient not found');
-    return patient;
-  }
-
   async update(id: string, updatePatientDto: UpdatePatientDto) {
     const patient = await this.patientRepository.findOneBy({id});
     if(!patient) throw new Error('Patient not found');

@@ -12,10 +12,11 @@ import { PatientsModule } from 'src/patients/patients.module';
 import { DoctorModule } from 'src/doctor/doctor.module';
 import { DoctorService } from 'src/doctor/doctor.service';
 import { Doctor } from 'src/doctor/entities/doctor.entity';
+import { Schedule } from 'src/schedule/entities/schedule.entity';
 
 @Module({
   imports: [
-  TypeOrmModule.forFeature([User, Role, Doctor]),
+  TypeOrmModule.forFeature([User, Role, Doctor,Schedule]),
   UserModule,
   RoleModule,
   PatientsModule,

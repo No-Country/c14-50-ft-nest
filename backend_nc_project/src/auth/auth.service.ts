@@ -16,7 +16,7 @@ export class AuthService {
             private jwtService: JwtService,
             ) {}
 
-    async doctorRegister({ firstName, lastName, email, password, document, birthDate, gender, role }: RegisterDto){
+    async doctorRegister({ firstName, lastName, email, password, document, birthDate, role, schedule }: RegisterDto){
 
         try {
             
@@ -26,11 +26,12 @@ export class AuthService {
             const encriptedPass = await bcrypt.hash(password, saltOrRounds)
             
 
-            const newUser = await this.userService.createDoctor({ document, password: encriptedPass, role, email, firstName, lastName, birthDate })
+            const newUser = await this.userService.createDoctor({ document, password: encriptedPass, role, email, firstName, lastName, birthDate,schedule })
 
             return newUser
 
         } catch (error) {
+            console.log(error);
             throw new BadRequestException(error);
 
         }
@@ -56,6 +57,7 @@ export class AuthService {
                 role: verifyUser.role
             }
         } catch (error) {
+            console.log(error);
             throw new BadRequestException('Something went wrong', error.message);
         }
     }
