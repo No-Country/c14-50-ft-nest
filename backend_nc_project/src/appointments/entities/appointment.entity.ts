@@ -31,4 +31,5 @@ export class Appointment extends BaseEntity {
     @ManyToOne(() => Patient, (patient) => patient.id)
     @JoinColumn()
     patient: string
+
 }
