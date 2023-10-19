@@ -7,11 +7,6 @@ import { DoctorModule } from './doctor/doctor.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PatientsModule } from './patients/patients.module';
 import { SpecialtiesModule } from './specialties/specialties.module';
-=======
-import { JwtModule } from '@nestjs/jwt';
-import { PatientsModule } from './patients/patients.module';
-import { SpecialtiesModule } from './specialties/specialties.module';
-
 
 @Module({
   imports: [

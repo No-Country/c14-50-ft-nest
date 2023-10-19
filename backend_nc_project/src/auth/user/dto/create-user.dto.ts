@@ -17,7 +17,6 @@ export class CreateUserDto {
     @MaxLength(25)
     lastName: string;
 
-
     @IsEmail()
     email:string;
 
@@ -38,5 +37,8 @@ export class CreateUserDto {
 
     @IsEnum(ERole)
     role: ERole;
+
+    @IsString()
+    healthInsurance?: string;
     
 }
