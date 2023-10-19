@@ -13,7 +13,7 @@ import {
   StepTitle,
   Stepper,
   useSteps,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -35,11 +35,11 @@ const steps = [
     description: "Confirma el turno elegido",
   },
 ];
-export default function SolicitarTurnos () {
+export default function SolicitarTurnos() {
   // const [next, setNext] = useState()
 
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("")
-  const [selectedDoc, setSelectedDoc] = useState({})
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("");
+  const [selectedDoc, setSelectedDoc] = useState({});
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length,
@@ -50,7 +50,7 @@ export default function SolicitarTurnos () {
     {
       specialty: selectedSpecialty,
       doctor: selectedDoc,
-      user: "",
+      user: "Jueves 19/10/2023 1:00 p.m.",
     },
   ];
 
@@ -111,7 +111,8 @@ export default function SolicitarTurnos () {
         )}
         {activeStep === 1 ? (
           <DoctorsResult
-            selectedDoc={selectedDoc} setSelectedDoc={setSelectedDoc}
+            selectedDoc={selectedDoc}
+            setSelectedDoc={setSelectedDoc}
             selectedSpeciality={selectedSpecialty}
           />
         ) : (
@@ -121,8 +122,9 @@ export default function SolicitarTurnos () {
       </Box>
       <div className="flex justify-around items-center my-6">
         <button
-          className={`${ activeStep === 0 ? "invisible" : "visible"
-            } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
+          className={`${
+            activeStep === 0 ? "invisible" : "visible"
+          } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
           data-ripple-light="true"
           onClick={handlerPrev}
         >
