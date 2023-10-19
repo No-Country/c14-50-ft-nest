@@ -7,7 +7,7 @@ import { DoctorModule } from './doctor/doctor.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PatientsModule } from './patients/patients.module';
 import { SpecialtiesModule } from './specialties/specialties.module';
-
+import { AppointmentsModule } from './appointments/appointments.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,7 +42,8 @@ import { SpecialtiesModule } from './specialties/specialties.module';
     UserModule,
     DoctorModule,
     PatientsModule,
-    SpecialtiesModule
+    SpecialtiesModule,
+    AppointmentsModule
   ],
   controllers: [],
   providers: [JwtModule],
