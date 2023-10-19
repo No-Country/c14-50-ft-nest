@@ -12,7 +12,7 @@ export interface ListItem {
     nombre: string;
     especialidad: string;
     género: string;
-    edad: string;
+    edad?: string;
   };
 
   user: string;

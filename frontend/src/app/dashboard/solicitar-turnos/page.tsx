@@ -2,6 +2,7 @@
 import ConfirmAppointment from "@/components/ConfirmAppointment";
 import DoctorsResult from "@/components/DoctorsResult";
 import SpecialtyForm from "@/components/SpecialtyForm";
+import HoursForm from "@/components/HoursForm";
 import {
   Box,
   Step,
@@ -35,13 +36,6 @@ const steps = [
     description: "Confirma el turno elegido",
   },
 ];
-<<<<<<< HEAD
-export default function SolicitarTurnos() {
-  // const [next, setNext] = useState()
-
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("");
-  const [selectedDoc, setSelectedDoc] = useState({});
-=======
 
 type Doctor = {
   nombre: string;
@@ -56,7 +50,6 @@ export default function SolicitarTurnos () {
     especialidad: '',
     género: '',
   })
->>>>>>> ce345e4e63b6b7ca4ad5a544d8321816667b00c3
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length,
@@ -123,6 +116,11 @@ export default function SolicitarTurnos () {
       <Box>
         {activeStep === 0 ? (
           <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} />
+        ) : (
+          false
+        )}
+         {activeStep === 2 ? (
+         <HoursForm/>
         ) : (
           false
         )}
