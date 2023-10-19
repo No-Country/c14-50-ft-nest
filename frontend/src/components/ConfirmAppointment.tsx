@@ -1,20 +1,32 @@
-interface Doctor {
-  nombre: string;
-  especialidad: string;
-  género: string;
-  edad: string;
-}
+// interface Doctor {
+//   nombre: string;
+//   especialidad: string;
+//   género: string;
+//   edad: string;
+// }
 
 export interface ListItem {
-  nombre: string;
   specialty: string | null;
-  doctor: Doctor;
+
+  doctor: {
+    nombre: string;
+    especialidad: string;
+    género: string;
+    edad: string;
+  };
+
   user: string;
 }
 
 interface ListProps {
   list: ListItem[];
 }
+
+// type Doctor = {
+//   nombre: string;
+//   especialidad: string;
+//   género: string;
+// };
 
 export default function ConfirmAppointment({ list }: ListProps) {
   return (
@@ -24,27 +36,21 @@ export default function ConfirmAppointment({ list }: ListProps) {
           key={index}
           className="list-none grid grid-flow-row md:grid-flow-col place-content-around "
         >
-          <div className=" pr-4 ">
-            <h1 className="text-xl mb-2 uppercase border-b-2 border-slate-500">
-              Especialidad
-            </h1>
-            <p>{item.specialty}</p>
+          <h1>Especialidad</h1>
+          <p>{item.specialty}</p>
+          <div>
+            <h1>Información del doctor</h1>
+            {/* {item.doctor && (
+              Object.keys(item.doctor as Doctor ).map((property, propIndex) => (
+                <p key={propIndex}>
+                  {property}: {item.doctor[property]}
+                </p>
+              ))
+            )} */}
+            {JSON.stringify(item.doctor)}
           </div>
-          <div className=" px-2 ">
-            <h1 className="text-xl mb-2 uppercase border-b-2 border-slate-500">
-              Información del doctor
-            </h1>
-            <p>{item.doctor.nombre}</p>
-            <p>{item.doctor.especialidad}</p>
-            <p>{item.doctor.género}</p>
-            <p>{item.doctor.edad}</p>
-          </div>
-          <div className="px-4">
-            <h1 className="text-xl mb-2 uppercase border-b-2 border-slate-500">
-              Hoario seleccionado
-            </h1>
-            <p>{item.user}</p>
-          </div>
+          <h1>Hoario seleccionado</h1>
+          <p>{item.user}</p>
         </li>
       ))}
     </div>

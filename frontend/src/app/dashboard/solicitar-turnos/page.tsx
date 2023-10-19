@@ -35,11 +35,28 @@ const steps = [
     description: "Confirma el turno elegido",
   },
 ];
+<<<<<<< HEAD
 export default function SolicitarTurnos() {
   // const [next, setNext] = useState()
 
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("");
   const [selectedDoc, setSelectedDoc] = useState({});
+=======
+
+type Doctor = {
+  nombre: string;
+  especialidad: string;
+  género: string;
+};
+
+export default function SolicitarTurnos () {
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("")
+  const [selectedDoc, setSelectedDoc] = useState<Doctor>({
+    nombre: '',
+    especialidad: '',
+    género: '',
+  })
+>>>>>>> ce345e4e63b6b7ca4ad5a544d8321816667b00c3
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length,
