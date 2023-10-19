@@ -1,12 +1,15 @@
-import { Transform } from "class-transformer";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
+import { Column, Entity, ManyToMany } from "typeorm";
+import { BaseEntity } from "../../common/baseEntity";
+import { Doctor } from "src/doctor/entities/doctor.entity";
 
 @Entity()
-export class Specialtie {
-
-    @PrimaryGeneratedColumn('uuid')
-    id:string
+export class Specialtie extends BaseEntity {
 
     @Column({nullable:false})
     name:string
+
+    @ManyToMany(() => Doctor, (doctor) => doctor.specialties)
+    doctors: Doctor[]
+
 }

@@ -11,25 +11,9 @@ export class CreatePatientDto {
     @MinLength(3)
     lastName:string
 
-    @IsInt()
-    @IsPositive()
-    @MinLength(5)
-    document:number
-
-    @IsString()
-    @MinLength(6)
-    password:string
-
-    @IsEmail()
-    @MinLength(3)
-    email:string
-
     @IsString()
     @MinLength(3)
     birthDate:string
-
-    @IsEnum(ERole)
-    role: ERole;
 
     @IsPhoneNumber()
     @IsOptional()
