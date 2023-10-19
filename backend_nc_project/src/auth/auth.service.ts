@@ -5,7 +5,6 @@ import { UserService } from './user/user.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { JWT_SECRET } from 'src/common/constants';
-import { PatientsService } from 'src/patients/patients.service';
 //!Falta importar el de los doctores
 
 const saltOrRounds = 10;
@@ -15,32 +14,19 @@ export class AuthService {
     constructor(
             private readonly userService: UserService,
             private jwtService: JwtService,
-            private readonly patientService:PatientsService
             ) {}
 
     async doctorRegister({ firstName, lastName, email, password, document, birthDate, gender, role }: RegisterDto){
 
-    async register( data : RegisterDto){
         try {
             
-            const verifyUser = await this.userService.findByEmailExistent(data.email)
+            const verifyUser = await this.userService.findByEmailExistent(email)
             if (verifyUser) throw new BadRequestException(`This Email is already registered`);
-            if (data.document <= 99999) throw new BadRequestException("document must be longer than or equal to 6 characters");
 
-
-            const encriptedPass = await bcrypt.hash(data.password, saltOrRounds);
-
-            if (data.role === "patient"){
-                await this.patientService.create({...data,password: encriptedPass})
-                console.log("SE CREO EL PACIENTE");
-            } else{
-                //await this.doctorService.create({...})
-            }
+            const encriptedPass = await bcrypt.hash(password, saltOrRounds)
             
 
-            console.log("Intentando guardar las credenciales en user table");
-            const newUser = await this.userService.create({document:data.document, password: encriptedPass, role: data.role, email: data.email})
-            console.log("GUARDADO!");
+            const newUser = await this.userService.createDoctor({ document, password: encriptedPass, role, email, firstName, lastName, birthDate })
 
             return newUser
 
@@ -74,18 +60,18 @@ export class AuthService {
         }
     }
 
-    async register( data : RegisterDto){
+    async patientRegister( data : RegisterDto){
         try {
-            
-            const verifyUser = await this.userService.findByEmailExistent(data.email)
-            if (verifyUser) throw new BadRequestException(`This Email is already registered`);
-            // if (data.document <= 99999) throw new BadRequestException("document must be longer than or equal to 6 characters");
+
 
             const encriptedPass = await bcrypt.hash(data.password, saltOrRounds);
+            
+            const newUser = await this.userService.createPatient({ firstName: data.firstName, lastName: data.lastName, document:data.document, password: encriptedPass, role: data.role, email: data.email, birthDate: data.birthDate, healthInsurance: data.healthInsurance })
 
-            return await this.patientService.create({...data,password: encriptedPass})
-          
+            return newUser
+
         } catch (error) {
+            throw new BadRequestException(error);
 
         }
     }

@@ -6,13 +6,15 @@ import { CreateUserDto, UpdateUserDto } from './dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 import { DoctorService } from '../../doctor/doctor.service';
 import { CreateDoctorDto } from '../../doctor/dto/create-doctor.dto';
+import { PatientService } from 'src/patients/patients.service';
 
 
 @Injectable()
 export class UserService {
     constructor(
       @InjectRepository(User) private readonly userRepository: Repository<User>, 
-      private readonly doctorService: DoctorService
+      private readonly doctorService: DoctorService,
+      private readonly patientService: PatientService
       ){}
 
     async findAll({ offset=0, limit=10 }: PaginationDto): Promise<User[]>{
@@ -56,6 +58,25 @@ export class UserService {
       birthDate: createUserDto.birthDate,
       phone: createUserDto.phone,
       schedule: ''
+    });
+
+    return doctor;
+
+  }
+
+  async createPatient(createUserDto: CreateUserDto) {
+        
+    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document});
+
+    await this.userRepository.save(user);
+
+    const doctor = await this.patientService.create({
+      firstName: createUserDto.firstName,
+      lastName: createUserDto.lastName,
+      birthDate: createUserDto.birthDate,
+      phone: createUserDto.phone,
+      healthInsurance: createUserDto.healthInsurance,
+      
     });
 
     return doctor;

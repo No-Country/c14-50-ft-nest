@@ -6,7 +6,7 @@ import { Patient } from './entities/patient.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class PatientsService {
+export class PatientService {
 
   constructor(
     @InjectRepository(Patient)
@@ -21,7 +21,7 @@ export class PatientsService {
     return await this.patientRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const patient = await this.patientRepository.findOneBy({id});
     if(!patient) throw new Error('Patient not found');
     return patient;
@@ -33,13 +33,13 @@ export class PatientsService {
     return patient;
   }
 
-  async update(id: number, updatePatientDto: UpdatePatientDto) {
+  async update(id: string, updatePatientDto: UpdatePatientDto) {
     const patient = await this.patientRepository.findOneBy({id});
     if(!patient) throw new Error('Patient not found');
     return await this.patientRepository.update(id,updatePatientDto);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const patient = await this.patientRepository.findOneBy({id});
     if(!patient) throw new Error('Patient not found');
     await this.patientRepository.delete(id);

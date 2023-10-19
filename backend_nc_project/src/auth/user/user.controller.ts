@@ -12,7 +12,7 @@ export class UserController {
   @Auth(ERole.ADMIN)
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    return this.userService.createDoctor(createUserDto);
   }
 
   @Auth(ERole.DOCTOR, ERole.ADMIN)
