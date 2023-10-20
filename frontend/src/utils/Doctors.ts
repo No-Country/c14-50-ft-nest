@@ -9,55 +9,55 @@ export const doctors: Doctor[] = [
   {
     nombre: "Dr. Smith",
     género: "Masculino",
-    especialidad: "Cardiología",
+    especialidad: "Cardiólogo",
     edad: 45
   },
   {
     nombre: "Dra. Johnson",
     género: "Femenino",
-    especialidad: "Dermatología",
+    especialidad: "Especialista en Otorrinolaringología",
     edad: 38
   },
   {
     nombre: "Dr. García",
     género: "Masculino",
-    especialidad: "Pediatría",
+    especialidad: "Oftalmólogo",
     edad: 50
   },
   {
     nombre: "Dra. Martinez",
     género: "Femenino",
-    especialidad: "Ginecología",
+    especialidad: "Neurólogo",
     edad: 42
   },
   {
     nombre: "Dr. Kim",
     género: "Masculino",
-    especialidad: "Cardiología",
+    especialidad: "Dermatólogo",
     edad: 48
   },
   {
     nombre: "Dra. Lopez",
     género: "Femenino",
-    especialidad: "Dermatología",
+    especialidad: "Reumatólogo",
     edad: 35
   },
   {
     nombre: "Dr. Patel",
     género: "Masculino",
-    especialidad: "Oncología",
+    especialidad: "Urólogo",
     edad: 55
   },
   {
     nombre: "Dra. Chen",
     género: "Femenino",
-    especialidad: "Ginecología",
+    especialidad: "Psiquiatra",
     edad: 40
   },
   {
     nombre: "Dr. Wilson",
     género: "Masculino",
-    especialidad: "Cardiología",
+    especialidad: "Ginecólogo",
     edad: 52
   },
   {
@@ -69,31 +69,31 @@ export const doctors: Doctor[] = [
   {
     nombre: "Dr. Rodriguez",
     género: "Masculino",
-    especialidad: "Neurología",
+    especialidad: "Medicina general",
     edad: 47
   },
   {
     nombre: "Dra. Lee",
     género: "Femenino",
-    especialidad: "Dermatología",
+    especialidad: "Dermatólogo",
     edad: 39
   },
   {
     nombre: "Dr. Hernandez",
     género: "Masculino",
-    especialidad: "Oncología",
+    especialidad: "Oncólogo",
     edad: 53
   },
   {
     nombre: "Dra. Taylor",
     género: "Femenino",
-    especialidad: "Ginecología",
+    especialidad: "Ginecólogo",
     edad: 41
   },
   {
     nombre: "Dr. Nguyen",
     género: "Masculino",
-    especialidad: "Cardiología",
+    especialidad: "Cardiólogo",
     edad: 49
   },
   {
@@ -105,19 +105,19 @@ export const doctors: Doctor[] = [
   {
     nombre: "Dr. Kim",
     género: "Masculino",
-    especialidad: "Cardiología",
+    especialidad: "Cardiólogo",
     edad: 46
   },
   {
     nombre: "Dra. Lopez",
     género: "Femenino",
-    especialidad: "Dermatología",
+    especialidad: "Dermatólogo",
     edad: 37
   },
   {
     nombre: "Dr. Patel",
     género: "Masculino",
-    especialidad: "Oncología",
+    especialidad: "Oncólogo",
     edad: 54
   },
   {
@@ -141,7 +141,7 @@ export const doctors: Doctor[] = [
   {
     nombre: "Dra. González",
     género: "Femenino",
-    especialidad: "Oftalmología",
+    especialidad: "Oftalmólogo",
     edad: 47
   },
   {

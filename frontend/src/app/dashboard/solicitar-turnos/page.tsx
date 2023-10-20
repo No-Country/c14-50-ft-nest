@@ -1,8 +1,8 @@
-"use client";
-import ConfirmAppointment from "@/components/ConfirmAppointment";
-import DoctorsResult from "@/components/DoctorsResult";
-import HoursForm from "@/components/HoursForm";
-import SpecialtyForm from "@/components/SpecialtyForm";
+"use client"
+import ConfirmAppointment from "@/components/ConfirmAppointment"
+import DoctorsResult from "@/components/DoctorsResult"
+import HoursForm from "@/components/HoursForm"
+import SpecialtyForm from "@/components/SpecialtyForm"
 import {
   Box,
   Step,
@@ -14,81 +14,81 @@ import {
   StepTitle,
   Stepper,
   useSteps
-} from "@chakra-ui/react";
-import { useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+} from "@chakra-ui/react"
+import { useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
 
 const steps = [
   {
     title: "Elegir especialidad médica",
-    description: "Selecciona la especialidad que necesitas",
+    description: "Selecciona la especialidad que necesitas"
   },
   {
     title: "Elegir doctor",
-    description: "Elige el doctor según la especialidad",
+    description: "Elige el doctor según la especialidad"
   },
   {
     title: "Seleccionar horario",
-    description: "Escoge la fecha y hora de tu consulta",
+    description: "Escoge la fecha y hora de tu consulta"
   },
   {
     title: "Confirmar turno",
-    description: "Confirma el turno elegido",
-  },
-];
+    description: "Confirma el turno elegido"
+  }
+]
 
 type Doctor = {
-  nombre: string;
-  especialidad: string;
-  género: string;
+  nombre: string
+  especialidad: string
+  género: string
   edad: number
-};
+}
 
-export default function SolicitarTurnos () {
+export default function SolicitarTurnos() {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("")
   const [selectedDoc, setSelectedDoc] = useState<Doctor>({
-    nombre: '',
-    especialidad: '',
-    género: '',
+    nombre: "",
+    especialidad: "",
+    género: "",
     edad: 0
   })
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
-    count: steps.length,
-  });
+    count: steps.length
+  })
 
   const dataToSend = [
     {
       specialty: selectedSpecialty,
       doctor: selectedDoc,
-      user: "Jueves 19/10/2023 1:00 p.m.",
-    },
-  ];
+      user: "Jueves 19/10/2023 1:00 p.m."
+    }
+  ]
 
   const handlerNext = () => {
     if (activeStep === 3) {
-      dataToSend;
-      console.log(dataToSend);
-      return;
+      dataToSend
+      console.log(dataToSend)
+      return
     } else {
-      if (selectedSpecialty === "Selecciona especialidad") {
+      if (selectedSpecialty === "Seleccione una especialidad") {
         toast.error("Seleccione una especialidad")
-        return;
+        return
       }
-      setActiveStep((prevActiveStep: any) => prevActiveStep + 1);
+      setActiveStep((prevActiveStep: any) => prevActiveStep + 1)
     }
-  };
+  }
 
   const handlerPrev = () => {
     if (activeStep === 0) {
-      return;
+      return
     } else {
-      setActiveStep((prevActiveStep: any) => prevActiveStep - 1);
+      setActiveStep((prevActiveStep: any) => prevActiveStep - 1)
     }
-  };
+  }
 
   return (
-    <main className="h-screen lg:w-[80%] lg:ml-auto bg-[#f0f4f7] p-10 ">
+    <main className="h-screen lg:w-[80%] lg:ml-auto bg-[#f0f4f7] p-10 position-relative">
       <Stepper
         index={activeStep}
         display={{ base: "block", md: "flex" }}
@@ -124,11 +124,7 @@ export default function SolicitarTurnos () {
         ) : (
           false
         )}
-        {activeStep === 2 ? (
-          <HoursForm />
-        ) : (
-          false
-        )}
+        {activeStep === 2 ? <HoursForm /> : false}
         {activeStep === 1 ? (
           <DoctorsResult
             selectedDoc={selectedDoc}
@@ -142,8 +138,9 @@ export default function SolicitarTurnos () {
       </Box>
       <div className="flex justify-around items-center my-6">
         <button
-          className={`${ activeStep === 0 ? "invisible" : "visible"
-            } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
+          className={`${
+            activeStep === 0 ? "invisible" : "visible"
+          } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
           data-ripple-light="true"
           onClick={handlerPrev}
         >
@@ -157,10 +154,7 @@ export default function SolicitarTurnos () {
           {activeStep === 3 ? "Confirmar" : "Siguente"}
         </button>
       </div>
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-      />
+      <Toaster position="top-center" reverseOrder={false} />
     </main>
-  );
+  )
 }
