@@ -1,10 +1,18 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { getCurrentDate } from '@/utils/getCurrentDate'
+import { Dispatch, SetStateAction } from 'react'
 
-interface HoursFormProps {}
+type Date = {
+  date: string
+  hour: string
+}
+interface Props {
+  setDateInfo: Dispatch<SetStateAction<Date>>
+}
 
-const HoursForm = ({}: HoursFormProps) => {
-  const [selected, setSelected] = useState("")
-
+const HoursForm = ({ setDateInfo }: Props) => {
+  const { year, month, day } = getCurrentDate()
+  const minDate = `${ year }-${ month }-${ day }`
+  const maxDate = `${ year }-${ parseInt(month) + 2 }-${ day }`
   const options = [
     ["9:00", "9:30"],
     ["10:00", "10:30"],
@@ -16,16 +24,37 @@ const HoursForm = ({}: HoursFormProps) => {
     ["16:00", "16:30"]
   ]
 
+  const handleHour = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedHour = e.target.value;
+    // Aquí estableces el estado utilizando setDateInfo
+    setDateInfo((prevDateInfo) => ({
+      ...prevDateInfo,
+      hour: selectedHour,
+    }));
+  };
+
+  const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = e.target.value;
+    // Aquí estableces el estado utilizando setDateInfo
+    setDateInfo((prevDateInfo) => ({
+      ...prevDateInfo,
+      date: selectedDate,
+    }));
+  };
+
   return (
-    <select onChange={(e) => {}} name="specialty">
-      {options.map((option, index) => {
-        return (
-          <option key={index} value={option}>
-            {`${option[0]} - ${option[1]}`}
-          </option>
-        )
-      })}
-    </select>
+    <div className='flex'>
+      <input type="date" min={minDate} max={maxDate} onChange={handleDate} />
+      <select onChange={handleHour}>
+        {options.map((option, index) => {
+          return (
+            <option key={index} value={option}>
+              {`${ option[0] } - ${ option[1] }`}
+            </option>
+          )
+        })}
+      </select>
+    </div>
   )
 }
 

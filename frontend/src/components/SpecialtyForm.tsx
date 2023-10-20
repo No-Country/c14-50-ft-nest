@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect } from "react"
 
 interface SpecialtyFormProps {
-  setSelectedSpecialty: Dispatch<SetStateAction<string | null>>
+  setSelectedSpecialty: Dispatch<SetStateAction<string>>
 }
 
 const SpecialtyForm = ({ setSelectedSpecialty }: SpecialtyFormProps) => {
