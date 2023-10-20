@@ -42,7 +42,8 @@ const RegisterForm = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  const URL = "https://nc-project-lim7.onrender.com/api/auth/register";
+  const URLDOCTOR = "https://nc-project-lim7.onrender.com/api/auth/register/doctor";
+  const URLPATIENT = "https://nc-project-lim7.onrender.com/api/auth/register/patient";
   const router = useRouter();
 
   function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
@@ -75,16 +76,16 @@ const RegisterForm = () => {
 
   const submitData = (data: DoctorData | ClientData) => {
     const dataToSend = {
-      name: data.name,
+      firstName: data.name,
       lastName: data.lastName,
       document: data.dni,
       email: data.email,
-      birthdate: data.birthdate,
+      birthDate: data.birthdate,
       password: data.password,
     };
     if (isChecked) {
       toast.promise(
-        axios.post(URL, { ...dataToSend, role: "doctor" }).then(() => {
+        axios.post(URLDOCTOR, { ...dataToSend, role: "doctor" }).then(() => {
           router.push("/auth/login");
         }),
         {
@@ -98,19 +99,19 @@ const RegisterForm = () => {
       setSelectedItems([]);
     } else {
       toast.promise(
-        axios.post(URL, { ...dataToSend, role: "patient" }).then(() => {
+        axios.post(URLPATIENT, { ...dataToSend, role: "patient" }).then(() => {
           router.push("/auth/login");
+          reset();
         }),
         {
           loading: "Registrando...",
           success: <b>Registro exitoso!</b>,
-          error: (err: string) => `${err.toString()}`, //err.response.data.message
+          error: (err: string) => `${err.response.data}`, //err.response.data.message
           // error: <b>No hemos podido registrarte</b>,
           // success: (data) => `Te has registrado correctamente ${data.name}`,
         }
       );
     }
-    reset();
   };
 
   function getCurrentDate() {
