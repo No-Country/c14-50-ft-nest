@@ -10,7 +10,7 @@ const HeaderHome = () => {
   // <Image width={20} height={20} src={"./banner.svg"} alt='logo'></Image>
 
   return (
-    <header className="relative bg-primary p-3 lg:px-4 lg:py-2 h-16 lg:h-20 xl:h-24 lg:w-screen z-50 text-white shadow-2xl">
+    <header className="relative bg-primary p-3 lg:px-4 lg:py-2 h-16 lg:h-20 xl:h-24 w-full z-50 text-white shadow-2xl">
       <div className="container mx-auto h-full relative z-10">
         <div className="flex justify-between items-center h-full font-Nunito">
           <div className="flex items-center">

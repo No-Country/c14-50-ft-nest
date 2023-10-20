@@ -14,9 +14,9 @@ import {
   StepTitle,
   Stepper,
   useSteps
-} from "@chakra-ui/react"
-import { useState } from "react"
-import toast, { Toaster } from "react-hot-toast"
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const steps = [
   {
@@ -42,10 +42,15 @@ type Doctor = {
   especialidad: string
   género: string
   edad: number
+};
+type Date = {
+  date: string
+  hour: string
 }
 
-export default function SolicitarTurnos() {
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>("")
+export default function SolicitarTurnos () {
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("")
+  const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '' })
   const [selectedDoc, setSelectedDoc] = useState<Doctor>({
     nombre: "",
     especialidad: "",
@@ -57,13 +62,15 @@ export default function SolicitarTurnos() {
     count: steps.length
   })
 
-  const dataToSend = [
-    {
-      specialty: selectedSpecialty,
-      doctor: selectedDoc,
-      user: "Jueves 19/10/2023 1:00 p.m."
-    }
-  ]
+  const dataToSend = {
+    specialty: selectedSpecialty,
+    doctor: selectedDoc,
+    dateSelected: dateInfo,//"Jueves 19/10/2023 1:00 p.m.",
+  };
+
+  useEffect(() => {
+    console.log(dataToSend)
+  }, [dataToSend])
 
   const handlerNext = () => {
     if (activeStep === 3) {
@@ -119,22 +126,26 @@ export default function SolicitarTurnos() {
         ))}
       </Stepper>
       <Box>
-        {activeStep === 0 ? (
-          <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} />
-        ) : (
-          false
-        )}
-        {activeStep === 2 ? <HoursForm /> : false}
-        {activeStep === 1 ? (
-          <DoctorsResult
+        {activeStep === 0
+          ? <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} />
+          : false
+        }
+        {activeStep === 2
+          ? <HoursForm setDateInfo={setDateInfo} />
+          : false
+        }
+        {activeStep === 1
+          ? <DoctorsResult
             selectedDoc={selectedDoc}
             setSelectedDoc={setSelectedDoc}
             selectedSpeciality={selectedSpecialty}
           />
-        ) : (
-          false
-        )}
-        {activeStep === 3 ? <ConfirmAppointment list={dataToSend} /> : false}
+          : false
+        }
+        {activeStep === 3
+          ? <ConfirmAppointment info={dataToSend} />
+          : false
+        }
       </Box>
       <div className="flex justify-around items-center my-6">
         <button

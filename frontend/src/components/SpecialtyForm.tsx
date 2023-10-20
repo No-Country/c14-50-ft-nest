@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Loader from "./Loader"
 
 interface SpecialtyFormProps {
-  setSelectedSpecialty: Dispatch<SetStateAction<string | null>>
+  setSelectedSpecialty: Dispatch<SetStateAction<string>>
 }
 
 interface speciaty {

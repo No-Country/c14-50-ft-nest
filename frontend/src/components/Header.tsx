@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Header () {
   const MenuInfo = [{
-    href: "/",
+    href: "/dashboard/summary",
     id: 0,
     link: "Home"
   },

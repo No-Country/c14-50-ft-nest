@@ -1,6 +1,7 @@
 "use client";
 import { ClientSchema, options } from "@/utils/ClientSchema";
 import { DoctorSchema, genreOptions } from "@/utils/DoctorSchema";
+import { getCurrentDate } from '@/utils/getCurrentDate';
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Link from "next/link";
@@ -37,6 +38,8 @@ type DoctorData = {
 
 const RegisterForm = () => {
   // EJEMPLOS DE MATRICULAS EN CABA, BS.AS Y CBA => CABA-12345, PBA-6789, CORD-AB123 o CORD-CD456.
+  const { year, month, day } = getCurrentDate()
+  const currentDate = `${ year }-${ month }-${ day }`
   const date = useRef<HTMLInputElement>(null);
   const [newError, setNewError] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -46,7 +49,7 @@ const RegisterForm = () => {
   const URLPATIENT = "https://nc-project-lim7.onrender.com/api/auth/register/patient";
   const router = useRouter();
 
-  function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleCheckboxChange (event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     if (event.target.checked) {
       setSelectedItems([...selectedItems, value]);
@@ -106,21 +109,13 @@ const RegisterForm = () => {
         {
           loading: "Registrando...",
           success: <b>Registro exitoso!</b>,
-          error: (err: string) => `${err.response.data}`, //err.response.data.message
+          error: (err: string) => `${ err.toString() }`, //err.response.data.message
           // error: <b>No hemos podido registrarte</b>,
           // success: (data) => `Te has registrado correctamente ${data.name}`,
         }
       );
     }
   };
-
-  function getCurrentDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
 
   const handleChange = () => {
     unregister("birthdate");
@@ -137,9 +132,7 @@ const RegisterForm = () => {
 
   return (
     <form
-      className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${
-        newError ? "gap-1" : "gap-5"
-      }`}
+      className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${ newError ? "gap-1" : "gap-5" }`}
       onSubmit={handleSubmit(submitData as SubmitHandler<FieldValues>)}
     >
       <div>
@@ -207,9 +200,8 @@ const RegisterForm = () => {
             >
               <input
                 type="checkbox"
-                className={`form-checkbox h-5 w-5 text-primary ${
-                  selectedItems.includes(option) ? "bg-primary" : "bg-white"
-                }`}
+                className={`form-checkbox h-5 w-5 text-primary ${ selectedItems.includes(option) ? "bg-primary" : "bg-white"
+                  }`}
                 value={option}
                 checked={selectedItems.includes(option)}
                 {...register("insurance")}
@@ -244,7 +236,7 @@ const RegisterForm = () => {
         <input
           type="date"
           ref={date}
-          max={getCurrentDate()}
+          max={currentDate}
           // onChange={handleChange}
           onBlur={handleChange}
         />
