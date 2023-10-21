@@ -46,20 +46,20 @@ const HeaderHome = () => {
               className="text-3xl text-white hover:text-blue-200"
               onClick={toggleMenu}
             >
-              ☰
+              {isMenuOpen ? '✖' : '☰'}
             </button>
             {isMenuOpen && (
-              <div className="lg:hidden absolute top-12 -left-32 bg-primary z-30 lg:w-full w-auto">
+              <div className="lg:hidden fixed top-16 left-0 font-semibold bg-slate-200 z-30 w-screen h-screen flex flex-col text-center">
                 {/* Enlaces del menú para pantallas pequeñas */}
                 <Link
                   href="/auth/register"
-                  className="block text-white hover:text-blue-200 m-10"
+                  className="block text-primary text-2xl  hover:text-blue-200 m-10 "
                 >
                   Registrarse
                 </Link>
                 <Link
                   href="/auth/login"
-                  className="block text-white hover:text-blue-200 m-10"
+                  className="block text-primary text-2xl hover:text-blue-200 m-10"
                 >
                   Iniciar Sesión
                 </Link>
