@@ -45,14 +45,14 @@ export default function Menu ({ list }: MenuProps) {
         </div>
       </aside>
       <nav
-        className={`pt-32 lg:pt-14 bg-[#ffffff]  top-0 lg:top-16 absolute w-full lg:w-[20%] h-screen  flex flex-col  transition-transform duration-500 ease-in-out text-center z-[30] shadow-2xl drop-shadow-2xl ${ isOpen ? "translate-y-0" : "translate-y-[-150%] lg:translate-y-0"
+        className={`pt-32 lg:pt-14 bg-[#ffffff]  top-16 lg:top-16 absolute w-full lg:w-[20%] h-screen  flex flex-col  transition-transform duration-500 ease-in-out text-center z-[30] shadow-2xl drop-shadow-2xl ${ isOpen ? "translate-y-0" : "translate-y-[-150%] lg:translate-y-0"
           } `}
       >
         {list.map((item: { href: string; link: string }, index: number) => {
           return (
             <li
               key={index}
-              className="text-primary font-medium hover:text-white hover:bg-primary text-lg py-4 mx-4 list-none rounded-md lg:border-b-2"
+              className="text-primary font-medium hover:text-white hover:bg-primary text-2xl font-semibold py-4 mx-4 list-none rounded-md lg:border-b-2"
             >
               <Link onClick={handleClick} href={item.href}>
                 {item.link}
