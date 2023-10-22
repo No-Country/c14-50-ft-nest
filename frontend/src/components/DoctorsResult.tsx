@@ -24,13 +24,14 @@ const DoctorsResult = ({
   const [isOpen, setIsOpen] = useState(false)
   const insurances = ["Ossde", "Swiss medical"]
   const [isLoading, setIsLoading] = useState(true)
-  const [alldoctors , setAlldoctors] = useState()
+  const [alldoctors, setAlldoctors] = useState([])
 
   const closeModal = () => {
     setIsOpen(false)
   }
 
   //! alldoctors aqui estan todos los doctores, pero falta adjuntar mas info desde el back
+  // POR FAVOR PONGAN ESPECIALIDAD A LOS DOCTORES :(
   //! hacer un console.log para ver los datos del doctor enviados del back
 
   const handleOutsideClick = (e: any) => {
@@ -75,9 +76,8 @@ const DoctorsResult = ({
               <tr
                 key={index}
                 onClick={() => handleRowClick(doctor)}
-                className={`cursor-pointer ${
-                  selectedDoc === doctor ? "bg-slate-300" : "bg-white"
-                }`}
+                className={`cursor-pointer ${ selectedDoc === doctor ? "bg-slate-300" : "bg-white"
+                  }`}
               >
                 <td>{doctor.nombre}</td>
                 <td className="text-center">{doctor.especialidad}</td>

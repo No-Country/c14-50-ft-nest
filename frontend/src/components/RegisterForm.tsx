@@ -1,6 +1,6 @@
 "use client";
 import { ClientSchema, options } from "@/utils/ClientSchema";
-import { DoctorSchema, genreOptions } from "@/utils/DoctorSchema";
+import { DoctorSchema, genreOptions, specialityOptions } from "@/utils/DoctorSchema";
 import { getCurrentDate } from '@/utils/getCurrentDate';
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -34,6 +34,7 @@ type DoctorData = {
   insurance: string[];
   licenseNumber: string;
   genre: string;
+  speciality: string;
 };
 
 const RegisterForm = () => {
@@ -292,6 +293,22 @@ const RegisterForm = () => {
           {"genre" in errors && errors.genre && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
               {errors.genre.message}
+            </span>
+          )}
+          <div className="mb-0">
+            <label className="block text-sm font-bold mb-2">Especialidad</label>
+            <select {...register("genre")}>
+              <option value="">* Seleccione Su Especialidad *</option>
+              {specialityOptions.map((speciality) => (
+                <option key={speciality} value={speciality}>
+                  {speciality}
+                </option>
+              ))}
+            </select>
+          </div>
+          {"speciality" in errors && errors.speciality && (
+            <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
+              {errors.speciality.message}
             </span>
           )}
         </>

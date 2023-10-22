@@ -37,7 +37,11 @@ export default function ConfirmAppointment ({ info }: Prop) {
         </div>
         <div>
           <h1 className='font-semibold'>Horario seleccionado</h1>
-          <p>{info.dateSelected.date} - {info.dateSelected.hour}</p>
+          <div>
+            <p>{info.dateSelected.date}</p>
+            <p>Desde: {info.dateSelected.hour.substring(0, 5)}</p>
+            <p>Hasta: {info.dateSelected.hour.substring(6)}</p>
+          </div>
         </div>
       </div>
     </div>
