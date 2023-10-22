@@ -14,9 +14,9 @@ import {
   StepTitle,
   Stepper,
   useSteps
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+} from "@chakra-ui/react"
+import { useState } from "react"
+import toast, { Toaster } from 'react-hot-toast'
 
 const steps = [
   {
@@ -67,10 +67,6 @@ export default function SolicitarTurnos () {
     doctor: selectedDoc,
     dateSelected: dateInfo,//"Jueves 19/10/2023 1:00 p.m.",
   };
-
-  useEffect(() => {
-    console.log(dataToSend)
-  }, [dataToSend])
 
   const handlerNext = () => {
     if (activeStep === 3) {
@@ -149,9 +145,8 @@ export default function SolicitarTurnos () {
       </Box>
       <div className="flex justify-around items-center my-6">
         <button
-          className={`${
-            activeStep === 0 ? "invisible" : "visible"
-          } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
+          className={`${ activeStep === 0 ? "invisible" : "visible"
+            } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
           data-ripple-light="true"
           onClick={handlerPrev}
         >
