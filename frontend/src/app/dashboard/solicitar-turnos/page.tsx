@@ -3,6 +3,7 @@ import ConfirmAppointment from "@/components/ConfirmAppointment"
 import DoctorsResult from "@/components/DoctorsResult"
 import HoursForm from "@/components/HoursForm"
 import SpecialtyForm from "@/components/SpecialtyForm"
+import { useGetDoctorsQuery } from '@/redux/services/doctorApi'
 import {
   Box,
   Step,
@@ -61,6 +62,12 @@ export default function SolicitarTurnos () {
     index: 0,
     count: steps.length
   })
+  const { data, error, isLoading, isFetching } = useGetDoctorsQuery(null)
+
+  if (isLoading || isFetching) return console.log('CARGANDO')
+  if (error) return console.log(error)
+  if (data) return console.log(data)
+
 
   const dataToSend = {
     specialty: selectedSpecialty,

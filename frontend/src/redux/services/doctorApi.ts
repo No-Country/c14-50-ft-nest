@@ -12,7 +12,7 @@ type Doctor = {
   schedules: string[]
 }
 
-createApi({
+export const doctorApi = createApi({
   reducerPath: 'doctorApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://nc-project-lim7.onrender.com/api/',
@@ -21,8 +21,10 @@ createApi({
     getDoctors: builder.query<Doctor[], null>({
       query: () => 'doctor'
     }),
-    getDoctorById: builder.query<Doctor, { id: string }>({
+    getDoctorsById: builder.query<Doctor, { id: string }>({
       query: ({ id }) => `doctor/${ id }`
     })
   })
 })
+
+export const { useGetDoctorsQuery, useGetDoctorsByIdQuery } = doctorApi
