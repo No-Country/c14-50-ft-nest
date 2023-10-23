@@ -13,7 +13,7 @@ export default function Banner() {
   }
 
   return (
-    <div className="relative w-fit lg:w-[60%] bg-no-repeat bg-cover h-auto mb-16 lg:h-screen text-white flex flex-col justify-center items-center gap-5">
+    <div className="py-10 lg:py-0 relative w-fit lg:w-[60%] bg-no-repeat bg-cover h-auto mb-16 lg:h-screen text-white flex flex-col justify-center items-center gap-5">
       <Image
         src={"/banner.svg"}
         alt="Banner"
