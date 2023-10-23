@@ -8,7 +8,7 @@ export default function RegisterLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="lg:overflow-y-hidden lg:max-h-screen flex flex-col-reverse lg:flex-row relative">
+    <main className="lg:overflow-y-hidden lg:max-h-screen flex flex-col-reverse lg:flex-row relative min-h-screen">
       <Banner />
       {children}
     </main>
