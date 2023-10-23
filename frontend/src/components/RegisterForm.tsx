@@ -353,7 +353,7 @@ const RegisterForm = () => {
         ¿Ya tienes una cuenta?
         <Link
           href="/auth/login"
-          className="text-blue-700 hover:text-blue-900 mx-2"
+          className="text-blue-700 hover:text-blue-900 mx-2 underline"
         >
           Iniciar sesión
         </Link>
