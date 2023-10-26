@@ -19,7 +19,7 @@ export class DoctorService {
 
   async create(createDoctorDto: CreateDoctorDto) {
     
-    const doctor = await this.doctorRepository.create(createDoctorDto);
+    const doctor = this.doctorRepository.create(createDoctorDto);
     const result = await this.doctorRepository.save(doctor);
 
     const horario = [

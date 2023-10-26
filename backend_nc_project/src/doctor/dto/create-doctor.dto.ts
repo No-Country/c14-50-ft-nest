@@ -1,4 +1,5 @@
-import {  IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import {  IsArray, IsInt, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { Gender } from "src/common/enum";
 
 export class CreateDoctorDto {
 
@@ -21,4 +22,10 @@ export class CreateDoctorDto {
     @IsOptional()
     @IsString()
     schedule?: string[];
+
+    @IsInt()
+    registrationNumber:number
+
+    @IsString()
+    gender:Gender
 }

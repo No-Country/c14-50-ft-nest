@@ -47,17 +47,19 @@ export class UserService {
     
     async createDoctor(createUserDto: CreateUserDto) {
         
-    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document, role:createUserDto.role});
+      const doctor = await this.doctorService.create({
+        firstName: createUserDto.firstName,
+        lastName: createUserDto.lastName,
+        birthDate: createUserDto.birthDate,
+        phone: createUserDto.phone,
+        schedule: createUserDto.schedule,
+        gender: createUserDto.gender,
+        registrationNumber:createUserDto.registrationNumber
+      })
+      
+      const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document, role:createUserDto.role});
 
-    await this.userRepository.save(user);
-
-    const doctor = await this.doctorService.create({
-      firstName: createUserDto.firstName,
-      lastName: createUserDto.lastName,
-      birthDate: createUserDto.birthDate,
-      phone: createUserDto.phone,
-      schedule: createUserDto.schedule
-    })
+      await this.userRepository.save(user);
 
     return doctor;
 
