@@ -26,8 +26,12 @@ const LoginForm = () => {
     toast.promise(
       axios.post(URL, data)
         .then((res: any) => { //falta typear
-          localStorage.setItem("token", res.data.token)
-          localStorage.setItem("id", res.data.userId)
+          const user = {
+            token: res.data.token,
+            userId: res.data.userId,
+            role: res.data.role.name
+          }
+          localStorage.setItem("userInfo", JSON.stringify(user))
           dispatch(authSlice.actions.setUser({
             token: res.data.token,
             userId: res.data.userId,

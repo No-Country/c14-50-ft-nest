@@ -7,6 +7,7 @@ import SpecialtySection from '../components/SpecialtySection';
 import TestimonialsSection from '../components/TestimonialsSection';
 
 const Home = () => {
+
   return (
     <div>
       <HeaderHome />

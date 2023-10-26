@@ -1,9 +1,10 @@
 'use client'
 import Menu from "@/components/Menu";
-import { logoutUser } from '@/redux/features/authSlice';
+import { authSlice, logoutUser } from '@/redux/features/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Header () {
   const router = useRouter()
@@ -25,19 +26,27 @@ export default function Header () {
     id: 1,
     link: "Solicitar un turno"
   },
-  // {
-  //   href: "/dashboard/mis-turnos",
-  //   id: 2,
-  //   link: "Mis turnos"
-  // },
   {
     href: "/dashboard/perfil",
     id: 3,
     link: "Perfil"
   }]
 
+  useEffect(() => {
+    const userInfoString = localStorage.getItem("userInfo");
+    if (userInfoString) {
+      const userInfo = JSON.parse(userInfoString)
+      dispatch(authSlice.actions.setUser({
+        token: userInfo.token,
+        userId: userInfo.userId,
+        role: userInfo.role
+      }))
+    }
+  }, [])
+
   const handleLogout = () => {
     dispatch(logoutUser())
+    localStorage.removeItem('userInfo')
     router.push('/auth/login')
   }
 

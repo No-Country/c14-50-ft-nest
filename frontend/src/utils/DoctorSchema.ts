@@ -41,7 +41,7 @@ export const DoctorSchema: ZodType<DoctorData> = z.object({
     message: 'Ingrese un número de telefono válido',
   }),
   licenseNumber: z.string().min(6, { message: 'Ingrese una matricula válida' }),
-  gender: z.enum(genreOptions, { errorMap: () => ({ message: 'Selecciona una género' }) }),
+  gender: z.enum(genreOptions, { errorMap: () => ({ message: 'Selecciona un género' }) }),
   password: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
   confirmPassword: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
 }).refine((data) => data.password === data.confirmPassword, {

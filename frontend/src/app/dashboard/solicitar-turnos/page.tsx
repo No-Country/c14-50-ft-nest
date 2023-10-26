@@ -3,6 +3,7 @@ import ConfirmAppointment from "@/components/ConfirmAppointment"
 import DoctorsResult from "@/components/DoctorsResult"
 import HoursForm from "@/components/HoursForm"
 import SpecialtyForm from "@/components/SpecialtyForm"
+import { useAppSelector } from '@/redux/hooks'
 import {
   Box,
   Step,
@@ -17,7 +18,7 @@ import {
 } from "@chakra-ui/react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import toast, { Toaster } from 'react-hot-toast'
 
 const steps = [
@@ -54,8 +55,8 @@ type Date = {
 export default function SolicitarTurnos () {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("")
   const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '' })
-  const [dataUser, SetDataUser] = useState<any>({}) //falta typar
-  const userId = localStorage.getItem("id")
+  // const [dataUser, SetDataUser] = useState<any>({}) //falta typar
+  const userId = useAppSelector(state => state.authReducer.userId)
 
 
   const [selectedDoc, setSelectedDoc] = useState<Doctor>({
@@ -70,14 +71,6 @@ export default function SolicitarTurnos () {
     index: 0,
     count: steps.length
   })
-
-  useEffect(() => {
-    axios
-      .get("https://nc-project-lim7.onrender.com/api/users/" + userId)
-      .then((res) => SetDataUser(res.data))
-  }, [])
-
-  localStorage.setItem("patientId", dataUser.patient?.id)
 
 
   const router = useRouter();
@@ -95,7 +88,7 @@ export default function SolicitarTurnos () {
       interval: data.dateSelected.hour.replace(",", " - "),
       doctor: data.doctor.id,
       specialty: data.specialty,
-      patient: dataUser.patient?.id
+      patient: userId
     }
     toast.promise(
 
