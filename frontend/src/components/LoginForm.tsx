@@ -1,4 +1,6 @@
 'use client'
+import { authSlice } from '@/redux/features/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -6,6 +8,7 @@ import { FormEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch()
   const [documento, setDocumento] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
@@ -20,15 +23,16 @@ const LoginForm = () => {
         document: documento,
         password: password
       }
-      const response = await axios
-        .post(URL, data)
-
-      const { token } = response.data
-      console.log(token);
+      const response = await axios.post(URL, data)
+      dispatch(authSlice.actions.setUser({
+        token: response.data.token,
+        userId: response.data.userId,
+        role: response.data.role.name
+      }))
 
       router.push('/dashboard/summary', { scroll: false })
 
-    } catch (err:any) {//falta ponerl el tipo
+    } catch (err: any) {//falta ponerl el tipo
       const errors = err.response.data.message
       if (errors) {
         toast.error(errors);

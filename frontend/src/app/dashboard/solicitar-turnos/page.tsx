@@ -16,7 +16,7 @@ import {
   Stepper,
   useSteps
 } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast, { Toaster } from 'react-hot-toast'
 
 const steps = [
@@ -44,6 +44,7 @@ type Doctor = {
   género: string
   edad: number
 };
+
 type Date = {
   date: string
   hour: string
@@ -64,9 +65,9 @@ export default function SolicitarTurnos () {
   })
   const { data, error, isLoading, isFetching } = useGetDoctorsQuery(null)
 
-  if (isLoading || isFetching) return console.log('CARGANDO')
-  if (error) return console.log(error)
-  if (data) return console.log(data)
+  // if (isLoading || isFetching) return console.log('CARGANDO')
+  // if (error) return console.log(error)
+  // if (data) return console.log(data)
 
 
   const dataToSend = {
@@ -74,6 +75,10 @@ export default function SolicitarTurnos () {
     doctor: selectedDoc,
     dateSelected: dateInfo,//"Jueves 19/10/2023 1:00 p.m.",
   };
+
+  useEffect(() => {
+    console.log(dataToSend)
+  }, [dataToSend])
 
   const handlerNext = () => {
     if (activeStep === 3) {
