@@ -12,11 +12,11 @@ export default function Header () {
     id: 1,
     link: "Solicitar un turno"
   },
-  {
-    href: "/dashboard/mis-turnos",
-    id: 2,
-    link: "Mis turnos"
-  },
+  // {
+  //   href: "/dashboard/mis-turnos",
+  //   id: 2,
+  //   link: "Mis turnos"
+  // },
   {
     href: "/dashboard/perfil",
     id: 3,

@@ -23,7 +23,9 @@ const LoginForm = () => {
 
     toast.promise(
       axios.post(URL, data)
-      .then(() => {
+      .then((res:any) => { //falta typear
+        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("id", res.data.userId)
         router.push("/dashboard/summary");
       }),
       {

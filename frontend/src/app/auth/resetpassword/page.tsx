@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
       e.preventDefault();     
 
-        if(email === '' || password === '' || confirmpass === ''){
+        if(!email || !password || !confirmpass){
           setAlerta('DEBES COMPLETAR LOS CAMPOS');
           
           setTimeout(() => {
@@ -35,7 +35,7 @@ import toast from "react-hot-toast";
           password : password,
           confirmpass : confirmpass
         }
-        console.log(data);
+        
         alert('Enviar al Backend')
         // const response = await axios
         // .post(url, data);                      

@@ -16,7 +16,7 @@ type ClientData = {
   document: number;
   email: string;
   birthDate: string;
-  phone: string;
+  phone: number;
   password: string;
   confirmPassword: string;
   insurance: string;
