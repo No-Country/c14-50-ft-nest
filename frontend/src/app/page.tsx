@@ -1,11 +1,10 @@
 "use client"
-
-import HeaderHome from '../components/HeaderHome';
 import CTAButton from '../components/CTAButton';
+import Footer from '../components/Footer';
+import HeaderHome from '../components/HeaderHome';
+import HospitalMap from '../components/HospitalMap';
 import SpecialtySection from '../components/SpecialtySection';
 import TestimonialsSection from '../components/TestimonialsSection';
-import HospitalMap from '../components/HospitalMap';
-import Footer from '../components/Footer';
 
 const Home = () => {
   return (

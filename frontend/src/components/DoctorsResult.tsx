@@ -1,6 +1,5 @@
-import { doctors } from "@/utils/Doctors"
-import axios from "axios"
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useGetDoctorsQuery } from '@/redux/services/doctorApi'
+import { Dispatch, SetStateAction, useState } from "react"
 import Loader from "./Loader"
 
 type Doctor = {
@@ -24,16 +23,11 @@ const DoctorsResult = ({
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const insurances = ["Ossde", "Swiss medical"]
-  const [isLoading, setIsLoading] = useState(true)
-  const [alldoctors, setAlldoctors] = useState([])
+  const { data, error, isLoading, isFetching } = useGetDoctorsQuery(null)
 
   const closeModal = () => {
     setIsOpen(false)
   }
-
-  //! alldoctors aqui estan todos los doctores, pero falta adjuntar mas info desde el back
-  // POR FAVOR PONGAN ESPECIALIDAD A LOS DOCTORES :(
-  //! hacer un console.log para ver los datos del doctor enviados del back
 
   const handleOutsideClick = (e: any) => {
     if (e.target === e.currentTarget) {
@@ -41,18 +35,8 @@ const DoctorsResult = ({
     }
   }
 
-  useEffect(() => {
-    axios
-      .get("https://nc-project-lim7.onrender.com/api/doctor")
-      .then((res) => setAlldoctors(res.data))
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [])
-
-  const filteredDoctors = alldoctors.filter(
-    (doctor:any) => doctor.specialties[0]?.name === selectedSpeciality //Falta typear
+  const filteredDoctors = data?.filter(
+    (doctor: any) => doctor.specialties[0]?.name === selectedSpeciality //Falta typear
   )
 
   const handleRowClick = (doctor: Doctor) => {
@@ -73,14 +57,14 @@ const DoctorsResult = ({
             </tr>
           </thead>
           <tbody>
-            {filteredDoctors.map((doctor:any, index) => ( //Falta typear
+            {filteredDoctors?.map((doctor: any, index) => ( //Falta typear
               <tr
                 key={index}
                 onClick={() => handleRowClick(doctor)}
                 className={`cursor-pointer ${ selectedDoc === doctor ? "bg-slate-300" : "bg-white"
                   }`}
               >
-                <td>{`${doctor.firstName} ${doctor.lastName}`}</td>
+                <td>{`${ doctor.firstName } ${ doctor.lastName }`}</td>
                 <td className="text-center">{doctor.specialties[0].name}</td>
                 <td className="text-center">{doctor.gender}</td>
                 <td>
@@ -126,7 +110,7 @@ const DoctorsResult = ({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-2xl font-bold">{`${selectedDoc.firstName} ${selectedDoc.lastName}`}</p>
+                    <p className="text-2xl font-bold">{`${ selectedDoc.firstName } ${ selectedDoc.lastName }`}</p>
                     <p>{selectedDoc.specialties}</p>
                   </div>
                   <div></div>

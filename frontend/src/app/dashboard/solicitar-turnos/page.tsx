@@ -14,11 +14,11 @@ import {
   StepTitle,
   Stepper,
   useSteps
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import { useState,useEffect } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import { useEffect, useState } from "react"
+import toast, { Toaster } from 'react-hot-toast'
 
 const steps = [
   {
@@ -54,10 +54,10 @@ type Date = {
 export default function SolicitarTurnos () {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("")
   const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '' })
-  const [dataUser,SetDataUser] = useState<any>({}) //falta typar
+  const [dataUser, SetDataUser] = useState<any>({}) //falta typar
   const userId = localStorage.getItem("id")
 
-  
+
   const [selectedDoc, setSelectedDoc] = useState<Doctor>({
     firstName: "",
     lastName: "",
@@ -71,13 +71,13 @@ export default function SolicitarTurnos () {
     count: steps.length
   })
 
-  useEffect(()=>{
+  useEffect(() => {
     axios
-    .get("https://nc-project-lim7.onrender.com/api/users/"+userId)
-    .then((res) => SetDataUser(res.data))
-  },[])
+      .get("https://nc-project-lim7.onrender.com/api/users/" + userId)
+      .then((res) => SetDataUser(res.data))
+  }, [])
 
-  localStorage.setItem("patientId",dataUser.patient?.id)
+  localStorage.setItem("patientId", dataUser.patient?.id)
 
 
   const router = useRouter();
@@ -88,21 +88,21 @@ export default function SolicitarTurnos () {
     dateSelected: dateInfo,//"Jueves 19/10/2023 1:00 p.m.",
   };
 
-  const setAppointment = (data :any) => { //falta typear
+  const setAppointment = (data: any) => { //falta typear
 
     const dataToSend = {
-      day:data.dateSelected.date,
-      interval:data.dateSelected.hour.replace(",", " - "),
-      doctor : data.doctor.id,
-      specialty:data.specialty,
-      patient:dataUser.patient?.id
+      day: data.dateSelected.date,
+      interval: data.dateSelected.hour.replace(",", " - "),
+      doctor: data.doctor.id,
+      specialty: data.specialty,
+      patient: dataUser.patient?.id
     }
     toast.promise(
 
       axios.post("https://nc-project-lim7.onrender.com/api/appointments", dataToSend)
-      .then(() => {
-        router.push("/dashboard/summary");
-      }),
+        .then(() => {
+          router.push("/dashboard/summary");
+        }),
       {
         loading: "Agendando Turno...",
         success: <b>Turno agendado!</b>,
@@ -189,9 +189,8 @@ export default function SolicitarTurnos () {
       </Box>
       <div className="flex justify-around items-center my-6">
         <button
-          className={`${
-            activeStep === 0 ? "invisible" : "visible"
-          } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
+          className={`${ activeStep === 0 ? "invisible" : "visible"
+            } bg-primary w-28 h-10 self-center text-white hover:bg-[#0C616E] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out duration-300`}
           data-ripple-light="true"
           onClick={handlerPrev}
         >
@@ -202,7 +201,7 @@ export default function SolicitarTurnos () {
           data-ripple-light="true"
           onClick={handlerNext}
         >
-          {activeStep === 3 ? "Confirmar" : "Siguente" }
+          {activeStep === 3 ? "Confirmar" : "Siguente"}
         </button>
       </div>
       <Toaster position="top-center" reverseOrder={false} />
