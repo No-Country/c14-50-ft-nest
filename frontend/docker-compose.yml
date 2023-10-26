@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app: 
-    image: cohorte14/frontend-no-country
+    image: leistman/frontend
     build: 
       context: .
       dockerfile: Dockerfile

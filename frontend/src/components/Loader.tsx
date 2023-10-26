@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
 const Loader = () => {
   return (
     <section className="dots-container">
