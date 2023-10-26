@@ -1,10 +1,11 @@
 interface AppointmentInfo {
   specialty: string;
   doctor: {
-    nombre: string;
-    género: string;
-    especialidad: string;
-    edad: number;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    specialties: Specialties[];
+    age: number;
   }
   dateSelected: {
     date: string,
@@ -12,11 +13,15 @@ interface AppointmentInfo {
   };
 }
 
+interface Specialties {
+  name:string
+}
+
 interface Prop {
   info: AppointmentInfo;
 }
 
-export default function ConfirmAppointment ({ info }: Prop) {
+export default function ConfirmAppointment ({ info }: any) { //Falta typear
   return (
     <div className="w-full bg-white rounded-sm shadow-sm p-10">
       <div className="list-none gap-2 grid grid-flow-row md:grid-flow-col place-content-around">
@@ -28,10 +33,10 @@ export default function ConfirmAppointment ({ info }: Prop) {
           <h1 className='font-semibold'>Información del doctor</h1>
           {info.doctor && (
             <div>
-              <p>Nombre: {info.doctor.nombre}</p>
-              <p>Género: {info.doctor.género}</p>
-              <p>Especialidad: {info.doctor.especialidad}</p>
-              <p>Edad: {info.doctor.edad} Años</p>
+              <p>Nombre: {info.doctor.firstName} {info.doctor.lastName}</p>
+              <p>Género: {info.doctor.gender}</p>
+              <p>Especialidad: {info.doctor.specialties[0].name}</p>
+              {/* <p>Edad: {info.doctor.age} Años</p> */}
             </div>
           )}
         </div>

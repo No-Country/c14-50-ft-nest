@@ -15,7 +15,9 @@ import {
   Stepper,
   useSteps
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import axios from "axios"
+import { useRouter } from "next/navigation"
+import { useState,useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
 const steps = [
@@ -38,10 +40,11 @@ const steps = [
 ]
 
 type Doctor = {
-  nombre: string
-  especialidad: string
-  género: string
-  edad: number
+  firstName: string,
+  lastName: string,
+  specialties: string
+  gender: string
+  age: number
 };
 type Date = {
   date: string
@@ -51,16 +54,33 @@ type Date = {
 export default function SolicitarTurnos () {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("")
   const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '' })
+  const [dataUser,SetDataUser] = useState<any>({}) //falta typar
+  const userId = localStorage.getItem("id")
+
+  
   const [selectedDoc, setSelectedDoc] = useState<Doctor>({
-    nombre: "",
-    especialidad: "",
-    género: "",
-    edad: 0
+    firstName: "",
+    lastName: "",
+    specialties: "",
+    gender: "",
+    age: 0
   })
+
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length
   })
+
+  useEffect(()=>{
+    axios
+    .get("https://nc-project-lim7.onrender.com/api/users/"+userId)
+    .then((res) => SetDataUser(res.data))
+  },[])
+
+  localStorage.setItem("patientId",dataUser.patient?.id)
+
+
+  const router = useRouter();
 
   const dataToSend = {
     specialty: selectedSpecialty,
@@ -68,14 +88,34 @@ export default function SolicitarTurnos () {
     dateSelected: dateInfo,//"Jueves 19/10/2023 1:00 p.m.",
   };
 
-  useEffect(() => {
-    console.log(dataToSend)
-  }, [dataToSend])
+  const setAppointment = (data :any) => { //falta typear
+
+    const dataToSend = {
+      day:data.dateSelected.date,
+      interval:data.dateSelected.hour.replace(",", " - "),
+      doctor : data.doctor.id,
+      specialty:data.specialty,
+      patient:dataUser.patient?.id
+    }
+    toast.promise(
+
+      axios.post("https://nc-project-lim7.onrender.com/api/appointments", dataToSend)
+      .then(() => {
+        router.push("/dashboard/summary");
+      }),
+      {
+        loading: "Agendando Turno...",
+        success: <b>Turno agendado!</b>,
+        error: <b>No hemos podido agendar el turno</b>,
+      }
+    );
+
+  }
 
   const handlerNext = () => {
+
     if (activeStep === 3) {
-      dataToSend
-      console.log(dataToSend)
+      setAppointment(dataToSend)
       return
     } else {
       if (selectedSpecialty === "Seleccione una especialidad") {
@@ -131,7 +171,7 @@ export default function SolicitarTurnos () {
           : false
         }
         {activeStep === 2
-          ? <HoursForm setDateInfo={setDateInfo} />
+          ? <HoursForm dataToSend={dataToSend} setDateInfo={setDateInfo} />
           : false
         }
         {activeStep === 1
@@ -162,7 +202,7 @@ export default function SolicitarTurnos () {
           data-ripple-light="true"
           onClick={handlerNext}
         >
-          {activeStep === 3 ? "Confirmar" : "Siguente"}
+          {activeStep === 3 ? "Confirmar" : "Siguente" }
         </button>
       </div>
       <Toaster position="top-center" reverseOrder={false} />

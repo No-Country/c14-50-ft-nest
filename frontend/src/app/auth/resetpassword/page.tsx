@@ -13,9 +13,17 @@ import toast from "react-hot-toast";
     //const router = useRouter();
       const url = ('url');    
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
+<<<<<<< HEAD
       e.preventDefault();    
         if(email === '' || password === '' || confirmpass === ''){
           setAlerta('DEBES COMPLETAR LOS CAMPOS');          
+=======
+      e.preventDefault();     
+
+        if(!email || !password || !confirmpass){
+          setAlerta('DEBES COMPLETAR LOS CAMPOS');
+          
+>>>>>>> b4625539b1da7133b0e5c91a855f7db7bc51c47c
           setTimeout(() => {
               setAlerta('');
           }, 2000);
@@ -33,7 +41,7 @@ import toast from "react-hot-toast";
           password : password,
           confirmpass : confirmpass
         }
-        console.log(data);
+        
         alert('Enviar al Backend')
         // const response = await axios
         // .post(url, data);                      

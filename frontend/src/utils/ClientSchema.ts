@@ -9,7 +9,7 @@ type ClientData = {
   phone: string
   password: string
   confirmPassword: string
-  //insurance: string
+  insurance: string
 }
 
 export const options = ['Osde', 'Swiss Medical'] as const
@@ -21,7 +21,7 @@ export const ClientSchema: ZodType<ClientData> = z.object({
     message: 'Ingrese un DNI válido',
   }),
   email: z.string().min(4, { message: 'Ingrese un email válido' }).email(),
-  //insurance: z.enum(options, { errorMap: () => ({ message: 'Selecciona una obra social' }) }),
+  insurance: z.enum(options, { errorMap: () => ({ message: 'Selecciona una obra social' }) }),
   birthDate: z.string().datetime(),
   phone: z.string().refine((value) => value.replace(/\D/g, '').length > 7, {
     message: 'Ingrese un número de telefono válido',

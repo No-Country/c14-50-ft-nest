@@ -4,10 +4,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Loader from "./Loader"
 
 type Doctor = {
-  nombre: string
-  especialidad: string
-  género: string
-  edad: number
+  firstName: string
+  lastName: string
+  specialties: string
+  gender: string
+  age: number
 }
 
 interface Props {
@@ -50,8 +51,8 @@ const DoctorsResult = ({
       })
   }, [])
 
-  const filteredDoctors = doctors.filter(
-    (doctor) => doctor.especialidad === selectedSpeciality
+  const filteredDoctors = alldoctors.filter(
+    (doctor:any) => doctor.specialties[0]?.name === selectedSpeciality //Falta typear
   )
 
   const handleRowClick = (doctor: Doctor) => {
@@ -72,16 +73,16 @@ const DoctorsResult = ({
             </tr>
           </thead>
           <tbody>
-            {filteredDoctors.map((doctor, index) => (
+            {filteredDoctors.map((doctor:any, index) => ( //Falta typear
               <tr
                 key={index}
                 onClick={() => handleRowClick(doctor)}
                 className={`cursor-pointer ${ selectedDoc === doctor ? "bg-slate-300" : "bg-white"
                   }`}
               >
-                <td>{doctor.nombre}</td>
-                <td className="text-center">{doctor.especialidad}</td>
-                <td className="text-center">{doctor.género}</td>
+                <td>{`${doctor.firstName} ${doctor.lastName}`}</td>
+                <td className="text-center">{doctor.specialties[0].name}</td>
+                <td className="text-center">{doctor.gender}</td>
                 <td>
                   <svg
                     onClick={() => setIsOpen(true)}
@@ -125,8 +126,8 @@ const DoctorsResult = ({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-2xl font-bold">{selectedDoc.nombre}</p>
-                    <p>{selectedDoc.especialidad}</p>
+                    <p className="text-2xl font-bold">{`${selectedDoc.firstName} ${selectedDoc.lastName}`}</p>
+                    <p>{selectedDoc.specialties}</p>
                   </div>
                   <div></div>
                 </div>

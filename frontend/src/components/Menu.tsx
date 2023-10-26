@@ -52,7 +52,7 @@ export default function Menu ({ list }: MenuProps) {
           return (
             <li
               key={index}
-              className="text-primary font-medium hover:text-white hover:bg-primary text-2xl font-semibold py-4 mx-4 list-none rounded-md lg:border-b-2"
+              className="text-primary hover:text-white hover:bg-primary text-2xl font-semibold py-4 mx-4 list-none rounded-md lg:border-b-2"
             >
               <Link onClick={handleClick} href={item.href}>
                 {item.link}
