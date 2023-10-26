@@ -13,11 +13,9 @@ import toast from "react-hot-toast";
     //const router = useRouter();
       const url = ('url');    
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
-      e.preventDefault();     
-
+      e.preventDefault();    
         if(email === '' || password === '' || confirmpass === ''){
-          setAlerta('DEBES COMPLETAR LOS CAMPOS');
-          
+          setAlerta('DEBES COMPLETAR LOS CAMPOS');          
           setTimeout(() => {
               setAlerta('');
           }, 2000);
