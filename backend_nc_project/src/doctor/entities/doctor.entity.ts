@@ -32,6 +32,9 @@ export class Doctor extends BaseEntity{
     @JoinColumn()
     schedules: Schedule[]
 
+    @Column({ unique:true})
+    registrationNumber:number
+    
     @Column({
         nullable: true
     })
@@ -43,6 +46,5 @@ export class Doctor extends BaseEntity{
     @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors, { eager: true })
     @JoinTable({})
     specialties: Specialtie[]
-
 
 }

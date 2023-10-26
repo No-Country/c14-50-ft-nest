@@ -1,8 +1,8 @@
 import { Transform } from "class-transformer";
 
-import { IsNumber, IsString, MinLength, IsEmail, IsEnum, MaxLength, IsOptional, IsArray} from "class-validator";
+import { IsNumber, IsString, MinLength, IsEmail, IsEnum, MaxLength, IsOptional, IsArray, IsInt} from "class-validator";
 
-import { ERole, } from "../../../common/enum";
+import { ERole, Gender, } from "../../../common/enum";
 
 export class CreateUserDto {
 
@@ -46,6 +46,15 @@ export class CreateUserDto {
     schedule?: string[]; 
 
     @IsOptional()
+<<<<<<< HEAD
     @IsArray()
     specialties?: string[];
+=======
+    @IsString()
+    gender?: Gender; 
+
+    @IsOptional()
+    @IsInt()
+    registrationNumber?: number; 
+>>>>>>> 43edc99455d41d1c1111805c392ef8114f57afa0
 }

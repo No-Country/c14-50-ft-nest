@@ -16,17 +16,16 @@ export class AuthService {
             private jwtService: JwtService,
             ) {}
 
-    async doctorRegister({ firstName, lastName, email, password, document, birthDate, role, schedule }: RegisterDto){
+    async doctorRegister(registerDto: RegisterDto){
 
         try {
-            
-            const verifyUser = await this.userService.findByEmailExistent(email)
+            const verifyUser = await this.userService.findByEmailExistent(registerDto.email)
             if (verifyUser) throw new BadRequestException(`This Email is already registered`);
 
-            const encriptedPass = await bcrypt.hash(password, saltOrRounds)
+            const encriptedPass = await bcrypt.hash(registerDto.password, saltOrRounds)
             
 
-            const newUser = await this.userService.createDoctor({ document, password: encriptedPass, role, email, firstName, lastName, birthDate,schedule })
+            const newUser = await this.userService.createDoctor({ ...registerDto, password: encriptedPass})
 
             return newUser
 
