@@ -15,10 +15,8 @@ export const authSlice = createSlice({
       state.userId = action.payload.userId
       state.role = action.payload.role
     },
-    logoutUser: (state) => {
-      state.token = initialState.token
-      state.userId = initialState.userId
-      state.role = initialState.role
+    logoutUser: () => {
+      return initialState
     }
   }
 })

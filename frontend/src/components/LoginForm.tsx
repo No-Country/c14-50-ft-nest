@@ -30,6 +30,14 @@ const LoginForm = () => {
         role: response.data.role.name
       }))
 
+      // if (response.data.role.name === 'patient') {
+      //   console.log('PACIENTE')
+      //   router.push('/dashboard/patient', { scroll: false })
+      // }
+      // if (response.data.role.name === 'doctor') {
+      //   console.log('DOCTOR')
+      //   router.push('/dashboard/doctor', { scroll: false })
+      // }
       router.push('/dashboard/summary', { scroll: false })
 
     } catch (err: any) {//falta ponerl el tipo

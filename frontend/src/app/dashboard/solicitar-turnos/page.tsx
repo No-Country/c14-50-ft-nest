@@ -3,7 +3,6 @@ import ConfirmAppointment from "@/components/ConfirmAppointment"
 import DoctorsResult from "@/components/DoctorsResult"
 import HoursForm from "@/components/HoursForm"
 import SpecialtyForm from "@/components/SpecialtyForm"
-import { useGetDoctorsQuery } from '@/redux/services/doctorApi'
 import {
   Box,
   Step,
@@ -39,11 +38,23 @@ const steps = [
 ]
 
 type Doctor = {
-  nombre: string
-  especialidad: string
-  género: string
-  edad: number
-};
+  id: string
+  is_deleted: boolean
+  deletedAt: string
+  firstName: string
+  lastName: string
+  birthDate: string
+  phone: string
+  registrationNumber: number
+  gender: string
+  schedules: string[]
+  specialties: [{
+    id: string,
+    is_deleted: false,
+    deletedAt: null,
+    name: string
+  }]
+}
 
 type Date = {
   date: string
@@ -54,16 +65,29 @@ export default function SolicitarTurnos () {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("")
   const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '' })
   const [selectedDoc, setSelectedDoc] = useState<Doctor>({
-    nombre: "",
-    especialidad: "",
-    género: "",
-    edad: 0
+    id: '',
+    is_deleted: false,
+    deletedAt: '',
+    firstName: '',
+    lastName: '',
+    birthDate: '',
+    phone: '',
+    registrationNumber: 0,
+    gender: '',
+    schedules: [],
+    specialties: [{
+      id: '',
+      is_deleted: false,
+      deletedAt: null,
+      name: ''
+    }]
   })
+
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length
   })
-  const { data, error, isLoading, isFetching } = useGetDoctorsQuery(null)
+  // const { data, error, isLoading, isFetching } = useGetDoctorsQuery(null)
 
   // if (isLoading || isFetching) return console.log('CARGANDO')
   // if (error) return console.log(error)
@@ -78,6 +102,7 @@ export default function SolicitarTurnos () {
 
   useEffect(() => {
     console.log(dataToSend)
+    // { data && console.log(data) }
   }, [dataToSend])
 
   const handlerNext = () => {

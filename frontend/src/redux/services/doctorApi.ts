@@ -3,13 +3,20 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 type Doctor = {
   id: string
   is_deleted: boolean
-  deletedAt: null
+  deletedAt: string
   firstName: string
   lastName: string
   birthDate: string
-  phone: null
-  gender: null
+  phone: string
+  registrationNumber: number
+  gender: string
   schedules: string[]
+  specialties: [{
+    id: string,
+    is_deleted: false,
+    deletedAt: null,
+    name: string
+  }]
 }
 
 export const doctorApi = createApi({

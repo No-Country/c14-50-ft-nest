@@ -1,13 +1,24 @@
-import { doctors } from "@/utils/Doctors"
-import axios from "axios"
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useGetDoctorsQuery } from '@/redux/services/doctorApi'
+import { Dispatch, SetStateAction, useState } from "react"
 import Loader from "./Loader"
 
 type Doctor = {
-  nombre: string
-  especialidad: string
-  género: string
-  edad: number
+  id: string
+  is_deleted: boolean
+  deletedAt: string
+  firstName: string
+  lastName: string
+  birthDate: string
+  phone: string
+  registrationNumber: number
+  gender: string
+  schedules: string[]
+  specialties: [{
+    id: string,
+    is_deleted: false,
+    deletedAt: null,
+    name: string
+  }]
 }
 
 interface Props {
@@ -23,16 +34,11 @@ const DoctorsResult = ({
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const insurances = ["Ossde", "Swiss medical"]
-  const [isLoading, setIsLoading] = useState(true)
-  const [alldoctors, setAlldoctors] = useState([])
+  const { data, error, isLoading, isFetching } = useGetDoctorsQuery(null)
 
   const closeModal = () => {
     setIsOpen(false)
   }
-
-  //! alldoctors aqui estan todos los doctores, pero falta adjuntar mas info desde el back
-  // POR FAVOR PONGAN ESPECIALIDAD A LOS DOCTORES :(
-  //! hacer un console.log para ver los datos del doctor enviados del back
 
   const handleOutsideClick = (e: any) => {
     if (e.target === e.currentTarget) {
@@ -40,19 +46,10 @@ const DoctorsResult = ({
     }
   }
 
-  useEffect(() => {
-    axios
-      .get("https://nc-project-lim7.onrender.com/api/doctor")
-      .then((res) => setAlldoctors(res.data))
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [])
+  const filteredDoctors = data?.filter(doctor => {
+    return doctor.specialties.some(specialty => specialty.name === selectedSpeciality);
+  });
 
-  const filteredDoctors = doctors.filter(
-    (doctor) => doctor.especialidad === selectedSpeciality
-  )
 
   const handleRowClick = (doctor: Doctor) => {
     setSelectedDoc(doctor)
@@ -72,16 +69,16 @@ const DoctorsResult = ({
             </tr>
           </thead>
           <tbody>
-            {filteredDoctors.map((doctor, index) => (
+            {filteredDoctors!.map((doctor, index) => (
               <tr
                 key={index}
                 onClick={() => handleRowClick(doctor)}
                 className={`cursor-pointer ${ selectedDoc === doctor ? "bg-slate-300" : "bg-white"
                   }`}
               >
-                <td>{doctor.nombre}</td>
-                <td className="text-center">{doctor.especialidad}</td>
-                <td className="text-center">{doctor.género}</td>
+                <td>{doctor.firstName}</td>
+                <td className="text-center">{doctor.specialties[0].name}</td>
+                <td className="text-center">{doctor.gender}</td>
                 <td>
                   <svg
                     onClick={() => setIsOpen(true)}
@@ -125,8 +122,8 @@ const DoctorsResult = ({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-2xl font-bold">{selectedDoc.nombre}</p>
-                    <p>{selectedDoc.especialidad}</p>
+                    <p className="text-2xl font-bold">{selectedDoc.firstName}</p>
+                    <p>{selectedDoc.specialties[0].name}</p>
                   </div>
                   <div></div>
                 </div>

@@ -1,10 +1,22 @@
 interface AppointmentInfo {
   specialty: string;
   doctor: {
-    nombre: string;
-    género: string;
-    especialidad: string;
-    edad: number;
+    id: string
+    is_deleted: boolean
+    deletedAt: string
+    firstName: string
+    lastName: string
+    birthDate: string
+    phone: string
+    registrationNumber: number
+    gender: string
+    schedules: string[]
+    specialties: [{
+      id: string,
+      is_deleted: false,
+      deletedAt: null,
+      name: string
+    }]
   }
   dateSelected: {
     date: string,
@@ -28,10 +40,9 @@ export default function ConfirmAppointment ({ info }: Prop) {
           <h1 className='font-semibold'>Información del doctor</h1>
           {info.doctor && (
             <div>
-              <p>Nombre: {info.doctor.nombre}</p>
-              <p>Género: {info.doctor.género}</p>
-              <p>Especialidad: {info.doctor.especialidad}</p>
-              <p>Edad: {info.doctor.edad} Años</p>
+              <p>Nombre: {info.doctor.firstName}</p>
+              <p>Género: {info.doctor.gender}</p>
+              {/* <p>Especialidad: {info.doctor.specialties}</p> */}
             </div>
           )}
         </div>
