@@ -37,7 +37,11 @@ const LoginForm = () => {
             userId: res.data.userId,
             role: res.data.role.name
           }))
-          router.push("/dashboard/summary");
+          {
+            user.role === 'patient'
+              ? router.push("/dashboard/summary")
+              : router.push("/dashboard/agenda")
+          }
         }),
       {
         loading: "Comprobando credenciales...",
