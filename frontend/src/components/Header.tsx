@@ -12,10 +12,17 @@ export default function Header () {
   const dispatch = useAppDispatch()
 
   const DocMenuInfo = [{
+    href: "/dashboard/summary",
+    id: 0,
+    link: "Home"
+  },
+  {
     href: "/dashboard/agenda",
     id: 0,
     link: "Agenda"
-  }]
+  },
+  ]
+
   const MenuInfo = [{
     href: "/dashboard/summary",
     id: 0,
