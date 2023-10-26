@@ -36,6 +36,26 @@ import toast, { Toaster } from 'react-hot-toast';
 
       }
     }
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const data = {
+           document: documento,
+           password: password
+          }
+
+    toast.promise(
+      axios.post(URL, data)
+      .then(() => {
+        router.push("/dashboard/summary");
+      }),
+      {
+        loading: "Comprobando credenciales...",
+        success: <b>Registro exitoso!</b>,
+        error: (err: any) => `${ err.response.data.message.toString() }`,
+      }
+    );
+  }
 
     return (
       <form onSubmit={handleSubmit} className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary gap-4`}>
