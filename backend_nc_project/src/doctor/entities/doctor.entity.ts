@@ -40,10 +40,9 @@ export class Doctor extends BaseEntity{
     @OneToOne(() => User, (user) => user.doctor)
     user: User;
 
-    @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors)
-    @JoinTable()
-    specialties: string[]
+    @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors, { eager: true })
+    @JoinTable({})
+    specialties: Specialtie[]
 
-    
 
 }

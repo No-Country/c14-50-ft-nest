@@ -44,4 +44,8 @@ export class CreateUserDto {
     @IsOptional()
     @IsArray()
     schedule?: string[]; 
+
+    @IsOptional()
+    @IsArray()
+    specialties?: string[];
 }

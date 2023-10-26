@@ -1,4 +1,4 @@
-import {  IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import {  IsArray, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
 export class CreateDoctorDto {
 
@@ -19,6 +19,9 @@ export class CreateDoctorDto {
     phone: string;
 
     @IsOptional()
-    @IsString()
+    @IsArray()
     schedule?: string[];
+
+    @IsArray()
+    specialties: string[];
 }

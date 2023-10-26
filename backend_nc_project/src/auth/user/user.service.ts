@@ -13,7 +13,7 @@ export class UserService {
     constructor(
       @InjectRepository(User) private readonly userRepository: Repository<User>, 
       private readonly doctorService: DoctorService,
-      private readonly patientService: PatientService
+      private readonly patientService: PatientService,
       ){}
 
     async findAll({ offset=0, limit=10 }: PaginationDto): Promise<User[]>{
@@ -56,7 +56,8 @@ export class UserService {
       lastName: createUserDto.lastName,
       birthDate: createUserDto.birthDate,
       phone: createUserDto.phone,
-      schedule: createUserDto.schedule
+      schedule: createUserDto.schedule,
+      specialties: createUserDto.specialties
     })
 
     return doctor;
