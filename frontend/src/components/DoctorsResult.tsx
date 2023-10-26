@@ -1,4 +1,4 @@
-import { useGetDoctorsQuery } from '@/redux/services/doctorApi'
+import { useGetDoctorsQuery } from '@/redux/services/projectApi'
 import { Dispatch, SetStateAction, useState } from "react"
 import Loader from "./Loader"
 

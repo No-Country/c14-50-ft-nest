@@ -1,6 +1,7 @@
 "use client";
 import Loader from "@/components/Loader";
-import { useAppSelector } from '@/redux/hooks';
+import { authSlice } from '@/redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,8 @@ export default function MisTurnos () {
   const [allAppointments, setAllAppointments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const userId = useAppSelector(state => state.authReducer.userId)
+  const role = useAppSelector(state => state.authReducer.role)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     axios
@@ -15,10 +18,21 @@ export default function MisTurnos () {
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
+
+    axios
+      .get("https://nc-project-lim7.onrender.com/api/users/" + userId)
+      .then((res) => {
+        if (role === 'patient') {
+          dispatch(authSlice.actions.setRoleId({ roleId: res.data.patient.id }))
+        }
+        if (role === 'doctor') {
+          dispatch(authSlice.actions.setRoleId({ roleId: res.data.doctor.id }))
+        }
+      })
+
   }, []);
 
-  const userAppointments = allAppointments.filter((book: any) => {
-    //falta typar
+  const userAppointments = allAppointments.filter((book: any) => {//falta typar
     return book.patient?.id === userId;
   });
   console.log(userAppointments);

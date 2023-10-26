@@ -55,8 +55,8 @@ type Date = {
 export default function SolicitarTurnos () {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("")
   const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '' })
-  // const [dataUser, SetDataUser] = useState<any>({}) //falta typar
-  const userId = useAppSelector(state => state.authReducer.userId)
+  // const userId = useAppSelector(state => state.authReducer.userId)
+  const roleId = useAppSelector(state => state.authReducer.roleId)
 
 
   const [selectedDoc, setSelectedDoc] = useState<Doctor>({
@@ -71,7 +71,6 @@ export default function SolicitarTurnos () {
     index: 0,
     count: steps.length
   })
-
 
   const router = useRouter();
 
@@ -88,7 +87,7 @@ export default function SolicitarTurnos () {
       interval: data.dateSelected.hour.replace(",", " - "),
       doctor: data.doctor.id,
       specialty: data.specialty,
-      patient: userId
+      patient: roleId
     }
     toast.promise(
 
