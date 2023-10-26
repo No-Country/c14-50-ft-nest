@@ -11,29 +11,32 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 
 type ClientData = {
-  name: string;
+  firstName: string;
   lastName: string;
-  dni: string;
+  document: number;
   email: string;
-  birthdate: string;
-  phoneNumber: string;
+  birthDate: string;
+  phone: string;
   password: string;
   confirmPassword: string;
   insurance: string;
 };
 
 type DoctorData = {
-  name: string;
+  firstName: string;
   lastName: string;
-  dni: string;
+  document: number;
   email: string;
-  birthdate: string;
-  phoneNumber: string;
+  birthDate: string;
+  phone: string;
   password: string;
   confirmPassword: string;
   insurance: string[];
   licenseNumber: string;
-  genre: string;
+  gender: string;
+  speciality:string[];
+  schedule:string[];
+  registrationNumber:number
 };
 
 const RegisterForm = () => {
@@ -77,51 +80,42 @@ const RegisterForm = () => {
     }
   }, [errors, isChecked, selectedItems]);
 
-  const submitData = (data: DoctorData | ClientData) => {
-    const dataToSend = {
-      firstName: data.name,
-      lastName: data.lastName,
-      document: data.dni,
-      email: data.email,
-      birthDate: data.birthdate,
-      password: data.password,
-    };
+  const submitData = ({insurance,confirmPassword,...rest}: DoctorData | ClientData) => {
+
+
     if (isChecked) {
       toast.promise(
-        axios.post(URLDOCTOR, { ...dataToSend, role: "doctor" }).then(() => {
+        axios.post(URLDOCTOR, { ...rest, role: "doctor" }).then(() => {
           router.push("/auth/login");
         }),
         {
           loading: "Registrando...",
           success: <b>Registro exitoso!</b>,
           error: <b>No hemos podido registrarte</b>,
-          // success: (data) => `Te has registrado correctamente ${data.name}`,
-          // error: (err) => `${err.toString()}`,
         }
       );
       setSelectedItems([]);
     } else {
       toast.promise(
-        axios.post(URLPATIENT, { ...dataToSend, role: "patient" }).then(() => {
+        axios.post(URLPATIENT, { ...rest, role: "patient" })
+        .then(() => {
           router.push("/auth/login");
           reset();
         }),
         {
           loading: "Registrando...",
           success: <b>Registro exitoso!</b>,
-          error: (err: string) => `${ err.toString() }`, //err.response.data.message
-          // error: <b>No hemos podido registrarte</b>,
-          // success: (data) => `Te has registrado correctamente ${data.name}`,
+          error: (err: any) => `${err.response.data.sqlMessage}`,
         }
       );
     }
   };
 
   const handleChange = () => {
-    unregister("birthdate");
+    unregister("birthDate");
     if (date.current!.value) {
-      const birthdate = new Date(date.current!.value);
-      register("birthdate", { value: birthdate.toISOString() });
+      const birthDate = new Date(date.current!.value);
+      register("birthDate", { value: birthDate.toISOString() });
     }
   };
 
@@ -131,6 +125,7 @@ const RegisterForm = () => {
   };
 
   return (
+    <>
     <form
       className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${ newError ? "gap-1" : "gap-5" }`}
       onSubmit={handleSubmit(submitData as SubmitHandler<FieldValues>)}
@@ -151,11 +146,11 @@ const RegisterForm = () => {
       </div>
       <div className="mb-0">
         <label className="block text-sm font-bold mb-2">Nombre</label>
-        <input type="text" {...register("name")} placeholder="Nombre" />
+        <input type="text" {...register("firstName")} placeholder="Nombre" />
       </div>
-      {errors.name && (
+      {errors.firstName && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm">
-          {errors.name.message}
+          {errors.firstName.message}
         </span>
       )}
       <div className="mb-0">
@@ -172,11 +167,11 @@ const RegisterForm = () => {
         <label className="block text-sm font-bold mb-2">
           Número de documento
         </label>
-        <input type="number" {...register("dni")} placeholder="99.999.999" />
+        <input type="number" {...register("document")} placeholder="99.999.999" />
       </div>
-      {errors.dni && (
+      {errors.document && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.dni.message}
+          {errors.document.message}
         </span>
       )}
       <div className="mb-0">
@@ -241,9 +236,9 @@ const RegisterForm = () => {
           onBlur={handleChange}
         />
       </div>
-      {errors.birthdate && (
+      {errors.birthDate && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.birthdate.message}
+          {errors.birthDate.message}
         </span>
       )}
       <div className="mb-0">
@@ -252,13 +247,13 @@ const RegisterForm = () => {
         </label>
         <input
           type="number"
-          {...register("phoneNumber")}
+          {...register("phone")}
           placeholder="Número de teléfono"
         />
       </div>
-      {errors.phoneNumber && (
+      {errors.phone && (
         <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-          {errors.phoneNumber.message}
+          {errors.phone.message}
         </span>
       )}
       {isChecked && (
@@ -280,18 +275,18 @@ const RegisterForm = () => {
           )}
           <div className="mb-0">
             <label className="block text-sm font-bold mb-2">Género</label>
-            <select {...register("genre")}>
+            <select {...register("gender")}>
               <option value="">* Seleccione Un Género *</option>
-              {genreOptions.map((genreOptions) => (
-                <option key={genreOptions} value={genreOptions}>
-                  {genreOptions}
+              {genreOptions.map((genderOptions:string) => (
+                <option key={genderOptions} value={genderOptions}>
+                  {genderOptions}
                 </option>
               ))}
             </select>
           </div>
-          {"genre" in errors && errors.genre && (
+          {"gender" in errors && errors.gender && (
             <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-              {errors.genre.message}
+              {errors.gender.message}
             </span>
           )}
         </>
@@ -332,17 +327,21 @@ const RegisterForm = () => {
           Registrar
         </button>
       </div>
+      <Toaster position="bottom-right" reverseOrder={false} />
+    </form>
+    <div>
       <p className="my-2 text-sm flex justify-between font-medium">
         ¿Ya tienes una cuenta?
         <Link
           href="/auth/login"
           className="text-blue-700 hover:text-blue-900 mx-2"
-        >
+          >
           Iniciar sesión
         </Link>
       </p>
-      <Toaster position="bottom-right" reverseOrder={false} />
-    </form>
+    </div>
+     
+      </>
   );
 };
 

@@ -15,26 +15,23 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {
-      const data = {
-        document: documento,
-        password: password
+
+    const data = {
+           document: documento,
+           password: password
+          }
+
+    toast.promise(
+      axios.post(URL, data)
+      .then(() => {
+        router.push("/dashboard/summary");
+      }),
+      {
+        loading: "Comprobando credenciales...",
+        success: <b>Registro exitoso!</b>,
+        error: (err: any) => `${ err.response.data.message.toString() }`,
       }
-      const response = await axios
-        .post(URL, data)
-
-      const { token } = response.data
-      console.log(token);
-
-      router.push('/dashboard/summary', { scroll: false })
-
-    } catch (err:any) {//falta ponerl el tipo
-      const errors = err.response.data.message
-      if (errors) {
-        toast.error(errors);
-      }
-
-    }
+    );
   }
 
   return (
