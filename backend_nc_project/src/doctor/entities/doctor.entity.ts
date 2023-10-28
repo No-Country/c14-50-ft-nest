@@ -4,7 +4,7 @@ import { BaseEntity } from "../../common/baseEntity";
 import { Specialtie } from "src/specialties/entities/specialtie.entity";
 import { User } from "src/auth/user/entities/user.entity";
 import { Schedule } from "src/schedule/entities/schedule.entity";
-
+import { HealthInsurance } from "src/health-insurance/entity/health-insurance.entity";
 @Entity()
 export class Doctor extends BaseEntity{
 
@@ -47,4 +47,7 @@ export class Doctor extends BaseEntity{
     @JoinTable()
     specialties: string[]
 
+    @OneToMany(() => HealthInsurance, (healthInsurance) => healthInsurance.id)
+    @JoinTable()
+    healthInsurance: string[];
 }
