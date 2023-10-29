@@ -6,7 +6,7 @@ import { PaginationDto } from '../../common/dto/pagination.dto';
 import { Auth } from '../../common/decorator/auth.decorator';
 import { ERole } from '../../common/enum';
 
-@Auth(ERole.SUPERADMIN)
+//@Auth(ERole.SUPERADMIN)
 @Controller('roles')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}

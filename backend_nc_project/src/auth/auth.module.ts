@@ -8,14 +8,16 @@ import { UserService } from './user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { RoleModule } from './role/role.module';
 import { Role } from './role/entities/role.entity';
-import { PatientsModule } from 'src/patients/patients.module';
-import { DoctorModule } from 'src/doctor/doctor.module';
-import { DoctorService } from 'src/doctor/doctor.service';
-import { Doctor } from 'src/doctor/entities/doctor.entity';
+import { PatientsModule } from '../patients/patients.module';
+import { DoctorModule } from '../doctor/doctor.module';
+import { DoctorService } from '../doctor/doctor.service';
+import { Doctor } from '../doctor/entities/doctor.entity';
+import { Schedule } from '../schedule/entities/schedule.entity';
+import { Specialtie } from '../specialties/entities/specialtie.entity';
 
 @Module({
   imports: [
-  TypeOrmModule.forFeature([User, Role, Doctor]),
+  TypeOrmModule.forFeature([User, Role, Doctor, Schedule, Specialtie]),
   UserModule,
   RoleModule,
   PatientsModule,

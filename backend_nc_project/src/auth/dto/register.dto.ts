@@ -1,6 +1,7 @@
 import { Transform } from "class-transformer";
-import { IsNumber, IsString, MinLength, IsEmail, MaxLength, IsEnum, IsOptional} from "class-validator";
+import { IsNumber, IsString, MinLength, IsEmail, MaxLength, IsEnum, IsOptional, IsArray, IsInt} from "class-validator";
 import { ERole, Gender } from "src/common/enum";
+import { Specialtie } from "src/specialties/entities/specialtie.entity";
 
 export default class RegisterDto {
 
@@ -42,5 +43,20 @@ export default class RegisterDto {
     @IsString()
     @IsOptional()
     healthInsurance?:string
+
+    @IsOptional()
+    @IsArray()
+    schedule?: string[];
+
+    @IsOptional()
+    speciality?:Specialtie[];
+
+    @IsOptional()
+    @IsInt()
+    registrationNumber:number
     
+    @IsOptional()
+    @IsString()
+    genre:string
+
 }

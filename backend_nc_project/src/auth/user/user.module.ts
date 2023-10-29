@@ -7,12 +7,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { DoctorModule } from '../../doctor/doctor.module';
 import { DoctorService } from '../../doctor/doctor.service';
 import { Doctor } from '../../doctor/entities/doctor.entity';
-import { PatientsModule } from 'src/patients/patients.module';
-import { PatientService } from 'src/patients/patients.service';
-import { Patient } from 'src/patients/entities/patient.entity';
+import { PatientsModule } from '../../patients/patients.module';
+import { PatientService } from '../../patients/patients.service';
+import { Patient } from '../../patients/entities/patient.entity';
+import { Schedule } from '../../schedule/entities/schedule.entity';
+import { Specialtie } from '../../specialties/entities/specialtie.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Doctor, Patient]), JwtModule, DoctorModule, PatientsModule],
+  imports: [TypeOrmModule.forFeature([User, Doctor, Patient, Schedule, Specialtie]), JwtModule, DoctorModule, PatientsModule],
   controllers: [UserController],
   providers: [UserService, DoctorService, PatientService]
 })

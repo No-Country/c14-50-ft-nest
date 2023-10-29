@@ -1,5 +1,5 @@
-import { IsEmail, IsEnum, IsInt, IsOptional, IsPhoneNumber, IsPositive, IsString, MinLength } from "class-validator"
-import { ERole } from "src/common/enum"
+import { IsOptional, IsPhoneNumber, IsString, MinLength } from "class-validator"
+
 
 export class CreatePatientDto {
 

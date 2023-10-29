@@ -1,5 +1,5 @@
-import { Transform } from "class-transformer";
-import { IsEmail, IsNumber,  IsString, MaxLength, MinLength } from "class-validator";
+import {  IsArray, IsInt, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { Gender } from "src/common/enum";
 
 export class CreateDoctorDto {
 
@@ -19,7 +19,16 @@ export class CreateDoctorDto {
     @IsString()
     phone: string;
 
-    @IsString()
-    schedule: string;
+    @IsOptional()
+    @IsArray()
+    schedule?: string[];
 
+    @IsArray()
+    specialties: string[];
+    
+    @IsInt()
+    registrationNumber:number
+
+    @IsString()
+    gender:Gender
 }

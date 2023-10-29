@@ -28,7 +28,7 @@ export class User extends BaseEntity {
     })
     password: string
 
-    @ManyToOne(() => Role)
+    @ManyToOne(() => Role,(role) => role.name,{eager:true})
     @JoinColumn({
         name: 'role',
         referencedColumnName: 'name'

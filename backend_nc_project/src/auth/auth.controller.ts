@@ -9,6 +9,7 @@ export class AuthController {
 
     @Post('register/doctor')
         async doctorRegister(@Body() registerDto: RegisterDto){
+            console.log(registerDto);
             return await this.authService.doctorRegister(registerDto)
         }
 

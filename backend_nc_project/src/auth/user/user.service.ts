@@ -5,7 +5,6 @@ import { User } from './entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 import { DoctorService } from '../../doctor/doctor.service';
-import { CreateDoctorDto } from '../../doctor/dto/create-doctor.dto';
 import { PatientService } from 'src/patients/patients.service';
 
 
@@ -14,7 +13,7 @@ export class UserService {
     constructor(
       @InjectRepository(User) private readonly userRepository: Repository<User>, 
       private readonly doctorService: DoctorService,
-      private readonly patientService: PatientService
+      private readonly patientService: PatientService,
       ){}
 
     async findAll({ offset=0, limit=10 }: PaginationDto): Promise<User[]>{
@@ -37,7 +36,7 @@ export class UserService {
             where: {
             email: email,
             }, 
-            select: [ 'password']
+            select: ['password',"id","email"]
         });
     
         return user;
@@ -48,8 +47,19 @@ export class UserService {
     
     async createDoctor(createUserDto: CreateUserDto) {
         
-    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document});
+      const doctor = await this.doctorService.create({
+        firstName: createUserDto.firstName,
+        lastName: createUserDto.lastName,
+        birthDate: createUserDto.birthDate,
+        phone: createUserDto.phone,
+        schedule: createUserDto.schedule,
+        gender: createUserDto.gender,
+        registrationNumber:createUserDto.registrationNumber
+      })
+      
+      const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document, role:createUserDto.role});
 
+<<<<<<< HEAD
     await this.userRepository.save(user);
 
     const doctor = await this.doctorService.create({
@@ -57,8 +67,12 @@ export class UserService {
       lastName: createUserDto.lastName,
       birthDate: createUserDto.birthDate,
       phone: createUserDto.phone,
-      schedule: ''
-    });
+      schedule: createUserDto.schedule,
+      specialties: createUserDto.specialties
+    })
+=======
+      await this.userRepository.save(user);
+>>>>>>> 43edc99455d41d1c1111805c392ef8114f57afa0
 
     return doctor;
 
@@ -66,7 +80,7 @@ export class UserService {
 
   async createPatient(createUserDto: CreateUserDto) {
         
-    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document});
+    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document,role:createUserDto.role});
 
     await this.userRepository.save(user);
 
@@ -76,7 +90,6 @@ export class UserService {
       birthDate: createUserDto.birthDate,
       phone: createUserDto.phone,
       healthInsurance: createUserDto.healthInsurance,
-      
     });
 
     return doctor;
@@ -89,8 +102,8 @@ export class UserService {
         const user = await this.userRepository.findOne({
             where: {
             document: document,
-            }, 
-            select: [ 'password', 'document' ]
+            },
+            select: [ 'password', 'document',"id" ]
         });
 
         return user;
