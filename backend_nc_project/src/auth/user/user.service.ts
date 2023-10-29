@@ -45,55 +45,53 @@ export class UserService {
         }
     }
     
-    async createDoctor(createUserDto: CreateUserDto) {
+    async createDoctor({ email, document, password, role, firstName, lastName, phone, birthDate, schedule, specialties, registrationNumber, gender }: CreateUserDto) {
         
-      const doctor = await this.doctorService.create({
-        firstName: createUserDto.firstName,
-        lastName: createUserDto.lastName,
-        birthDate: createUserDto.birthDate,
-        phone: createUserDto.phone,
-        schedule: createUserDto.schedule,
-        gender: createUserDto.gender,
-        registrationNumber:createUserDto.registrationNumber
-      })
-      
-      const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document, role:createUserDto.role});
+      try {
+        
+        const {doctor} = await this.doctorService.create({
+          firstName,
+          lastName,
+          birthDate,
+          phone,
+          schedule,
+          specialties,
+          gender,
+          registrationNumber
+        })
+        
+        const user = this.userRepository.create({ email, password, document, role, doctor });
+    
+        await this.userRepository.save(user);
+  
+        return doctor;
 
-<<<<<<< HEAD
-    await this.userRepository.save(user);
-
-    const doctor = await this.doctorService.create({
-      firstName: createUserDto.firstName,
-      lastName: createUserDto.lastName,
-      birthDate: createUserDto.birthDate,
-      phone: createUserDto.phone,
-      schedule: createUserDto.schedule,
-      specialties: createUserDto.specialties
-    })
-=======
-      await this.userRepository.save(user);
->>>>>>> 43edc99455d41d1c1111805c392ef8114f57afa0
-
-    return doctor;
-
+      } catch (error) {
+        console.error(error);
+      }
   }
 
   async createPatient(createUserDto: CreateUserDto) {
         
-    const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document,role:createUserDto.role});
+    try {
+      
+      const patient = await this.patientService.create({
+        firstName: createUserDto.firstName,
+        lastName: createUserDto.lastName,
+        birthDate: createUserDto.birthDate,
+        phone: createUserDto.phone,
+        healthInsurance: createUserDto.healthInsurance,
+      });
+  
+      const user = this.userRepository.create({ email: createUserDto.email, password: createUserDto.password, document: createUserDto.document, role:createUserDto.role, patient});
+  
+      await this.userRepository.save(user);
+  
+      return patient;
 
-    await this.userRepository.save(user);
-
-    const doctor = await this.patientService.create({
-      firstName: createUserDto.firstName,
-      lastName: createUserDto.lastName,
-      birthDate: createUserDto.birthDate,
-      phone: createUserDto.phone,
-      healthInsurance: createUserDto.healthInsurance,
-    });
-
-    return doctor;
-
+    } catch (error) {
+      console.error(error);
+    }
   }
 
    async findByDocumentExistent(document: number): Promise<User> {
