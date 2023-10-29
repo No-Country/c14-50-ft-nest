@@ -20,9 +20,12 @@ export class CreateDoctorDto {
     phone: string;
 
     @IsOptional()
-    @IsString()
+    @IsArray()
     schedule?: string[];
 
+    @IsArray()
+    specialties: string[];
+    
     @IsInt()
     registrationNumber:number
 

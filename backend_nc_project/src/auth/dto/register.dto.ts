@@ -49,7 +49,7 @@ export default class RegisterDto {
     schedule?: string[];
 
     @IsOptional()
-    speciality?:Specialtie[];
+    specialties?:string[];
 
     @IsOptional()
     @IsInt()

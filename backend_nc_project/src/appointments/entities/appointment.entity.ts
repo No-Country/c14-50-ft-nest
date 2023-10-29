@@ -11,12 +11,12 @@ export class Appointment extends BaseEntity {
     @JoinColumn()
     doctor: string
 
-    @ManyToOne(() => Specialtie, (specialtie) => specialtie.name)
+    @ManyToOne(() => Specialtie, (specialtie) => specialtie.name, { eager:true })
     @JoinColumn({
         name: 'specialty',
         referencedColumnName: 'name'
     })
-    specialty:string
+    specialty: string
 
     @Column({
         nullable: true
@@ -28,7 +28,7 @@ export class Appointment extends BaseEntity {
     })  
     interval: string
 
-    @ManyToOne(() => Patient, (patient) => patient.id)
+    @ManyToOne(() => Patient, (patient) => patient.id, {eager:true})
     @JoinColumn()
     patient: string
 

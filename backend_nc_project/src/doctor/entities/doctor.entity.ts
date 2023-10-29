@@ -4,6 +4,7 @@ import { BaseEntity } from "../../common/baseEntity";
 import { Specialtie } from "src/specialties/entities/specialtie.entity";
 import { User } from "src/auth/user/entities/user.entity";
 import { Schedule } from "src/schedule/entities/schedule.entity";
+import { Appointment } from "src/appointments/entities/appointment.entity";
 
 @Entity()
 export class Doctor extends BaseEntity{
@@ -32,7 +33,7 @@ export class Doctor extends BaseEntity{
     @JoinColumn()
     schedules: Schedule[]
 
-    @Column({ unique:true})
+    @Column({  })
     registrationNumber:number
     
     @Column({
@@ -43,8 +44,11 @@ export class Doctor extends BaseEntity{
     @OneToOne(() => User, (user) => user.doctor)
     user: User;
 
-    @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors)
-    @JoinTable()
-    specialties: string[]
+    @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors, { eager: true })
+    @JoinTable({})
+    specialties: Specialtie[]
+
+    @OneToMany(() => Appointment, (appointment) => appointment.id)
+    appointment: Appointment;
 
 }

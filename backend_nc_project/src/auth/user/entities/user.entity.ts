@@ -35,12 +35,16 @@ export class User extends BaseEntity {
     })
     role: string;
 
-    @OneToOne(() => Doctor, (doctor) => doctor.user)
-    @JoinColumn()
+    @OneToOne(() => Doctor, (doctor) => doctor.user, { eager:true })
+    @JoinColumn({
+        name: 'doctor',
+    })
     doctor: Doctor;
 
-    @OneToOne(() => Patient, (patient) => patient.user)
-    @JoinColumn()
+    @OneToOne(() => Patient, (patient) => patient.user, { eager:true })
+    @JoinColumn({
+        name: 'patient',
+    })
     patient: Patient;
     
 }
