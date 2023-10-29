@@ -31,4 +31,8 @@ export class CreateDoctorDto {
 
     @IsString()
     gender:Gender
+
+    @IsOptional()
+    @IsString()
+    socialSecurities?: string[];
 }
