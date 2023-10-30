@@ -15,12 +15,12 @@ const HospitalMap = () => {
 
     script.addEventListener('load', () => {
       const map =  new (window as any).google.maps.Map(mapContainerRef.current, {
-        center: { lat: 40.7128, lng: -74.0060 },
+        center: { lat: -34.6630677, lng: -58.5095061},
         zoom: 15,
       });
 
       new (window as any).google.maps.Marker({
-        position: { lat: 40.7128, lng: -74.0060 },
+        position: { lat: -34.6630677, lng: -58.5095061},
         map: map,
         title: 'Hospital XYZ',
       });
@@ -33,7 +33,7 @@ const HospitalMap = () => {
     <section className="container mx-auto mt-8 my-8 flex flex-wrap">
       <div className="w-full sm:w-1/2 pr-4 sm:pr-8 mt-2 sm:mt-0 ml-4 sm:ml-0"> {/* Agregamos margen derecho en dispositivos pequeños */}
         <h2 className="text-2xl font-semibold text-primary ">Ubicación</h2>
-        <p className="">Av. Directorio 6977</p> {/* Agregamos margen superior y izquierdo en dispositivos pequeños */}
+        <p className="">Av. Directorio 6977</p> 
         <p>Ciudad Autónoma de Buenos Aires</p>
         <p>Argentina</p>
       </div>
