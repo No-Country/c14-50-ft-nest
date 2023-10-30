@@ -1,6 +1,6 @@
 "use client";
 import { ClientSchema, options } from "@/utils/ClientSchema";
-import { DoctorSchema, genderOptions, specialityOptions } from "@/utils/DoctorSchema";
+import { DoctorSchema, genreOptions, specialityOptions } from "@/utils/DoctorSchema";
 import { getCurrentDate } from '@/utils/getCurrentDate';
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -315,7 +315,7 @@ const RegisterForm = () => {
               <label className="block text-sm font-bold mb-2">Género</label>
               <select {...register("gender")}>
                 <option value="">* Seleccione Un Género *</option>
-                {genderOptions.map((genderOptions: string) => (
+                {genreOptions.map((genderOptions: string) => (
                   <option key={genderOptions} value={genderOptions}>
                     {genderOptions}
                   </option>
