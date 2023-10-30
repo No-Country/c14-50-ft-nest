@@ -97,7 +97,9 @@ const RegisterForm = () => {
   }
   const submitDoctorData = ({ insurance, confirmPassword, speciality, ...rest }: DoctorData) => {
     // Lógica para DoctorData
-    console.log({ ...rest, speciality: [speciality], role: "doctor" })
+    const registrationNumberInt = parseInt(rest.registrationNumber)
+    console.log(typeof registrationNumberInt)
+    console.log({ ...rest, speciality: [speciality], registrationNumber: registrationNumberInt, role: "doctor" })
     toast.promise(
       axios.post(URLDOCTOR, {
         ...rest,
