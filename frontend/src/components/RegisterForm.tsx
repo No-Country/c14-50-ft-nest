@@ -32,11 +32,10 @@ type DoctorData = {
   password: string;
   confirmPassword: string;
   insurance: string[];
-  licenseNumber: string;
+  registrationNumber: string;
   gender: string;
   speciality: string[];
-  // schedule: string[];
-  registrationNumber: number
+  schedule: string[];
 };
 
 const RegisterForm = () => {
@@ -98,9 +97,13 @@ const RegisterForm = () => {
   }
   const submitDoctorData = ({ insurance, confirmPassword, speciality, ...rest }: DoctorData) => {
     // Lógica para DoctorData
-    // console.log({ ...rest, speciality: [speciality], role: "doctor" })
+    console.log({ ...rest, speciality: [speciality], role: "doctor" })
     toast.promise(
-      axios.post(URLDOCTOR, { ...rest, speciality: [speciality], role: "doctor" }).then(() => {
+      axios.post(URLDOCTOR, {
+        ...rest,
+        speciality: [speciality],
+        role: "doctor"
+      }).then(() => {
         router.push("/auth/login");
       }),
       {
@@ -302,13 +305,13 @@ const RegisterForm = () => {
               </label>
               <input
                 type="text"
-                {...register("licenseNumber")}
+                {...register("registrationNumber")}
                 placeholder="Número de Matricula"
               />
             </div>
-            {"licenseNumber" in errors && errors.licenseNumber && (
+            {"registrationNumber" in errors && errors.registrationNumber && (
               <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-                {errors.licenseNumber.message}
+                {errors.registrationNumber.message}
               </span>
             )}
             <div className="mb-0">

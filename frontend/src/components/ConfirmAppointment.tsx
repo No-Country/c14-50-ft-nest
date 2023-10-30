@@ -14,7 +14,7 @@ interface AppointmentInfo {
 }
 
 interface Specialties {
-  name:string
+  name: string
 }
 
 interface Prop {

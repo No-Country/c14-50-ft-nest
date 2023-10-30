@@ -10,15 +10,14 @@ type DoctorData = {
   password: string
   confirmPassword: string
   insurance: string[]
-  licenseNumber: string
+  registrationNumber: string
   gender: string
-  speciality: string
 }
 
 export const genderOptions = ['Masculino', 'Femenino'] as const
 export const specialityOptions = [
   "Cardiólogo",
-  "Especialista en Otorrinolaringología",
+  "Otorrinolaringología",
   "Oftalmólogo",
   "Neurólogo",
   "Dermatólogo",
@@ -41,7 +40,7 @@ export const DoctorSchema: ZodType<DoctorData> = z.object({
   phone: z.string().refine((value) => value.replace(/\D/g, '').length > 7, {
     message: 'Ingrese un número de telefono válido',
   }),
-  licenseNumber: z.string().min(6, { message: 'Ingrese una matricula válida' }),
+  registrationNumber: z.string().min(6, { message: 'Ingrese una matricula válida' }),
   gender: z.enum(genderOptions, { errorMap: () => ({ message: 'Selecciona un género' }) }),
   speciality: z.enum(specialityOptions, { errorMap: () => ({ message: 'Selecciona una especialidad' }) }),
   password: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),

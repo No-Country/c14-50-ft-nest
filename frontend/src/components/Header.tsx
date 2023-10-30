@@ -1,7 +1,28 @@
+'use client'
 import Menu from "@/components/Menu";
+import { authSlice, logoutUser } from '@/redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Header () {
+  const router = useRouter()
+  const role = useAppSelector(state => state.authReducer.role)
+  const dispatch = useAppDispatch()
+
+  const DocMenuInfo = [{
+    href: "/dashboard/summary",
+    id: 0,
+    link: "Home"
+  },
+  {
+    href: "/dashboard/agenda",
+    id: 0,
+    link: "Agenda"
+  },
+  ]
+
   const MenuInfo = [{
     href: "/dashboard/summary",
     id: 0,
@@ -12,20 +33,33 @@ export default function Header () {
     id: 1,
     link: "Solicitar un turno"
   },
-  // {
-  //   href: "/dashboard/mis-turnos",
-  //   id: 2,
-  //   link: "Mis turnos"
-  // },
   {
     href: "/dashboard/perfil",
     id: 3,
     link: "Perfil"
   }]
 
+  useEffect(() => {
+    const userInfoString = localStorage.getItem("userInfo");
+    if (userInfoString) {
+      const userInfo = JSON.parse(userInfoString)
+      dispatch(authSlice.actions.setUser({
+        token: userInfo.token,
+        userId: userInfo.userId,
+        role: userInfo.role
+      }))
+    }
+  }, [])
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
+    localStorage.removeItem('userInfo')
+    router.push('/auth/login')
+  }
+
   return (
     <header className="relative flex justify-between h-16  z-[100] shadow-2xl drop-shadow-2xl bg-primary">
-      <Menu list={MenuInfo} />
+      <Menu list={role === 'patient' ? MenuInfo : DocMenuInfo} />
       <div className="hidden lg:flex lg:justify-center lg:items-center lg:absolute lg:top-0 lg:h-16 lg:w-[20%] lg:bg-primary lg:z-40 lg:shadow-md lg:drop-shadow-md text-xl text-white font-bold">
         <svg version="1.1" width="40px" height="40px" viewBox="0 0 100 125">
           <path
@@ -50,9 +84,10 @@ export default function Header () {
             </svg>
           </span>
         </Link>
-        <Link href="#" className="px-2">
+        <button onClick={handleLogout}>Cerrar sesion</button>
+        {/* <Link href="#" className="px-2">
           <span className="text-white"> Profile</span>
-        </Link>
+        </Link> */}
       </div>
     </header>
   );
