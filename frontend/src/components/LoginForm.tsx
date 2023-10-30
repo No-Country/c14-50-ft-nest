@@ -17,29 +17,6 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {
-      const data = {
-        document: documento,
-        password: password
-      }
-      const response = await axios
-        .post(URL, data)
-
-      const { token } = response.data
-      console.log(token);
-
-      router.push('/dashboard/summary', { scroll: false })
-
-    } catch (err: any) {//falta ponerl el tipo
-      const errors = err.response.data.message
-      if (errors) {
-        toast.error(errors);
-      }
-
-    }
-  }
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
 
     const data = {
       document: documento,
