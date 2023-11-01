@@ -15,8 +15,8 @@ type ClientData = {
 export const options = ['Osde', 'Swiss Medical'] as const
 
 export const ClientSchema: ZodType<ClientData> = z.object({
-  firstName: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres' }),
-  lastName: z.string().min(3, { message: 'El apellido debe tener al menos 3 caracteres' }),
+  firstName: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres' }),
+  lastName: z.string().min(2, { message: 'El apellido debe tener al menos 2 caracteres' }),
   document: z.string().refine((value) => value.replace(/\D/g, '').length === 8, {
     message: 'Ingrese un DNI válido',
   }),
