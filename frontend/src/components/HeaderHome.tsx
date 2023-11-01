@@ -30,7 +30,7 @@ const HeaderHome = () => {
               MediConnect
             </h1>
           </div>
-          <div className="hidden lg:flex space-x-4">
+          <div className="hidden lg:flex space-x-4 font-semibold">
             <Link
               href="/auth/register"
               className="text-white hover:text-blue-200"
@@ -53,7 +53,7 @@ const HeaderHome = () => {
                 {/* Enlaces del menú para pantallas pequeñas */}
                 <Link
                   href="/auth/register"
-                  className="block text-primary text-2xl  hover:text-blue-200 m-10 "
+                  className="block text-primary text-2xl hover:text-blue-200 m-10"
                 >
                   Registrarse
                 </Link>
