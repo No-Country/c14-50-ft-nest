@@ -1,27 +1,35 @@
+'use client'
 import Menu from "@/components/Menu";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function Header () {
-  const MenuInfo = [{
-    href: "/dashboard/summary",
-    id: 0,
-    link: "Home"
-  },
-  {
-    href: "/dashboard/solicitar-turnos",
-    id: 1,
-    link: "Solicitar un turno"
-  },
-  // {
-  //   href: "/dashboard/mis-turnos",
-  //   id: 2,
-  //   link: "Mis turnos"
-  // },
-  {
-    href: "/dashboard/perfil",
-    id: 3,
-    link: "Perfil"
-  }]
+export default function Header() {
+  const router = useRouter()
+  const handleExit = () => {
+    
+    window.localStorage.removeItem("id")
+    window.localStorage.removeItem("patientId")
+    window.localStorage.removeItem("token")
+
+    router.push("/")
+  }
+  const MenuInfo = [
+    {
+      href: "/dashboard/summary",
+      id: 0,
+      link: "Home",
+    },
+    {
+      href: "/dashboard/solicitar-turnos",
+      id: 1,
+      link: "Solicitar un turno",
+    },
+    {
+      href: "/dashboard/perfil",
+      id: 3,
+      link: "Perfil",
+    },
+  ];
 
   return (
     <header className="relative flex justify-between h-16  z-[100] shadow-2xl drop-shadow-2xl bg-primary">
@@ -50,9 +58,7 @@ export default function Header () {
             </svg>
           </span>
         </Link>
-        <Link href="#" className="px-2">
-          <span className="text-white"> Profile</span>
-        </Link>
+        <button onClick={handleExit} className="text-white px-2 hover:underline">Cerrar sesion</button>
       </div>
     </header>
   );
