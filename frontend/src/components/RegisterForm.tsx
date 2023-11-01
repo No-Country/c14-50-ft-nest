@@ -1,7 +1,11 @@
 "use client";
 import { ClientSchema, options } from "@/utils/ClientSchema";
-import { DoctorSchema, genderOptions, specialityOptions } from "@/utils/DoctorSchema";
-import { getCurrentDate } from '@/utils/getCurrentDate';
+import {
+  DoctorSchema,
+  genderOptions,
+  specialityOptions,
+} from "@/utils/DoctorSchema";
+import { getCurrentDate } from "@/utils/getCurrentDate";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Link from "next/link";
@@ -13,7 +17,7 @@ import toast, { Toaster } from "react-hot-toast";
 type ClientData = {
   firstName: string;
   lastName: string;
-  document: number;
+  document: string;
   email: string;
   birthDate: string;
   phone: number;
@@ -25,7 +29,7 @@ type ClientData = {
 type DoctorData = {
   firstName: string;
   lastName: string;
-  document: number;
+  document: string;
   email: string;
   birthDate: string;
   phone: string;
@@ -40,15 +44,17 @@ type DoctorData = {
 
 const RegisterForm = () => {
   // EJEMPLOS DE MATRICULAS EN CABA, BS.AS Y CBA => CABA-12345, PBA-6789, CORD-AB123 o CORD-CD456.
-  const { year, month, day } = getCurrentDate()
-  const currentDate = `${ year }-${ month }-${ day }`
+  const { year, month, day } = getCurrentDate();
+  const currentDate = `${ year }-${ month }-${ day }`;
   const date = useRef<HTMLInputElement>(null);
   const [newError, setNewError] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  const URLDOCTOR = "https://nc-project-lim7.onrender.com/api/auth/register/doctor";
-  const URLPATIENT = "https://nc-project-lim7.onrender.com/api/auth/register/patient";
+  const URLDOCTOR =
+    "https://nc-project-lim7.onrender.com/api/auth/register/doctor";
+  const URLPATIENT =
+    "https://nc-project-lim7.onrender.com/api/auth/register/patient";
   const router = useRouter();
 
   function handleCheckboxChange (event: ChangeEvent<HTMLInputElement>) {
@@ -79,11 +85,22 @@ const RegisterForm = () => {
     }
   }, [errors, isChecked, selectedItems]);
 
-
-  const submitPatientData = ({ insurance, confirmPassword, ...rest }: ClientData) => {
+  const submitPatientData = ({
+    insurance,
+    confirmPassword,
+    document,
+    ...rest
+  }: ClientData) => {
     // Lógica para PatientData
+    const documentReal = document.replaceAll(".", "");
+    const documentNumberInt = parseInt(documentReal);
     toast.promise(
-      axios.post(URLPATIENT, { ...rest, role: "patient" })
+      axios
+        .post(URLPATIENT, {
+          ...rest,
+          document: documentNumberInt,
+          role: "patient",
+        })
         .then(() => {
           router.push("/auth/login");
           reset();
@@ -94,21 +111,32 @@ const RegisterForm = () => {
         error: (err: any) => `${ err.response.data.sqlMessage }`,
       }
     );
-  }
-  const submitDoctorData = ({ insurance, confirmPassword, specialties, ...rest }: DoctorData) => {
+  };
+  const submitDoctorData = ({
+    insurance,
+    confirmPassword,
+    specialties,
+    document,
+    ...rest
+  }: DoctorData) => {
     // Lógica para DoctorData
+    const documentReal = document.replaceAll(".", "");
+    const documentNumberInt = parseInt(documentReal);
     const registrationNumberInt = parseInt(rest.registrationNumber)
     const genderToLowerCase = rest.gender.toLowerCase()
     toast.promise(
-      axios.post(URLDOCTOR, {
-        ...rest,
-        specialties: [specialties],
-        gender: genderToLowerCase,
-        registrationNumber: registrationNumberInt,
-        role: "doctor"
-      }).then(() => {
-        router.push("/auth/login");
-      }),
+      axios
+        .post(URLDOCTOR, {
+          ...rest,
+          document: documentNumberInt,
+          specialties: [specialties],
+          gender: genderToLowerCase,
+          registrationNumber: registrationNumberInt,
+          role: "doctor",
+        })
+        .then(() => {
+          router.push("/auth/login");
+        }),
       {
         loading: "Registrando...",
         success: <b>Registro exitoso!</b>,
@@ -136,7 +164,8 @@ const RegisterForm = () => {
   return (
     <>
       <form
-        className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${ newError ? "gap-1" : "gap-5" }`}
+        className={`flex flex-col justify-center max-w-sm w-full h-fit px-2 py-5 text-primary  ${ newError ? "gap-1" : "gap-5"
+          }`}
         onSubmit={handleSubmit(submitData as SubmitHandler<FieldValues>)}
       >
         <div>
@@ -148,14 +177,27 @@ const RegisterForm = () => {
               onChange={handleCheckbox}
             />
             <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-primary dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300" style={{ color: isChecked ? '#0B8B9D' : '' }}>
+            <span
+              className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+              style={{ color: isChecked ? "#0B8B9D" : "" }}
+            >
               Registrarme como profesional
             </span>
           </label>
         </div>
         <div className="mb-0">
           <label className="block text-sm font-bold mb-2">Nombre</label>
-          <input type="text" {...register("firstName")} placeholder="Nombre" />
+          <input
+            type="text"
+            {...register("firstName")}
+            placeholder="Nombre"
+            onKeyDown={(event) => {
+              // Si el carácter ingresado no es una letra o un espacio, prevenir la acción por defecto
+              if (!/[a-zA-Z\s\u00C0-\u00FF]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
+          />
         </div>
         {errors.firstName && (
           <span className="bg-red-200 text-red-600 px-4 rounded-sm">
@@ -165,7 +207,17 @@ const RegisterForm = () => {
         <div className="mb-0">
           <label className="block text-sm font-bold mb-2">Apellido</label>
 
-          <input type="text" {...register("lastName")} placeholder="Apellido" />
+          <input
+            type="text"
+            {...register("lastName")}
+            placeholder="Apellido"
+            onKeyDown={(event) => {
+              // Si el carácter ingresado no es una letra o un espacio, prevenir la acción por defecto
+              if (!/[a-zA-Z\s\u00C0-\u00FF]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
+          />
         </div>
         {errors.lastName && (
           <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
@@ -176,7 +228,25 @@ const RegisterForm = () => {
           <label className="block text-sm font-bold mb-2">
             Número de documento
           </label>
-          <input type="number" {...register("document")} placeholder="99.999.999" />
+          <input
+            type="tel"
+            {...register("document")}
+            placeholder="99.999.999"
+            onInput={(event) => {
+              // Eliminar todos los puntos del valor actual
+              let currentValue = event.currentTarget.value.replaceAll(".", "");
+              // Si el valor ingresado no es un número o si supera los 9 dígitos, eliminar el último carácter ingresado
+              if (!/^\d*$/.test(currentValue) || currentValue.length > 9) {
+                currentValue = currentValue.slice(0, -1);
+              }
+              // Formatear el valor con puntos cada 3 dígitos
+              const formattedValue = currentValue.replace(
+                /(\d)(?=(\d{3})+(?!\d))/g,
+                "$1."
+              );
+              event.currentTarget.value = formattedValue;
+            }}
+          />
         </div>
         {errors.document && (
           <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
@@ -255,9 +325,21 @@ const RegisterForm = () => {
             Número de teléfono
           </label>
           <input
-            type="number"
+            type="tel"
             {...register("phone")}
             placeholder="Número de teléfono"
+            onInput={(event) => {
+              // Si el valor ingresado no es un número o si supera los 9 dígitos, eliminar el último carácter ingresado
+              if (
+                !/^\d*$/.test(event.currentTarget.value) ||
+                event.currentTarget.value.length > 9
+              ) {
+                event.currentTarget.value = event.currentTarget.value.slice(
+                  0,
+                  -1
+                );
+              }
+            }}
           />
         </div>
         {errors.phone && (
@@ -365,7 +447,6 @@ const RegisterForm = () => {
           </Link>
         </p>
       </div>
-
     </>
   );
 };
