@@ -40,7 +40,6 @@ export default function MisTurnos () {
       return book.doctor.id === roleId
     }
   });
-  // console.log(userAppointments);
 
   return (
     <>

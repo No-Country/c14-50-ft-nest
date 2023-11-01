@@ -34,7 +34,7 @@ type DoctorData = {
   insurance: string[];
   registrationNumber: string;
   gender: string;
-  speciality: string[];
+  specialties: string[];
   schedule: string[];
 };
 
@@ -95,15 +95,16 @@ const RegisterForm = () => {
       }
     );
   }
-  const submitDoctorData = ({ insurance, confirmPassword, speciality, ...rest }: DoctorData) => {
+  const submitDoctorData = ({ insurance, confirmPassword, specialties, ...rest }: DoctorData) => {
     // Lógica para DoctorData
     const registrationNumberInt = parseInt(rest.registrationNumber)
-    console.log(typeof registrationNumberInt)
-    console.log({ ...rest, speciality: [speciality], registrationNumber: registrationNumberInt, role: "doctor" })
+    const genderToLowerCase = rest.gender.toLowerCase()
     toast.promise(
       axios.post(URLDOCTOR, {
         ...rest,
-        speciality: [speciality],
+        specialties: [specialties],
+        gender: genderToLowerCase,
+        registrationNumber: registrationNumberInt,
         role: "doctor"
       }).then(() => {
         router.push("/auth/login");
@@ -111,46 +112,11 @@ const RegisterForm = () => {
       {
         loading: "Registrando...",
         success: <b>Registro exitoso!</b>,
-        error: <b>No hemos podido registrarte</b>,
+        error: (err: any) => `${ err.response.data.message }`,
       }
     );
     setSelectedItems([]);
   }
-
-
-  // const submitData = ({ insurance, confirmPassword, ...rest }: DoctorData | ClientData) => {
-  //   if ('speciality' in rest) {
-  //     const doctorData = rest as DoctorData
-  //     const {speciality} = doctorData
-  //     doctorData.speciality = [speciality]
-  //   }
-  //   if (isChecked) {
-  //     toast.promise(
-  //       axios.post(URLDOCTOR, { ...rest, role: "doctor"}).then(() => {
-  //         router.push("/auth/login");
-  //       }),
-  //       {
-  //         loading: "Registrando...",
-  //         success: <b>Registro exitoso!</b>,
-  //         error: <b>No hemos podido registrarte</b>,
-  //       }
-  //     );
-  //     setSelectedItems([]);
-  //   } else {
-  //     toast.promise(
-  //       axios.post(URLPATIENT, { ...rest, role: "patient" })
-  //         .then(() => {
-  //           router.push("/auth/login");
-  //           reset();
-  //         }),
-  //       {
-  //         loading: "Registrando...",
-  //         success: <b>Registro exitoso!</b>,
-  //         error: (err: any) => `${ err.response.data.sqlMessage }`,
-  //       }
-  //     );
-  //   }
-  // };
 
   const submitData = isChecked ? submitDoctorData : submitPatientData;
 
@@ -334,18 +300,18 @@ const RegisterForm = () => {
             )}
             <div className="mb-0">
               <label className="block text-sm font-bold mb-2">Especialidad</label>
-              <select {...register("speciality")}>
+              <select {...register("specialties")}>
                 <option value="">* Seleccione Su Especialidad *</option>
-                {specialityOptions.map((speciality) => (
-                  <option key={speciality} value={speciality}>
-                    {speciality}
+                {specialityOptions.map((specialties) => (
+                  <option key={specialties} value={specialties}>
+                    {specialties}
                   </option>
                 ))}
               </select>
             </div>
-            {"speciality" in errors && errors.speciality && (
+            {"specialties" in errors && errors.specialties && (
               <span className="bg-red-200 text-red-600 px-4 rounded-sm ">
-                {errors.speciality.message}
+                {errors.specialties.message}
               </span>
             )}
           </>
