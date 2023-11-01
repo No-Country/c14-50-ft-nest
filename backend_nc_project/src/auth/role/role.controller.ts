@@ -3,10 +3,12 @@ import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
-import { Auth } from '../../common/decorator/auth.decorator';
-import { ERole } from '../../common/enum';
+// import { Auth } from '../../common/decorator/auth.decorator';
+// import { ERole } from '../../common/enum';
+import { ApiTags } from '@nestjs/swagger';
 
-//@Auth(ERole.SUPERADMIN)
+@ApiTags('Role')
+// @Auth(ERole.SUPERADMIN)
 @Controller('roles')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}

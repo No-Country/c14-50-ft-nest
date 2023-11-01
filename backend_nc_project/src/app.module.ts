@@ -9,6 +9,7 @@ import { PatientsModule } from './patients/patients.module';
 import { SpecialtiesModule } from './specialties/specialties.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { AppointmentsModule } from './appointments/appointments.module';
+import { HealthInsuranceModule } from './health-insurance/health-insurance.module';
 
 @Module({
   imports: [
@@ -46,7 +47,8 @@ import { AppointmentsModule } from './appointments/appointments.module';
     PatientsModule,
     SpecialtiesModule,
     ScheduleModule,
-    AppointmentsModule
+    AppointmentsModule,
+    HealthInsuranceModule
   ],
   controllers: [],
   providers: [JwtModule],

@@ -19,7 +19,7 @@ export class DoctorService {
     
   ){}
 
-  async create( { firstName, lastName, phone, birthDate, schedule, specialties }: CreateDoctorDto) {
+  async create( { firstName, lastName, phone, birthDate, schedule, specialties, registrationNumber, gender }: CreateDoctorDto) {
  
     const query = {}
 
@@ -37,7 +37,9 @@ export class DoctorService {
       phone,
       birthDate,
       schedule,
-      specialties: specialtiesObjects
+      specialties: specialtiesObjects,
+      registrationNumber,
+      gender
     }
 
     const doctor = this.doctorRepository.create(doctorSchema);

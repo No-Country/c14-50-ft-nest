@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app: 
-    image: prueba
+    image: backend_nc_project
     build: 
       context: .
       dockerfile: Dockerfile
@@ -33,3 +33,4 @@ services:
       - 3306
     volumes:
       - /db/mysql:/var/lib/mysql
+  
