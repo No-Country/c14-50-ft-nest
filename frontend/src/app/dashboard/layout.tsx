@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import { ChakraProvider } from "@chakra-ui/react";
 
-export default function DashboardLayout({
+export default function DashboardLayout ({
   children,
 }: {
   children: React.ReactNode;

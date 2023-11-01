@@ -1,4 +1,6 @@
 'use client'
+import { authSlice } from '@/redux/features/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -6,9 +8,9 @@ import { FormEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch()
   const [documento, setDocumento] = useState('')
   const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
 
   const router = useRouter()
   const URL = "https://nc-project-lim7.onrender.com/api/auth/login"
@@ -17,20 +19,29 @@ const LoginForm = () => {
     e.preventDefault()
 
     const data = {
-           document: documento,
-           password: password
-          }
+      document: documento,
+      password: password
+    }
 
     toast.promise(
       axios.post(URL, data)
-      .then((res:any) => { //falta typear
-        localStorage.setItem("token", res.data.token)
-        localStorage.setItem("id", res.data.userId)
-        router.push("/dashboard/summary");
-      }),
+        .then((res: any) => { //falta typear
+          const user = {
+            token: res.data.token,
+            userId: res.data.userId,
+            role: res.data.role.name
+          }
+          localStorage.setItem("userInfo", JSON.stringify(user))
+          dispatch(authSlice.actions.setUser({
+            token: res.data.token,
+            userId: res.data.userId,
+            role: res.data.role.name
+          }))
+          router.push("/dashboard/summary")
+        }),
       {
         loading: "Comprobando credenciales...",
-        success: <b>Registro exitoso!</b>,
+        success: <b>Sesion iniciada!</b>,
         error: (err: any) => `${ err.response.data.message.toString() }`,
       }
     );
@@ -64,7 +75,6 @@ const LoginForm = () => {
         >
           Iniciar sesión
         </button>
-        <p>{message}</p>
       </div>
       <Toaster position="bottom-right" reverseOrder={false} />
     </form>

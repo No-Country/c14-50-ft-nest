@@ -1,39 +1,68 @@
 'use client'
 import Menu from "@/components/Menu";
+import { authSlice, logoutUser } from '@/redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export default function Header() {
+export default function Header () {
   const router = useRouter()
-  const handleExit = () => {
-    
-    window.localStorage.removeItem("id")
-    window.localStorage.removeItem("patientId")
-    window.localStorage.removeItem("token")
+  const role = useAppSelector(state => state.authReducer.role)
+  const dispatch = useAppDispatch()
 
-    router.push("/")
+  const DocMenuInfo = [{
+    href: "/dashboard/summary",
+    id: 0,
+    link: "Home"
+  },
+  {
+    href: "/dashboard/agenda",
+    id: 0,
+    link: "Agenda"
+  },
+  ]
+
+  const MenuInfo = [{
+    href: "/dashboard/summary",
+    id: 0,
+    link: "Home"
+  },
+  {
+    href: "/dashboard/solicitar-turnos",
+    id: 1,
+    link: "Solicitar un turno"
+  },
+  {
+    href: "/dashboard/perfil",
+    id: 3,
+    link: "Perfil"
+  }]
+
+  useEffect(() => {
+    const userInfoString = localStorage.getItem("userInfo");
+    if (userInfoString) {
+      const userInfo = JSON.parse(userInfoString)
+      dispatch(authSlice.actions.setUser({
+        token: userInfo.token,
+        userId: userInfo.userId,
+        role: userInfo.role
+      }))
+    }
+  }, [])
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
+    localStorage.removeItem('userInfo')
+    localStorage.removeItem('id')
+    localStorage.removeItem('token')
+    localStorage.removeItem('patientId')
+    router.push('/auth/login')
   }
-  const MenuInfo = [
-    {
-      href: "/dashboard/summary",
-      id: 0,
-      link: "Home",
-    },
-    {
-      href: "/dashboard/solicitar-turnos",
-      id: 1,
-      link: "Solicitar un turno",
-    },
-    {
-      href: "/dashboard/perfil",
-      id: 3,
-      link: "Perfil",
-    },
-  ];
 
   return (
     <header className="relative flex justify-between h-16  z-[100] shadow-2xl drop-shadow-2xl bg-primary">
-      <Menu list={MenuInfo} />
+      <Menu list={role === 'patient' ? MenuInfo : DocMenuInfo} />
       <div className="hidden lg:flex lg:justify-center lg:items-center lg:absolute lg:top-0 lg:h-16 lg:w-[20%] lg:bg-primary lg:z-40 lg:shadow-md lg:drop-shadow-md text-xl text-white font-bold">
         <svg version="1.1" width="40px" height="40px" viewBox="0 0 100 125">
           <path
@@ -43,8 +72,8 @@ export default function Header() {
         </svg>
         MediConnect
       </div>
-      <div className="w-24 flex justify-around items-center content-center mr-3 lg:mr-16 z-40">
-        <Link href="#" className="w-16">
+      <div className="flex gap-5 justify-around items-center content-center mr-3 lg:mr-16 z-40">
+        <Link href="#">
           <span className=" w-full h-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +87,9 @@ export default function Header() {
             </svg>
           </span>
         </Link>
-        <button onClick={handleExit} className="text-white px-2 hover:underline">Cerrar sesión</button>
+        <button onClick={handleLogout} className="px-4 py-1 text-white bg-red-500 hover:bg-red-600 rounded">
+          Cerrar sesion
+        </button>
       </div>
     </header>
   );
