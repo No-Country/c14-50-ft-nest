@@ -58,7 +58,7 @@ export default function Header() {
             </svg>
           </span>
         </Link>
-        <button onClick={handleExit} className="text-white px-2 hover:underline">Cerrar sesion</button>
+        <button onClick={handleExit} className="text-white px-2 hover:underline">Cerrar sesión</button>
       </div>
     </header>
   );
