@@ -69,8 +69,8 @@ export default function Header () {
         </svg>
         MediConnect
       </div>
-      <div className="w-24 flex justify-around items-center content-center mr-3 lg:mr-16 z-40">
-        <Link href="#" className="w-16">
+      <div className="flex gap-5 justify-around items-center content-center mr-3 lg:mr-16 z-40">
+        <Link href="#">
           <span className=" w-full h-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -84,10 +84,9 @@ export default function Header () {
             </svg>
           </span>
         </Link>
-        <button onClick={handleLogout}>Cerrar sesion</button>
-        {/* <Link href="#" className="px-2">
-          <span className="text-white"> Profile</span>
-        </Link> */}
+        <button onClick={handleLogout} className="px-4 py-1 text-white bg-red-500 hover:bg-red-600 rounded">
+          Cerrar sesion
+        </button>
       </div>
     </header>
   );
