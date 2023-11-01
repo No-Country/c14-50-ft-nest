@@ -16,16 +16,16 @@ type DoctorData = {
 
 export const genderOptions = ['Masculino', 'Femenino'] as const
 export const specialityOptions = [
-  "Cardiólogo",
-  "Otorrinolaringología",
-  "Oftalmólogo",
+  "Dentista",
+  "Ortopedista",
   "Neurólogo",
-  "Dermatólogo",
-  "Reumatólogo",
-  "Urólogo",
-  "Psiquiatra",
-  "Ginecólogo",
-  "Pediatría"
+  "Oftalmólogo",
+  "Anestesiólogo",
+  "Cardiólogo",
+  "Medico General",
+  "Pediatra",
+  "Psicólogo",
+  "Dermatólogo"
 ] as const
 
 export const DoctorSchema: ZodType<DoctorData> = z.object({
