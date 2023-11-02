@@ -1,12 +1,12 @@
 
 
-# <center>MEDICONNECT<center>
+# MEDICONNECT
 
 **MediConnect** es una innovadora aplicación diseñada para revolucionar la gestión de turnos médicos, al tiempo que mejora la comunicación entre médicos y pacientes. Nuestra plataforma se ha creado con el objetivo de simplificar la experiencia médica, brindando comodidad, eficiencia y transparencia en cada paso del proceso.
 
 MediConnect es la solución integral que conecta a médicos y pacientes, mejorando la experiencia de atención médica en todos los aspectos. Únete a nosotros en esta misión de hacer que la atención médica sea más accesible, eficiente y centrada en el paciente que nunca.
 
-# <center>Modo de uso<center>
+# Modo de uso
 
 Para instalar el proyecto localmente: 
 
@@ -16,7 +16,7 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
    ```
 
 O simplemente clickea en el link de 
-<a href="https://google.com" target="_blank">Ver Demo.</a>
+<a href="https://frontend-no-country-actual.onrender.com/" target="_blank">Ver Demo.</a>
 
 
 <center>
