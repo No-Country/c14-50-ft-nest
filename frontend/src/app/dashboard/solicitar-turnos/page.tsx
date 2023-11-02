@@ -77,7 +77,7 @@ export default function SolicitarTurnos () {
   const dataToSend = {
     specialty: selectedSpecialty,
     doctor: selectedDoc,
-    dateSelected: dateInfo,//"Jueves 19/10/2023 1:00 p.m.",
+    dateSelected: dateInfo,
   };
 
   const setAppointment = (data: any) => { //falta typear
@@ -107,6 +107,11 @@ export default function SolicitarTurnos () {
   const handlerNext = () => {
 
     if (activeStep === 3) {
+      if (dataToSend.dateSelected.date === '' || dataToSend.dateSelected.hour === '') {
+        toast.error('Selecciona una fecha y hora para confirmar tu turno')
+        handlerPrev()
+        return
+      }
       setAppointment(dataToSend)
       return
     } else {
@@ -153,31 +158,19 @@ export default function SolicitarTurnos () {
                 {step.description}
               </StepDescription>
             </Box>
-            {/* <StepSeparator /> */}
           </Step>
         ))}
       </Stepper>
       <Box>
-        {activeStep === 0
-          ? <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} />
-          : false
+        {activeStep === 0 && <SpecialtyForm setSelectedSpecialty={setSelectedSpecialty} />}
+        {activeStep === 1 && <DoctorsResult
+          selectedDoc={selectedDoc}
+          setSelectedDoc={setSelectedDoc}
+          selectedSpeciality={selectedSpecialty}
+        />
         }
-        {activeStep === 2
-          ? <HoursForm dataToSend={dataToSend} setDateInfo={setDateInfo} />
-          : false
-        }
-        {activeStep === 1
-          ? <DoctorsResult
-            selectedDoc={selectedDoc}
-            setSelectedDoc={setSelectedDoc}
-            selectedSpeciality={selectedSpecialty}
-          />
-          : false
-        }
-        {activeStep === 3
-          ? <ConfirmAppointment info={dataToSend} />
-          : false
-        }
+        {activeStep === 2 && <HoursForm dataToSend={dataToSend} setDateInfo={setDateInfo} />}
+        {activeStep === 3 && <ConfirmAppointment info={dataToSend} />}
       </Box>
       <div className="flex justify-around items-center my-6">
         <button

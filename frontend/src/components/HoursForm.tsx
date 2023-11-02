@@ -26,7 +26,6 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
 
   const handleHour = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedHour = e.target.value;
-    // Aquí estableces el estado utilizando setDateInfo
     setDateInfo((prevDateInfo) => ({
       ...prevDateInfo,
       hour: selectedHour,
@@ -35,7 +34,6 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
 
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedDate = e.target.value;
-    // Aquí estableces el estado utilizando setDateInfo
     setDateInfo((prevDateInfo) => ({
       ...prevDateInfo,
       date: selectedDate,
@@ -44,8 +42,9 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
 
   return (
     <div className='flex'>
-      <input type="date" min={minDate} max={maxDate} onChange={handleDate} />
-      <select onChange={handleHour}>
+      <input type="date" min={minDate} value={dataToSend.dateSelected.date} max={maxDate} onChange={handleDate} />
+      <select onChange={handleHour} value={dataToSend.dateSelected.hour}>
+        <option value="">* Selecciona Un Horario *</option>
         {options.map((option: any, index: any) => { //falta typar
           return (
             <option key={index} value={option}>
