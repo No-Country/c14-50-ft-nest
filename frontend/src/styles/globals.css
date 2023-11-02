@@ -52,6 +52,7 @@ table.basic tr td{
   margin-left: auto;
   margin-bottom: auto;
   backdrop-filter: blur(3px);
+  z-index: 10;
 }
 
 .dot {
