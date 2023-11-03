@@ -50,11 +50,12 @@ type Doctor = {
 type Date = {
   date: string
   hour: string
+  value: string
 }
 
 export default function SolicitarTurnos () {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("")
-  const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '' })
+  const [dateInfo, setDateInfo] = useState<Date>({ date: '', hour: '', value:'' })
   // const userId = useAppSelector(state => state.authReducer.userId)
   const roleId = useAppSelector(state => state.authReducer.roleId)
 
@@ -82,18 +83,21 @@ export default function SolicitarTurnos () {
 
   const setAppointment = (data: any) => { //falta typear
 
-    const dataToSend = {
+    const finalValue = {
       day: data.dateSelected.date,
-      interval: data.dateSelected.hour.replace(",", " - "),
+      interval: data.dateSelected.hour,
       doctor: data.doctor.id,
       specialty: data.specialty,
       patient: roleId
     }
+
     toast.promise(
 
-      axios.post("https://nc-project-lim7.onrender.com/api/appointments", dataToSend)
+      axios.post("https://nc-project-lim7.onrender.com/api/appointments", finalValue)
         .then(() => {
-          router.push("/dashboard/summary");
+          axios
+          .patch(`https://nc-project-lim7.onrender.com/api/schedule/${finalValue.interval}`,{occupied:true})
+          .then(() =>  router.push("/dashboard/summary"))
         }),
       {
         loading: "Agendando Turno...",

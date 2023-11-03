@@ -123,7 +123,7 @@ const RegisterForm = () => {
     const documentReal = document.replaceAll(".", "");
     const documentNumberInt = parseInt(documentReal);
     const registrationNumberInt = parseInt(rest.registrationNumber)
-    const genderToLowerCase = rest.gender.toLowerCase()
+    const genderToLowerCase = rest.gender?.toLowerCase()
     toast.promise(
       axios
         .post(URLDOCTOR, {

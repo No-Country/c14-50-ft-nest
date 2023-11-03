@@ -20,7 +20,7 @@ export default function Header () {
     href: "/dashboard/agenda",
     id: 0,
     link: "Agenda"
-  },
+  }
   ]
 
   const MenuInfo = [{
