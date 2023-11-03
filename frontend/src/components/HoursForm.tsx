@@ -30,11 +30,11 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
       return [...acc, data];
     }, [])
     .sort((a: any, b: any) => {
-      const timeA = a.interval[0].split(":");
-      const timeB = b.interval[0].split(":");
+      const timeA = a.interval[0].split(":").join("");
+      const timeB = b.interval[0].split(":").join("");
 
-      const hoursA = parseInt(timeA[0]);
-      const hoursB = parseInt(timeB[0]);
+      const hoursA = parseInt(timeA);
+      const hoursB = parseInt(timeB);
 
       return hoursA - hoursB;
     });

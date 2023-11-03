@@ -80,7 +80,7 @@ export default function MisTurnos() {
         return book.patient.id === roleId;
       }
       if (role === "doctor" ) {
-        if (prueba > prueba2 && book.patient.id === roleId) {
+        if (prueba > prueba2 && book.doctor.id === roleId) {
           expiredAppointments.push(book);
           return false;
         }
