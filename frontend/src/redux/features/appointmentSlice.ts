@@ -23,7 +23,7 @@ export const appointmentSlice = createSlice({
   initialState,
   reducers: {
     setAppointment: (state, action) => {
-      action.payload.forEach(element => {
+      action.payload.forEach((element:any) => {
         if (!state.find(item => item.id === element.id)) {
           state.push(element);
         }

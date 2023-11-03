@@ -32,37 +32,22 @@ export default function MisTurnos() {
 
   const expiredAppointments: any = [];
 
-  // const userAppointments = data?.filter((book: any) => {//falta typar
-  //   const currentDate = new Date()
-  //   if (role === 'patient') {
-  //     if (currentDate > book.day) {
-  //       expiredAppointments.push(book)
-  //       return false
-  //     }
-  //     return book.patient.id === roleId
-  //   }
-  //   if (role === 'doctor') {
-  //     if (currentDate > book.day) {
-  //       expiredAppointments.push(book)
-  //       return false
-  //     }
-  //     return book.doctor.id === roleId
-  //   }
-  //   return 0;
-  // });
-
   useEffect(() => {
     const userAppointmentString = localStorage.getItem("appointments");
+  
     if (userAppointmentString) {
+      
       const appointmenParse = JSON.parse(userAppointmentString);
       dispatch(appointmentSlice.actions.setAppointment(appointmenParse));
-      return;
+      //return;
     }
+   
     if (!isLoading && data !== undefined) {
       const filteredData = data?.filter((book: any) => {
         if (role === "patient") return book.patient.id === roleId;
         if (role === "doctor") return book.doctor.id === roleId;
       });
+     
       // Realizar el dispatch para almacenar los datos en Redux
       dispatch(appointmentSlice.actions.setAppointment(filteredData));
       // Almacenar los datos en localStorage
@@ -88,14 +73,14 @@ export default function MisTurnos() {
       const prueba2 = new Date(book.day);
 
       if (role === "patient") {
-        if (prueba > prueba2) {
+        if (prueba > prueba2 && book.patient.id === roleId) {
           expiredAppointments.push(book);
           return false;
         }
         return book.patient.id === roleId;
       }
-      if (role === "doctor") {
-        if (prueba > prueba2) {
+      if (role === "doctor" ) {
+        if (prueba > prueba2 && book.patient.id === roleId) {
           expiredAppointments.push(book);
           return false;
         }

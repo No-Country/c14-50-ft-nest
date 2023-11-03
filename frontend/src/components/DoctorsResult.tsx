@@ -1,5 +1,5 @@
 import { useGetDoctorsQuery } from '@/redux/services/projectApi'
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Loader from "./Loader"
 
 type Doctor = {
@@ -24,6 +24,9 @@ const DoctorsResult = ({
   const [isOpen, setIsOpen] = useState(false)
   const insurances = ["Ossde", "Swiss medical"]
   const { data, error, isLoading, isFetching } = useGetDoctorsQuery(null)
+
+  useEffect(()=>{
+  },[data])
 
   const closeModal = () => {
     setIsOpen(false)

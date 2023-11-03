@@ -14,13 +14,14 @@ const AgendaPage = () => {
     return book.doctor.id === roleId && book.day === currentDate
   });
 
+
   return (
     <main className="h-screen lg:w-[80%] lg:ml-auto bg-[#f0f4f7] p-10 position-relative">
       <table>
         <thead>
           <tr>
             <th>Hoy</th>
-            <th>Mañana</th>
+            {/* <th>Mañana</th> */}
           </tr>
         </thead>
         <tbody>
@@ -35,13 +36,13 @@ const AgendaPage = () => {
                   fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
                   let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones as any); //falta typar
 
-                  return <AppointmentCard role={role} book={book} fechaFormateada={fechaFormateada} key={index} />
+                  return <AppointmentCard active={true} role={role} book={book} fechaFormateada={fechaFormateada} key={index} />
                 })}
               </div>
             </td>
-            <td>
+            {/* <td>
               <div>Columna1</div>
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </table>
