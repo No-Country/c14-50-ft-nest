@@ -14,45 +14,62 @@ export class SpecialtiesService {
   ){}
 
   async create(createSpecialtieDto: CreateSpecialtieDto) {
-    return await this.specialtieRepository.save(createSpecialtieDto);
+
+    try {
+      
+      return await this.specialtieRepository.save(createSpecialtieDto);
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  //async fillTable(id:string){
-  //  const horario = [
-  //    ['9:00', '9:30'],
-  //    ['10:00', '10:30'],
-  //    ['11:00', '11:30'],
-  //    ['12:00', '12:30'],
-  //    ['13:00', '13:30'],
-  //    ['14:00', '14:30'],
-  //    ['15:00', '15:30'],
-  //    ['16:00', '16:30']
-  //  ]
-  //  horario.forEach(async (item) => {
-
-  //  })
-  //}
-
   async findAll() {
-    return await this.specialtieRepository.find();
+    try {
+
+      return await this.specialtieRepository.find();
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findOneSpecialtie(id: string) {
-    const specialtie = await this.specialtieRepository.findOneBy({id});
-    if(!specialtie) throw new Error('Specialtie not found');
-    return specialtie;
+    try {
+
+      const specialtie = await this.specialtieRepository.findOneBy({id});
+      if(!specialtie) throw new Error('Specialtie not found');
+      return specialtie;
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async update(id: string, updateSpecialtieDto: UpdateSpecialtieDto) {
-    const specialtie = await this.specialtieRepository.findOneBy({id});
-    if(!specialtie) throw new Error('Specialtie not found');
-    return await this.specialtieRepository.update(id,updateSpecialtieDto);
+
+    try {
+
+      const specialtie = await this.specialtieRepository.findOneBy({id});
+      if(!specialtie) throw new Error('Specialtie not found');
+      return await this.specialtieRepository.update(id,updateSpecialtieDto);
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async remove(id: string) {
-    const specialtie = await this.specialtieRepository.findOneBy({id});
-    if(!specialtie) throw new Error('Specialtie not found');
-    await this.specialtieRepository.delete(id);
-    return specialtie;
+
+    try {
+      
+      const specialtie = await this.specialtieRepository.findOneBy({id});
+      if(!specialtie) throw new Error('Specialtie not found');
+      await this.specialtieRepository.delete(id);
+      return specialtie;
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

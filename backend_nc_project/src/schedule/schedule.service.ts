@@ -13,22 +13,54 @@ export class ScheduleService {
     private readonly scheduleRepository: Repository<Schedule>
   ){}
   create(createScheduleDto: CreateScheduleDto) {
-    return this.scheduleRepository.save(createScheduleDto);
+    try {
+      
+      return this.scheduleRepository.save(createScheduleDto);
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   findAll() {
-    return this.scheduleRepository.find();
+    try {
+      
+      return this.scheduleRepository.find();
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  findOne(id: string) {
-    return this.scheduleRepository.findOne({where:{id}});
+  async findOne(id: string) {
+    try {
+
+      return this.scheduleRepository.findOne({where:{id}});
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    return this.scheduleRepository.update(id, updateScheduleDto);
+  async update(id: string, updateScheduleDto: UpdateScheduleDto) {
+    try {
+      
+      return this.scheduleRepository.update(id, updateScheduleDto);
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  remove(id: number) {
-    return this.scheduleRepository.delete(id);
+  async remove(id: string) {
+    try {
+      
+      const schedule = await this.scheduleRepository.findOneBy({id});
+      if(!schedule) throw new Error('Appointment not found');
+      return this.scheduleRepository.delete(id);
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

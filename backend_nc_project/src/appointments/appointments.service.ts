@@ -14,11 +14,23 @@ export class AppointmentsService {
   ){}
 
   async create(createAppointmentDto: CreateAppointmentDto) {
-    return await this.appointmentRepository.save(createAppointmentDto);
+    try {
+
+      return await this.appointmentRepository.save(createAppointmentDto);
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findAll() {
-    return await this.appointmentRepository.find();
+    try {
+      
+      return await this.appointmentRepository.find();
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findOneByDoctor(doctorId: string){
@@ -31,35 +43,61 @@ export class AppointmentsService {
           doctor: doctorId
         }
       });
+
     } catch (err) {
       console.error(err);
     }
   }
 
   async findOneByPatient(patientId: string){
-    return await this.appointmentRepository.find({
-      where: {
-        patient: patientId
-      }
-    });
+    try {
+
+      return await this.appointmentRepository.find({
+        where: {
+          patient: patientId
+        }
+      });
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findAppointmentsByUser(id:string) {
-    const appointment = await this.appointmentRepository.find({where:{patient:id}});
-    if(!appointment) throw new Error('Appointment not found');
-    return appointment;
+    try {
+
+      const appointment = await this.appointmentRepository.find({where:{patient:id}});
+      if(!appointment) throw new Error('Appointment not found');
+      return appointment;
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async update(id: string, updateAppointmentDto: UpdateAppointmentDto) {
-    const appointment = await this.appointmentRepository.findOneBy({id});
-    if(!appointment) throw new Error('Appointment not found');
-    return await this.appointmentRepository.update(id, updateAppointmentDto);
+    try {
+      
+      const appointment = await this.appointmentRepository.findOneBy({id});
+      if(!appointment) throw new Error('Appointment not found');
+      return await this.appointmentRepository.update(id, updateAppointmentDto);
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async remove(id: string) {
-    const appointment = await this.appointmentRepository.findOneBy({id});
-    if(!appointment) throw new Error('Appointment not found');
-    await this.appointmentRepository.delete(id);
-    return appointment;
+
+    try {
+      
+      const appointment = await this.appointmentRepository.findOneBy({id});
+      if(!appointment) throw new Error('Appointment not found');
+      await this.appointmentRepository.delete(id);
+      return appointment;
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

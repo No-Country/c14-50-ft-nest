@@ -111,6 +111,8 @@ export class UserService {
     }
 
     async findOne(id: string): Promise<User>{
+      try {
+        
         const user = await this.userRepository.findOne({
                                             where: {id: id }
                                           });
@@ -120,31 +122,47 @@ export class UserService {
         }
     
         return user;
+
+      } catch (error) {
+        console.error(error);
+      }
       }
 
       async update(id: string, updateUserDto: UpdateUserDto) {
   
-        const user = await this.userRepository.update({ id }, updateUserDto);
-        console.log(user)
-        if (!user) {
-          throw new NotFoundException(`User with Id ${id} not found`);
+        try {
+
+          const user = await this.userRepository.update({ id }, updateUserDto);
+          console.log(user)
+          if (!user) {
+            throw new NotFoundException(`User with Id ${id} not found`);
+          }
+      
+          return `User with Id ${id} was successfully updated`;
+          
+        } catch (error) {
+          console.error(error);
         }
-    
-        return `User with Id ${id} was successfully updated`;
       }
 
       async remove(id: string) {
 
-        const user = await this.userRepository.update({ id, is_deleted: false }, {
-          is_deleted: true,
-        });
-        
-        if (user.affected !== 1) {
-          throw new NotFoundException(`User with Id ${id} not found`);
+        try {
+          
+          const user = await this.userRepository.update({ id, is_deleted: false }, {
+            is_deleted: true,
+          });
+          
+          if (user.affected !== 1) {
+            throw new NotFoundException(`User with Id ${id} not found`);
+          }
+          
+          await this.userRepository.softDelete(id);
+      
+          return `User with Id ${id} was successfully deleted`;
+          
+        } catch (error) {
+          console.error(error);
         }
-        
-        await this.userRepository.softDelete(id);
-    
-        return `User with Id ${id} was successfully deleted`;
       }
 }

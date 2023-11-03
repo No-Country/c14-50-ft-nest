@@ -14,29 +14,60 @@ export class PatientService {
   ){}
 
   async create(createPatientDto: CreatePatientDto) {
-    return await this.patientRepository.save(createPatientDto);
-  }
+    try {
 
+      return await this.patientRepository.save(createPatientDto);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
   async findAll() {
-    return await this.patientRepository.find();
+    try {
+
+      return await this.patientRepository.find();
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findOne(id: string) {
-    const patient = await this.patientRepository.findOneBy({id});
-    if(!patient) throw new Error('Patient not found');
-    return patient;
+    try {
+
+      const patient = await this.patientRepository.findOneBy({id});
+      if(!patient) throw new Error('Patient not found');
+      return patient;
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async update(id: string, updatePatientDto: UpdatePatientDto) {
-    const patient = await this.patientRepository.findOneBy({id});
-    if(!patient) throw new Error('Patient not found');
-    return await this.patientRepository.update(id,updatePatientDto);
+
+    try {
+
+      const patient = await this.patientRepository.findOneBy({id});
+      if(!patient) throw new Error('Patient not found');
+      return await this.patientRepository.update(id,updatePatientDto);
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async remove(id: string) {
-    const patient = await this.patientRepository.findOneBy({id});
-    if(!patient) throw new Error('Patient not found');
-    await this.patientRepository.delete(id);
-    return patient;
+    try {
+      
+      const patient = await this.patientRepository.findOneBy({id});
+      if(!patient) throw new Error('Patient not found');
+      await this.patientRepository.delete(id);
+      return patient;
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
