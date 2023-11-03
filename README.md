@@ -152,10 +152,10 @@ O simplemente clickea en el link de
             <strong>
               <p>Frontend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://www.github.com/samotSama">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
-            <a href="">
+            <a href="https://www.linkedin.com/in/h-alejandro-rosa/">
               <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
             </a>
           </div>
