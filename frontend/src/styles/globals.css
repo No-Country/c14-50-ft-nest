@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input,
+select {
+  @apply p-1 shadow appearance-none border-primary border-[1px] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline;
+}
+
+table.basic{
+  @apply w-full bg-white rounded-sm shadow-sm;
+}
+
+table.basic thead tr td,
+table.basic thead tr th
+{
+  @apply text-sm text-gray-600 uppercase border-b border-gray-200 py-2;
+}
+table.basic tr td{
+  @apply px-3 py-1 uppercase;
+}
+
+.singIn{
+  @apply bg-[#0C616E]
+}
+.login-page-container{
+  @apply bg-[#0B8B9D]
+}
+.loginText{
+  @apply left-[-3rem] text-[#1E1E1E]
+}
+
+/* LOADER */
+
+.dots-container {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 80%;
+  inset: 0;
+  margin-left: auto;
+  margin-bottom: auto;
+  backdrop-filter: blur(3px);
+  z-index: 10;
+}
+
+.dot {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #b3d4fc;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+@media (width <= 1023px){
+  .dots-container{
+    width: 100%;
+  }
+}
+
+.dot:last-child {
+  margin-right: 0;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.1s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: #6793fb;
+    box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
+  }
+
+  100% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
+}
