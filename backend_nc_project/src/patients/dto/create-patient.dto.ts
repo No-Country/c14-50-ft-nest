@@ -22,4 +22,5 @@ export class CreatePatientDto {
     @IsString()
     @IsOptional()
     healthInsurance?:string
+
 }

@@ -1,8 +1,8 @@
 
 import { User } from "src/auth/user/entities/user.entity";
 import { BaseEntity } from "src/common/baseEntity";
-
-import { Column, Entity, OneToOne } from "typeorm";
+import { HealthInsurance } from "src/health-insurance/entity/health-insurance.entity";
+import { Column, Entity, JoinTable, OneToOne } from "typeorm";
 
 @Entity()
 export class Patient extends BaseEntity {
@@ -20,6 +20,8 @@ export class Patient extends BaseEntity {
     phone?:string
 
     @Column({nullable:true})
+    @OneToOne(() => HealthInsurance, (healthInsurance) => healthInsurance.id)
+    @JoinTable()
     healthInsurance?:string
 
     @OneToOne(() => User, (user) => user.patient)
