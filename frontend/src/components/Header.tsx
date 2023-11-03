@@ -54,9 +54,7 @@ export default function Header () {
   const handleLogout = () => {
     dispatch(logoutUser())
     localStorage.removeItem('userInfo')
-    localStorage.removeItem('id')
-    localStorage.removeItem('token')
-    localStorage.removeItem('patientId')
+    localStorage.removeItem('appointments')
     router.push('/auth/login')
   }
 

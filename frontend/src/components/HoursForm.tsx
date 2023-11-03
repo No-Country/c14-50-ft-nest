@@ -19,7 +19,7 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
   const options = dataToSend?.doctor?.schedules
     ?.reduce((acc: any, curr: any) => {
       //debemos ordenar este array
-      if (curr.ocupped) return;
+      if (curr.occupied) return[...acc];
       const start = curr.startTime;
       const end = curr.endTime;
       const book = [start, end];
@@ -41,7 +41,6 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
 
   const handleHour = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let index = e.target.selectedIndex
-    console.log(e.target.options[index].text)
     const value = e.target.value
     const selectedHour = e.target.options[index].text;
      // Aquí estableces el estado utilizando setDateInfo
@@ -54,7 +53,6 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
 
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedDate = e.target.value;
-    // Aquí estableces el estado utilizando setDateInfo
     setDateInfo((prevDateInfo) => ({
       ...prevDateInfo,
       date: selectedDate,

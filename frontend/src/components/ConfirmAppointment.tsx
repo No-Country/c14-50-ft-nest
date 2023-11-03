@@ -45,7 +45,7 @@ export default function ConfirmAppointment ({ info }: any) { //Falta typear
           <div>
             <p>{info.dateSelected.date}</p>
             <p>Desde: {info.dateSelected.hour.substring(0, 5)}</p>
-            <p>Hasta: {info.dateSelected.hour.substring(6)}</p>
+            <p>Hasta: {info.dateSelected.hour.substring(7)}</p>
           </div>
         </div>
       </div>

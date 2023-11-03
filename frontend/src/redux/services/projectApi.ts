@@ -75,4 +75,4 @@ export const projectApi = createApi({
   })
 })
 
-export const { useGetDoctorsQuery, useGetDoctorsByIdQuery } = projectApi
+export const { useGetDoctorsQuery, useGetDoctorsByIdQuery, useGetAppointmentsQuery } = projectApi

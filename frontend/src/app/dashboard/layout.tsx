@@ -7,11 +7,9 @@ export default function DashboardLayout ({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <ChakraProvider>
-        <Header />
-        {children}
-      </ChakraProvider>
-    </>
+    <ChakraProvider>
+      <Header />
+      {children}
+    </ChakraProvider>
   );
 }
