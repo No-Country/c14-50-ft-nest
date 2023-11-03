@@ -26,6 +26,8 @@ const HoursForm = ({ setDateInfo, dataToSend }: Props) => {
 
   const handleHour = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedHour = e.target.value;
+    // let index = e.target.selectedIndex
+    // console.log(e.target.options[index].text)
     setDateInfo((prevDateInfo) => ({
       ...prevDateInfo,
       hour: selectedHour,

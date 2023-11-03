@@ -1,4 +1,4 @@
-import { Providers } from '@/redux/providers'
+import { Providers } from '@/redux/provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '../styles/globals.css'

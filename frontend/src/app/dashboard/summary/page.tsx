@@ -1,26 +1,21 @@
-"use client";
+'use client';
 import AppointmentCard from '@/components/AppointmentCard';
 import Loader from "@/components/Loader";
+import { appointmentSlice } from '@/redux/features/appointmentSlice';
 import { authSlice } from '@/redux/features/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useGetAppointmentsQuery } from '@/redux/services/projectApi';
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function MisTurnos () {
-  const [allAppointments, setAllAppointments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, error, isLoading, isFetching } = useGetAppointmentsQuery(null)
   const userId = useAppSelector(state => state.authReducer.userId)
   const role = useAppSelector(state => state.authReducer.role)
   const roleId = useAppSelector(state => state.authReducer.roleId)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    axios
-      .get("https://nc-project-lim7.onrender.com/api/appointments")
-      .then((res) => setAllAppointments(res.data))
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
-
     axios
       .get("https://nc-project-lim7.onrender.com/api/users/" + userId)
       .then((res) => {
@@ -35,32 +30,51 @@ export default function MisTurnos () {
 
   const expiredAppointments: any = []
 
-  const userAppointments = allAppointments.filter((book: any) => {//falta typar
+  const userAppointments = data?.filter((book: any) => {//falta typar
     const currentDate = new Date()
     if (role === 'patient') {
-      if(currentDate > book.day){
+      if (currentDate > book.day) {
         expiredAppointments.push(book)
         return false
       }
       return book.patient.id === roleId
     }
     if (role === 'doctor') {
-      if(currentDate > book.day){
+      if (currentDate > book.day) {
         expiredAppointments.push(book)
         return false
       }
       return book.doctor.id === roleId
     }
   });
+  useEffect(() => {
+    const userAppointmentString = localStorage.getItem("appointments");
+    if (userAppointmentString) {
+      const appointmenParse = JSON.parse(userAppointmentString)
+      dispatch(appointmentSlice.actions.setAppointment(appointmenParse))
+      return
+    }
+    if (!isLoading && data !== undefined) {
+      const filteredData = data?.filter((book: any) => {
+        if (role === 'patient') return book.patient.id === roleId;
+        if (role === 'doctor') return book.doctor.id === roleId;
+      });
+      // Realizar el dispatch para almacenar los datos en Redux
+      dispatch(appointmentSlice.actions.setAppointment(filteredData))
+      // Almacenar los datos en localStorage
+      localStorage.setItem('appointments', JSON.stringify(filteredData))
+    }
+  }, [data, isLoading]);
+
 
   return (
     <>
       {isLoading && <Loader />}
-      <main className="h-screen md:w-[80%] ml-auto p-3 md:p-10">
+      <main className="h-screen lg:w-[80%] lg:ml-auto bg-[#f0f4f7] p-10 position-relative">
         <h2 className="text-xl font-sans mb-3 text-[#02298A]">
           Resumen de citas agendadas:
         </h2>
-        {userAppointments.map((book: any, index) => { //falta typar
+        {userAppointments?.map((book: any, index: number) => { //falta typar
           let opciones = { weekday: "long", month: "long", day: "numeric" };
           let fecha = new Date(book.day);
 
@@ -74,7 +88,7 @@ export default function MisTurnos () {
         <h2 className="text-xl font-sans mb-3 text-[#02298A]">
           Turnos caducados:
         </h2>
-        {expiredAppointments.map((book: any, index:number) => { //falta typar
+        {expiredAppointments.map((book: any, index: number) => { //falta typar
           let opciones = { weekday: "short", month: "short", day: "numeric" };
           let fecha = new Date(book.day);
           let fechaFormateada = fecha.toLocaleDateString("es-ES", opciones as any); //falta typar

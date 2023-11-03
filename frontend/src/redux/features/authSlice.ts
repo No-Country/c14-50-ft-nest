@@ -4,7 +4,7 @@ const initialState = {
   token: '',
   userId: '',
   role: '',
-  roleId: ''
+  roleId: '',
 }
 
 export const authSlice = createSlice({
