@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app: 
+    image: backend_nc_project
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      PORT: 8080
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_ROOT_PASS: ${DB_ROOT_PASS}
+      DB_PORT: 3306
+      DB_HOST: db
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.1.0-oracle
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - /db/mysql:/var/lib/mysql
+  
