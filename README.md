@@ -1,5 +1,3 @@
-
-
 # MEDICONNECT
 
 **MediConnect** es una innovadora aplicación diseñada para revolucionar la gestión de turnos médicos, al tiempo que mejora la comunicación entre médicos y pacientes. Nuestra plataforma se ha creado con el objetivo de simplificar la experiencia médica, brindando comodidad, eficiencia y transparencia en cada paso del proceso.
@@ -14,12 +12,24 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
    ```sh
    git clone https://github.com/No-Country/c14-50-ft-nest.git
    ```
+# Modo de uso
 
-O simplemente clickea en el link de 
-<a href="https://frontend-no-country-actual.onrender.com/" target="_blank">Ver Demo.</a>
+Para instalar el proyecto localmente: 
 
+Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu vscode.
+   ```sh
+   git clone https://github.com/No-Country/c14-50-ft-nest.git
+   ```
 
-<center>
+# Links utiles
+
+<a href="https://frontend-no-country-actual.onrender.com/" target="_blank">Ver Demo</a>
+
+<a href="https://drive.google.com/drive/folders/1ldvFnCYO9syiX2dsMPXNCkh6YrHpu6Ef?usp=drive_link" target="_blank">Casos de prueba</a>
+
+<a href="https://drive.google.com/drive/folders/1BpWqUoebs_KLzFTlaD-b3QHDakfpWSGN?lfhs=2" target="_blank">Evidencias de defectos</a>
+
+<a href="https://drive.google.com/drive/folders/1ZxJLnXuup5vFMmgN_P960tNKhNMfpt9K?lfhs=2" target="_blank">Historias de Usuario</a>
 
 # Tecnologias Utilizadas
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -34,9 +44,6 @@ O simplemente clickea en el link de
 ![Insomnia](https://img.shields.io/badge/Insomnia-black?style=for-the-badge&logo=insomnia&logoColor=5849BE)
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-<center>
-
-<!-- <center> -->
 
 # Organización
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
@@ -44,13 +51,11 @@ O simplemente clickea en el link de
 ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
 ![Google Meet](https://img.shields.io/badge/Google%20Meet-00897B?style=for-the-badge&logo=google-meet&logoColor=white)
 
-
 <h1 align="center"> 
 <img src="https://media0.giphy.com/media/odMfXhzCqknOCYrNdU/giphy.gif" width="30px"> Video Promocional
 </h1>
 
 <p align="center"><a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Video-C14_50_FT_NEST-red?style=for-the-badge&logo=youtube"/></a></p>
-
 
 
 # Equipo
@@ -152,10 +157,10 @@ O simplemente clickea en el link de
             <strong>
               <p>Frontend Developer</p>
             </strong>
-            <a href="https://www.github.com/samotSama">
+            <a href="https://www.github.com/samotSama" target="_blank">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
-            <a href="https://www.linkedin.com/in/h-alejandro-rosa/">
+            <a href="https://www.linkedin.com/in/h-alejandro-rosa/" target="_blank">
               <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
             </a>
           </div>
@@ -188,10 +193,10 @@ O simplemente clickea en el link de
             <strong>
               <p>Frontend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/Nahu258" target="_blank">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
-            <a href="">
+            <a href="https://www.linkedin.com/in/villegasnahuel/" target="_blank">
               <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
             </a>
           </div>
@@ -205,10 +210,10 @@ O simplemente clickea en el link de
             <strong>
               <p>QA Tester</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/PaoBasQA" target="_blank">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
-            <a href="">
+            <a href="https://www.linkedin.com/in/paola-bastida-qa/" target="_blank">
               <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
             </a>
           </div>
