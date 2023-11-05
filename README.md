@@ -68,7 +68,7 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
             <strong>
               <p>Backend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/nicoliprogramer">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
             <a href="">
@@ -85,7 +85,7 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
             <strong>
               <p>Backend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/ferwinred">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
             <a href="">
@@ -102,10 +102,10 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
             <strong>
               <p>Frontend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/YordanPZ">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
-            <a href="">
+            <a href="https://www.linkedin.com/in/yordan-jimenez/">
               <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
             </a>
           </div>
@@ -121,7 +121,7 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
             <strong>
               <p>Frontend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/PilotBase6">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
             <a href="">
@@ -138,10 +138,10 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
             <strong>
               <p>Frontend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/leitsman">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
-            <a href="">
+            <a href="https://www.linkedin.com/in/emmanuel-marthin-c/">
               <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
             </a>
           </div>
@@ -174,7 +174,7 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
             <strong>
               <p>Frontend Developer</p>
             </strong>
-            <a href="">
+            <a href="https://github.com/tomijos">
               <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
             </a>
             <a href="">
