@@ -4,7 +4,7 @@
 
 MediConnect es la solución integral que conecta a médicos y pacientes, mejorando la experiencia de atención médica en todos los aspectos. Únete a nosotros en esta misión de hacer que la atención médica sea más accesible, eficiente y centrada en el paciente que nunca.
 
-# Modo de uso
+# Modo de Uso
 
 Para instalar el proyecto localmente: 
 
@@ -13,9 +13,11 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
    git clone https://github.com/No-Country/c14-50-ft-nest.git
    ```
 
-# Links utiles
+# Links Utiles
 
-<a href="https://frontend-no-country-actual.onrender.com/">Ver Demo</a>
+<a href="https://frontend-no-country-actual.onrender.com/">Ver Deploy</a>
+
+<a href="https://drive.google.com/file/d/1NPyXOKYHvVljO5DgDAMFHEGkJOqRYqBk/view">Ver Demo</a>
 
 <a href="https://drive.google.com/drive/folders/1ldvFnCYO9syiX2dsMPXNCkh6YrHpu6Ef?usp=drive_link">Casos de prueba</a>
 
@@ -50,7 +52,7 @@ Clonar este repositorio y ejecuta "npm install" y luego "npm run dev" desde tu v
 <h1 align="center">Video Promocional</h1>
 
 <p align="center">
-<a href="https://www.youtube.com">
+<a href="https://drive.google.com/file/d/1NPyXOKYHvVljO5DgDAMFHEGkJOqRYqBk/view">
 <img src="https://img.shields.io/badge/Video-C14_50_FT_NEST-red?style=for-the-badge&logo=youtube"/></a>
 </p>
 
